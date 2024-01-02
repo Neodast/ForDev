@@ -1,0 +1,30 @@
+{
+  "name": "coursework_backend_2024",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/app.js",
+    "server": "nodemon dist/app.js ",
+    "compile": "tsc -w",
+    "dev": "concurrently \"npx tsc -w\" \"nodemon dist/app.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.6",
+    "@types/validator": "^13.11.7",
+    "nodemon": "^3.0.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.17"
+  }
+}
