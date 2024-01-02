@@ -20,7 +20,6 @@ const app = (0, express_1.default)();
 const port = 3000;
 app.use('/', routes_1.default);
 app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
 function start() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

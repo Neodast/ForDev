@@ -24,7 +24,8 @@ const getAllUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 });
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield userService_1.default.create(req.body);
+        // const user = await userService.create(req.body);
+        res.json(Object.assign({}, req.body));
     }
     catch (e) {
         console.log(e);

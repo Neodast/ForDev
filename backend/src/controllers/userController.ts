@@ -19,7 +19,8 @@ const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const user = await userService.create(req.body);
+    // const user = await userService.create(req.body);
+    res.json({...req.body})
   } catch (e) {
     console.log(e);
   }

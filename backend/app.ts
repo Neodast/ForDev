@@ -8,7 +8,6 @@ const port = 3000;
 
 app.use('/', router);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 async function start() {
   try {
