@@ -1,13 +1,17 @@
 import express, { Request, Response } from 'express';
 import 'reflect-metadata';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import appDataSource from './src/appDataSourse';
 import router from './src/routes/routes';
 
 const app = express();
 const port = 3000;
 
-app.use('/', router);
+app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', router);
 
 async function start() {
   try {
