@@ -6,7 +6,7 @@ import appDataSource from './src/appDataSourse';
 import router from './src/routes/routes';
 
 const app = express();
-const port = 3000;
+const port = Number(process.env.SERVER_PORT) || 3000;
 
 app.use(cookieParser());
 app.use(express.json());
