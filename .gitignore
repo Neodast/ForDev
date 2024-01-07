@@ -144,3 +144,5 @@ node_modules
 /dist
 .vs
 >>>>>>> CW_2024/main
+.env
+.env
