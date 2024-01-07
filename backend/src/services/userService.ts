@@ -26,8 +26,6 @@ class UserService {
     return user;
   }
 
-
-
   async getAll() {
     const users = await this.userRepository.find();
     return users;

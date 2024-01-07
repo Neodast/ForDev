@@ -8,15 +8,14 @@ import bcrypt from 'bcrypt';
 import { UUID, randomUUID } from 'crypto';
 
 class AccountService {
-  async registration(user: UserCreateDto) {
+  async register(user: UserCreateDto) {
     const candidate = await userService.getByEmail(user.email);
+
     if (candidate) {
       throw new Error('User undefined');
     }
 
-    const hashedPassword = await bcrypt.hash(user.password, 3);
-
-    const activationLink = randomUUID();
+    const hashedPassword = await bcrypt.hash(user.password, 4);
 
     const createdUser = await userService.create({
       email: user.email,
@@ -25,21 +24,55 @@ class AccountService {
       surname: user.surname,
     });
 
-    await emailService.sendActivateEmail(user.email, activationLink);
+    const verificationLink = `${process.env.API_URL}/auth/verify/${createdUser.id}`;
 
-    const tokenPayload: TokenPayloadDto = {
+    await emailService.sendActivateEmail(createdUser.email, verificationLink);
+
+    return {
       id: createdUser.id,
       email: createdUser.email,
-      role: createdUser.role,
+      name: createdUser.name,
+      surname: createdUser.surname,
+    };
+  }
+
+  async login(userData: UserLoginDto) {
+    const candidate = await userService.getByEmail(userData.email);
+
+    if (!candidate) {
+      throw new Error('User undefined');
+    }
+
+    const isValidPassword = await bcrypt.compare(
+      userData.password,
+      candidate.password
+    );
+
+    if (!isValidPassword) {
+      throw new Error('Uncorrected pass!');
+    }
+
+    const tokenPayload: TokenPayloadDto = {
+      id: candidate.id,
+      email: candidate.email,
+      role: candidate.role,
     };
     const tokens = await tokenService.generateTokens(tokenPayload);
 
-    await tokenService.saveToken(createdUser.id, tokens.refreshToken);
+    await tokenService.saveToken(candidate.id, tokens.refreshToken);
 
     return {
-      ...tokens,
-      createdUser,
+      tokens,
+      user: {
+        id: candidate.id,
+        email: candidate.email,
+        name: candidate.name,
+        surname: candidate.surname,
+      },
     };
+  }
+  async logout(refreshToken: string) {
+    await tokenService.deleteToken(refreshToken);
   }
 }
 

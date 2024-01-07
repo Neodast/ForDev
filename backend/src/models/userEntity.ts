@@ -1,41 +1,40 @@
 import {
-	Column,
-	Entity,
-	JoinColumn,
-	OneToOne,
-	PrimaryGeneratedColumn,
-} from 'typeorm'
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Token } from './tokenEntity';
 import Role from '../utils/enums/roles.enum';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id: string;
 
   @Column({ unique: true })
-  email!: string;
+  email: string;
 
   @Column()
-  password!: string;
+  password: string;
 
   @Column()
-  name!: string;
+  name: string;
 
   @Column()
-  surname?: string;
+  surname: string;
 
   @Column({ default: false })
-  isVerified!: boolean;
+  isVerified: boolean;
 
   @Column({
-		type: 'enum',
-		enum: Role,
-		default: Role.USER,
-	})
-	role!: Role
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role: Role;
 
   @OneToOne(() => Token, (token) => token.user)
-  token!: Token;
+  token: Token;
 }
-
