@@ -2,8 +2,8 @@ import express, { Request, Response } from 'express';
 import 'reflect-metadata';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import appDataSource from './src/appDataSourse';
-import router from './src/routes/routes';
+import appDataSource from './appDataSourse';
+import router from './routes/routes';
 
 const app = express();
 const port = Number(process.env.SERVER_PORT) || 3000;

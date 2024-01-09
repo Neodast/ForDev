@@ -15,7 +15,7 @@ class AccountService {
       throw new Error('User undefined');
     }
 
-    const hashedPassword = await bcrypt.hash(user.password, 4);
+    const hashedPassword = await bcrypt.hash(user.password, 3);
 
     const createdUser = await userService.create({
       email: user.email,

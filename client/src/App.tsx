@@ -1,9 +1,9 @@
 function App() {
   return (
-    <div>
-      Hello! React!
-    </div>
-  )
+    <>
+      <div className=" hover:translate-x-0">Hello!</div>
+    </>
+  );
 }
 
-export default App
+export default App;
