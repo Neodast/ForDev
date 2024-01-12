@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html{
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+
+}
+
+.footer-icons img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer-icons img:hover {
+  transform: scale(1.2);
+}
+
+.xclr1{
+  background-color: #0466c8;
+}
+.xclr2{
+  background-color: #0353a4;
+}
+.xclr3{
+  background-color: #023e7d;
+}
+.xclr4{
+  background-color: #002855;
+}
+.xclr5{
+  background-color: #001845;
+}
+.xclr6{
+  background-color: #001233;
+}
+.xclr7{
+  background-color: #33415c;
+}
+.xclr8{
+  background-color: #5c677d;
+}
+.xclr9{
+  background-color: #7d8597;
+}
+.xclr10{
+  background-color: #979dac;
+}
