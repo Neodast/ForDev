@@ -3,7 +3,7 @@ export default function Footer() {
   return (
     <footer className='box-border bg-blue-500 overflow-hidden flex flex-row flex-wrap items-center justify-between p-4'>
       <div className='text-sm'>
-        &copy; 2024 ForDev. All copyrights reserved. Rogul Propukaniy
+        &copy; 2024 ForDev. All copyrights reserved. Roman Valinkevych.
       </div>
       <div className='flex items-center'>
         <a href='#' className='p-2'>

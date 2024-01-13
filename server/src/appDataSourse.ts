@@ -13,7 +13,7 @@ const appDataSource = new DataSource({
   database: process.env.POSTGRES_DB || 'fordev',
   synchronize: true,
   logging: false,
-  entities: [__dirname + '../**/*Entity.{js,ts}'],
+  entities: [__dirname + '/**/*Entity.{js,ts}'],
   migrations: [],
   subscribers: [],
 });
