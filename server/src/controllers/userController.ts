@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../services/userService';
 import { RequestWithBody } from '../utils/types/request.type';
-import UserCreateDto from '../dto/userCreate.dto';
+import UserCreateDto from '../models/dto/userCreate.dto';
 import accountService from '../services/accountService';
-import UserLoginDto from '../dto/userLogin.dto';
+import UserLoginDto from '../models/dto/userLogin.dto';
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -40,6 +40,18 @@ const registration = async (
   }
 };
 
+const verify = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const login = async (
   req: RequestWithBody<UserLoginDto>,
   res: Response,
@@ -49,7 +61,7 @@ const login = async (
     const { email, password } = req.body;
     const userData = await accountService.login({ email, password });
     res.cookie('refreshToken', userData.tokens.refreshToken, {
-      maxAge: 30 * 24 * 60 * 60 * 1000,
+      maxAge: 30,
       httpOnly: true,
     });
     res.send(userData);

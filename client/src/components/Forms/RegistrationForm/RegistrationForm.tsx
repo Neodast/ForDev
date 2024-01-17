@@ -1,6 +1,6 @@
-import InputField from './InputField';
-import Button from './Button';
-import { useFormStore } from '../../store/FormStore';
+import InputField from '../InputField';
+import Button from '../Button';
+import { useFormStore } from '../../../store/RegistrationFormStore';
 import axios from 'axios';
 
 export default function RegistrationForm() {
@@ -16,7 +16,7 @@ export default function RegistrationForm() {
   const updateSecondPass = useFormStore((state) => state.updateSecondPassword);
 
   return (
-    <>
+    <div className='flex-1 items-center justify-center mt-16'>
       <form className='w-96 mx-auto'>
         <InputField
           label='Name'
@@ -76,10 +76,9 @@ export default function RegistrationForm() {
               }
             }
             rsp();
-
           }}
         />
       </form>
-    </>
+    </div>
   );
 }

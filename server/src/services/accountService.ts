@@ -1,9 +1,9 @@
 import userService from './userService';
 import emailService from './emailService';
 import tokenService from './tokenService';
-import UserCreateDto from '../dto/userCreate.dto';
-import UserLoginDto from '../dto/userLogin.dto';
-import TokenPayloadDto from '../dto/tokenPayload.dto';
+import UserCreateDto from '../models/dto/userCreate.dto';
+import UserLoginDto from '../models/dto/userLogin.dto';
+import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 import bcrypt from 'bcrypt';
 import { UUID, randomUUID } from 'crypto';
 
@@ -24,7 +24,7 @@ class AccountService {
       surname: user.surname,
     });
 
-    const verificationLink = `${process.env.API_URL}/auth/verify/${createdUser.id}`;
+    const verificationLink = `${process.env.API_URL}/auth/verify/:${createdUser.id}`;
 
     await emailService.sendActivateEmail(createdUser.email, verificationLink);
 

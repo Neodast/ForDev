@@ -1,4 +1,4 @@
-type FormState = {
+type RegistrationFormState = {
   name: string;
   surname: string;
   email: string;
@@ -6,4 +6,4 @@ type FormState = {
   secondPassword: string;
 };
 
-export default FormState;
+export default RegistrationFormState;

@@ -1,3 +1,9 @@
+import { lazy } from 'react';
+import telegramIconUrl from '../../assets/telegram-icon.png';
+import GitHubIconUrl from '../../assets/github-icon.png';
+import GitLabIconUrl from '../../assets/gitlab-icon.png';
+
+const SocialIcon = lazy(() => import('../Image'));
 
 export default function Footer() {
   return (
@@ -7,13 +13,13 @@ export default function Footer() {
       </div>
       <div className='flex items-center'>
         <a href='#' className='p-2'>
-          <img src='/telegram-icon.png' alt='Telegram' className='w-8 h-8 mr-2' />
+          <SocialIcon src={telegramIconUrl} alt='Telegram' className='w84 h-8 mr-2'></SocialIcon>
         </a>
         <a href='#' className='p-2'>
-          <img src='/github-icon.png' alt='GitHub' className='w84 h-8 mr-2' />
+        <SocialIcon src={GitHubIconUrl} alt='Github' className='w84 h-8 mr-2'></SocialIcon>
         </a>
         <a href='#' className='p-2'>
-          <img src='/gitlab-icon.png' alt='GitLab' className='w-8 h-8 mr-2' />
+        <SocialIcon src={GitLabIconUrl} alt='Gitlab' className='w84 h-8 mr-2'></SocialIcon>
         </a>
       </div>
     </footer>

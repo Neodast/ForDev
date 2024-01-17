@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
 import appDataSource from '../appDataSourse';
 import { User } from '../models/userEntity';
-import UserCreateDto from '../dto/userCreate.dto';
-import UserLoginDto from '../dto/userLogin.dto';
-import TokenPayloadDto from '../dto/tokenPayload.dto';
+import UserCreateDto from '../models/dto/userCreate.dto';
+import UserLoginDto from '../models/dto/userLogin.dto';
+import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import emailService from './emailService';
