@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import RegistrationFormState from '../types/RegistrationFormState';
 import RegistrationFormAction from '../types/RegistrationFormAction';
 
-export const useFormStore = create<
+export const useRegistrationFormStore = create<
   RegistrationFormState & RegistrationFormAction
 >((set) => ({
   name: '',

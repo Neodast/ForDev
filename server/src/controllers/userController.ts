@@ -1,14 +1,17 @@
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../services/userService';
-import { RequestWithBody } from '../utils/types/request.type';
+import { RequestWithBody, RequestWithQuery } from '../utils/types/request.type';
 import UserCreateDto from '../models/dto/userCreate.dto';
 import accountService from '../services/accountService';
-import UserLoginDto from '../models/dto/userLogin.dto';
+import tokenService from '../services/tokenService';
+import UserLoginDto from '../models/dto/userLoginInput.dto';
+import IVerify from '../models/dto/verify.dto';
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await userService.getAll();
-    res.send(users);
+    // const users = await userService.getAll();
+    // res.send(users);
+    res.send(req.cookies);
   } catch (e) {
     console.log(e);
   }
@@ -34,6 +37,7 @@ const registration = async (
 ) => {
   try {
     const userData = await accountService.register(req.body);
+    tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
     res.send(userData);
   } catch (e) {
     console.log(e);
@@ -41,12 +45,12 @@ const registration = async (
 };
 
 const verify = async (
-  req: Request,
+  req: RequestWithQuery<IVerify>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    
+    accountService.verify(req.query.id);
   } catch (e) {
     console.log(e);
   }
@@ -58,16 +62,13 @@ const login = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
-    const userData = await accountService.login({ email, password });
-    res.cookie('refreshToken', userData.tokens.refreshToken, {
-      maxAge: 30,
-      httpOnly: true,
-    });
+    const userData = await accountService.login(req.body);
+    // req.headers.authorization = userData.tokens.refreshToken;
+    // res.send(req.headers.authorization);
     res.send(userData);
   } catch (e) {
     console.log(e);
   }
 };
 
-export default { createUser, getAllUsers, registration, login };
+export default { createUser, getAllUsers, registration, login, verify };

@@ -1,19 +1,29 @@
 import InputField from '../InputField';
 import Button from '../Button';
-import { useFormStore } from '../../../store/RegistrationFormStore';
+import { useRegistrationFormStore } from '../../../store/RegistrationFormStore';
 import axios from 'axios';
 
 export default function RegistrationForm() {
-  const name = useFormStore((state) => state.name);
-  const updateName = useFormStore((state) => state.updateName);
-  const surname = useFormStore((state) => state.surname);
-  const updateSurname = useFormStore((state) => state.updateSurname);
-  const email = useFormStore((state) => state.email);
-  const updateEmail = useFormStore((state) => state.updateEmail);
-  const firstPassword = useFormStore((state) => state.firstPassword);
-  const updateFirstPass = useFormStore((state) => state.updateFirstPassword);
-  const secondPassword = useFormStore((state) => state.secondPassword);
-  const updateSecondPass = useFormStore((state) => state.updateSecondPassword);
+  const name = useRegistrationFormStore((state) => state.name);
+  const updateName = useRegistrationFormStore((state) => state.updateName);
+  const surname = useRegistrationFormStore((state) => state.surname);
+  const updateSurname = useRegistrationFormStore(
+    (state) => state.updateSurname
+  );
+  const email = useRegistrationFormStore((state) => state.email);
+  const updateEmail = useRegistrationFormStore((state) => state.updateEmail);
+  const firstPassword = useRegistrationFormStore(
+    (state) => state.firstPassword
+  );
+  const updateFirstPass = useRegistrationFormStore(
+    (state) => state.updateFirstPassword
+  );
+  const secondPassword = useRegistrationFormStore(
+    (state) => state.secondPassword
+  );
+  const updateSecondPass = useRegistrationFormStore(
+    (state) => state.updateSecondPassword
+  );
 
   return (
     <div className='flex-1 items-center justify-center mt-16'>
@@ -62,20 +72,20 @@ export default function RegistrationForm() {
           label='Send'
           onClick={(e) => {
             e.preventDefault();
-            async function rsp() {
+            async function register() {
               try {
-                const res = await axios.post('http://localhost:3000/auth', {
+                const res = await axios.post('http://localhost:3000/auth/registration', {
                   email: email,
                   password: firstPassword,
                   name: name,
                   surname: surname,
-                });
+                }, { withCredentials: true});
                 console.log(res);
               } catch (e) {
                 console.log(e);
               }
             }
-            rsp();
+            register();
           }}
         />
       </form>

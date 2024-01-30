@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Token } from '../models/tokenEntity';
 import appDataSource from '../appDataSourse';
 import { Response } from 'express';
+import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 
 class TokenService {
   private tokenRepository: Repository<Token>;
@@ -59,6 +60,7 @@ class TokenService {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
+      sameSite: 'lax',
     });
   }
 
@@ -75,6 +77,38 @@ class TokenService {
 
     await this.tokenRepository.delete(token.id);
   }
+
+  validateRefreshToken(refreshToken: string) {
+		try {
+			const jwtRefreshSecret = String(process.env.JWT_REFRESH_SECRET)
+
+			const userData = jwt.verify(refreshToken, jwtRefreshSecret)
+
+			return userData as TokenPayloadDto
+		} catch (error) {
+			throw new Error('Refresh validate')
+		}
+	}
+
+  validateAccessToken(accessToken: string) {
+		try {
+			const jwtAccessSecret = String(process.env.JWT_ACCESS_SECRET)
+
+			const userData = jwt.verify(accessToken, jwtAccessSecret)
+
+			return userData as TokenPayloadDto
+		} catch (error) {
+			throw new Error('Access validate')
+		}
+	}
+
+  async getByRefreshToken(refreshToken: string) {
+		const token = await this.tokenRepository.findOneBy({
+			refreshToken,
+		})
+
+		return token
+	}
 }
 
 export default new TokenService();

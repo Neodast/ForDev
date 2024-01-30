@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import appDataSource from '../appDataSourse';
 import { User } from '../models/userEntity';
 import UserCreateDto from '../models/dto/userCreate.dto';
-import UserLoginDto from '../models/dto/userLogin.dto';
+import UserLoginDto from '../models/dto/userLoginInput.dto';
 import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
@@ -38,6 +38,18 @@ class UserService {
 
     return createdUser;
   }
+
+  async verify(id: string) {
+		const user = await this.getById(id)
+
+		if (!user) {
+			throw new Error('user verify!')
+		}
+
+		user.isVerified = true
+
+		await this.userRepository.save(user)
+	}
 }
 
 export default new UserService();
