@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import appDataSource from './appDataSourse';
 import router from './routes/routes';
+import errorMiddleware from './middlewares/error.middleware';
 
 const app = express();
 const port = Number(process.env.SERVER_PORT) || 3000;
@@ -18,6 +19,7 @@ app.use(
   }),
 )
 app.use('/', router);
+app.use(errorMiddleware)
 
 
 async function start() {

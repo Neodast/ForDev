@@ -13,7 +13,7 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     // res.send(users);
     res.send(req.cookies);
   } catch (e) {
-    console.log(e);
+    next(e)
   }
 };
 
@@ -26,7 +26,7 @@ const createUser = async (
     const user = await userService.create(req.body);
     res.send(await userService.getAll());
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };
 
@@ -40,7 +40,7 @@ const registration = async (
     tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
     res.send(userData);
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };
 
@@ -52,7 +52,7 @@ const verify = async (
   try {
     accountService.verify(req.query.id);
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };
 
@@ -67,7 +67,7 @@ const login = async (
     // res.send(req.headers.authorization);
     res.send(userData);
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };
 

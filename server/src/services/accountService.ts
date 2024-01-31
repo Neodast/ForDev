@@ -7,13 +7,14 @@ import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 import bcrypt from 'bcrypt';
 import { UUID, randomUUID } from 'crypto';
 import LoginOutputDto from '../models/dto/loginOutput.dto';
+import ApiError from '../utils/exeptions/apiError';
 
 class AccountService {
   async register(user: UserCreateDto) {
     const candidate = await userService.getByEmail(user.email);
 
     if (candidate) {
-      throw new Error('User undefined');
+      throw ApiError.BadRequest('User alredy exists')
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 3);
@@ -56,7 +57,11 @@ class AccountService {
     const candidate = await userService.getByEmail(userData.email);
 
     if (!candidate) {
-      throw new Error('User undefined');
+      throw ApiError.BadRequest('User is not found');
+    }
+
+    if(!candidate.isVerified){
+      throw ApiError.BadRequest('User is not verify')
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -65,7 +70,7 @@ class AccountService {
     );
 
     if (!isValidPassword) {
-      throw new Error('Uncorrected pass!');
+      throw ApiError.BadRequest('Incorrected password');
     }
 
     //
@@ -82,7 +87,7 @@ class AccountService {
 
   async refresh(refreshToken: string): Promise<LoginOutputDto> {
     if (!refreshToken) {
-      throw new Error('refresh error');
+      throw ApiError.BadRequest('Refresh-token is not found');
     }
 
     const userData = tokenService.validateRefreshToken(refreshToken);
@@ -92,24 +97,24 @@ class AccountService {
     );
 
     if (!tokenFromDatabase) {
-      throw new Error('refresh error');
+      throw ApiError.BadRequest('Refresh-token is alredy delete');
     }
 
-    const freshUser = await userService.getById(userData.id);
+    const user = await userService.getById(userData.id);
 
-    if (!freshUser) {
-      throw new Error('refresh error');
+    if (!user) {
+      throw ApiError.BadRequest('User is not found');
     }
 
     const tokenPayload: TokenPayloadDto = {
-      id: freshUser.id,
-      email: freshUser.email,
-      role: freshUser.role,
+      id: user.id,
+      email: user.email,
+      role: user.role,
     };
 
     const tokens = tokenService.generateTokens(tokenPayload);
 
-    await tokenService.saveToken(freshUser.id, (await tokens).refreshToken);
+    await tokenService.saveToken(user.id, (await tokens).refreshToken);
 
     return {
       tokens: {
@@ -117,11 +122,11 @@ class AccountService {
         refreshToken: (await tokens).refreshToken,
       },
       user: {
-        id: freshUser.id,
-        email: freshUser.email,
-        name: freshUser.name,
-        surname: freshUser.surname,
-        role: freshUser.role,
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        role: user.role,
       },
     };
   }
@@ -129,7 +134,7 @@ class AccountService {
   async verify(linkId: string) {
     const userData = await userService.getById(linkId);
     if (!userData) {
-      throw new Error('Verify link undefined!');
+      throw ApiError.BadRequest('Verify link undefined');
     }
     userService.verify(linkId)
   }
