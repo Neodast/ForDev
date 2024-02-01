@@ -14,7 +14,7 @@ class AccountService {
     const candidate = await userService.getByEmail(user.email);
 
     if (candidate) {
-      throw ApiError.BadRequest('User alredy exists')
+      throw ApiError.BadRequest('User alredy exists');
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 3);
@@ -60,8 +60,8 @@ class AccountService {
       throw ApiError.BadRequest('User is not found');
     }
 
-    if(!candidate.isVerified){
-      throw ApiError.BadRequest('User is not verify')
+    if (!candidate.isVerified) {
+      throw ApiError.BadRequest('User is not verify');
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -134,9 +134,9 @@ class AccountService {
   async verify(linkId: string) {
     const userData = await userService.getById(linkId);
     if (!userData) {
-      throw ApiError.BadRequest('Verify link undefined');
+      throw ApiError.BadRequest('Verify link is not found');
     }
-    userService.verify(linkId)
+    userService.verify(linkId);
   }
 
   async logout(refreshToken: string) {

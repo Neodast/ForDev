@@ -71,4 +71,25 @@ const login = async (
   }
 };
 
-export default { createUser, getAllUsers, registration, login, verify };
+const refresh = async(req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { refreshToken } = req.cookies
+
+    const userData = await accountService.refresh(refreshToken)
+
+    tokenService.saveRefreshTokenCookie(
+      res,
+      userData.tokens.refreshToken,
+    )
+
+    res.json({
+      ...userData.user,
+      accessToken: userData.tokens.accessToken,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+export default { createUser, getAllUsers, registration, refresh, login, verify };

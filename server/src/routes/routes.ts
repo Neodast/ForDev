@@ -3,6 +3,6 @@ import userRouter from './userRoute';
 
 const router: Router = express.Router();
 
-router.use('/', userRouter)
+router.use('/auth', userRouter)
 
 export default router

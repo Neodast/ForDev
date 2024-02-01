@@ -8,6 +8,7 @@ import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import emailService from './emailService';
 import tokenService from './tokenService';
+import ApiError from '../utils/exeptions/apiError';
 
 class UserService {
   private userRepository: Repository<User>;
@@ -40,16 +41,16 @@ class UserService {
   }
 
   async verify(id: string) {
-		const user = await this.getById(id)
+    const user = await this.getById(id);
 
-		if (!user) {
-			throw new Error('user verify!')
-		}
+    if (!user) {
+      throw ApiError.BadRequest('User is not verify');
+    }
 
-		user.isVerified = true
+    user.isVerified = true;
 
-		await this.userRepository.save(user)
-	}
+    await this.userRepository.save(user);
+  }
 }
 
 export default new UserService();

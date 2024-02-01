@@ -4,6 +4,7 @@ import { Token } from '../models/tokenEntity';
 import appDataSource from '../appDataSourse';
 import { Response } from 'express';
 import TokenPayloadDto from '../models/dto/tokenPayload.dto';
+import ApiError from '../utils/exeptions/apiError';
 
 class TokenService {
   private tokenRepository: Repository<Token>;
@@ -72,43 +73,43 @@ class TokenService {
     const token = await this.tokenRepository.findOneBy({ refreshToken });
 
     if (!token) {
-      throw new Error('Token is undefined!');
+      throw ApiError.BadRequest('Token is not found');
     }
 
     await this.tokenRepository.delete(token.id);
   }
 
   validateRefreshToken(refreshToken: string) {
-		try {
-			const jwtRefreshSecret = String(process.env.JWT_REFRESH_SECRET)
+    try {
+      const jwtRefreshSecret = String(process.env.JWT_REFRESH_SECRET);
 
-			const userData = jwt.verify(refreshToken, jwtRefreshSecret)
+      const userData = jwt.verify(refreshToken, jwtRefreshSecret);
 
-			return userData as TokenPayloadDto
-		} catch (error) {
-			throw new Error('Refresh validate')
-		}
-	}
+      return userData as TokenPayloadDto;
+    } catch (error) {
+      throw ApiError.BadRequest('Refresh-token is not valid');
+    }
+  }
 
   validateAccessToken(accessToken: string) {
-		try {
-			const jwtAccessSecret = String(process.env.JWT_ACCESS_SECRET)
+    try {
+      const jwtAccessSecret = String(process.env.JWT_ACCESS_SECRET);
 
-			const userData = jwt.verify(accessToken, jwtAccessSecret)
+      const userData = jwt.verify(accessToken, jwtAccessSecret);
 
-			return userData as TokenPayloadDto
-		} catch (error) {
-			throw new Error('Access validate')
-		}
-	}
+      return userData as TokenPayloadDto;
+    } catch (error) {
+      throw ApiError.BadRequest('Access-token is not valid');
+    }
+  }
 
   async getByRefreshToken(refreshToken: string) {
-		const token = await this.tokenRepository.findOneBy({
-			refreshToken,
-		})
+    const token = await this.tokenRepository.findOneBy({
+      refreshToken,
+    });
 
-		return token
-	}
+    return token;
+  }
 }
 
 export default new TokenService();
