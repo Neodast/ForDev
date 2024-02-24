@@ -16,11 +16,10 @@ app.use(
   cors({
     credentials: true,
     origin: 'http://localhost:5173',
-  }),
-)
+  })
+);
 app.use('/', router);
-app.use(errorMiddleware)
-
+app.use(errorMiddleware);
 
 async function start() {
   try {

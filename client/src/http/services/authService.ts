@@ -21,4 +21,10 @@ export default class AuthService {
   ): Promise<AxiosResponse<IAuth>> {
     return api.post<IAuth>('/auth/login', { email, password });
   }
+  static async refresh() {
+    return api.get<IAuth>(`/auth/refresh`);
+  }
+  static async logout() {
+    return api.post(`auth/logout`);
+  }
 }

@@ -8,15 +8,10 @@ import bcrypt from 'bcrypt';
 import { UUID, randomUUID } from 'crypto';
 import LoginOutputDto from '../models/dto/loginOutput.dto';
 import ApiError from '../utils/exeptions/apiError';
+import UserLoginOutputDto from '../models/dto/userLoginOutput.dto';
 
 class AccountService {
   async register(user: UserCreateDto) {
-    const candidate = await userService.getByEmail(user.email);
-
-    if (candidate) {
-      throw ApiError.BadRequest('User alredy exists');
-    }
-
     const hashedPassword = await bcrypt.hash(user.password, 3);
 
     const createdUser = await userService.create({
@@ -53,7 +48,7 @@ class AccountService {
     };
   }
 
-  async login(userData: UserLoginDto) {
+  async login(userData: UserLoginDto): Promise<UserLoginOutputDto> {
     const candidate = await userService.getByEmail(userData.email);
 
     if (!candidate) {
@@ -73,16 +68,16 @@ class AccountService {
       throw ApiError.BadRequest('Incorrected password');
     }
 
-    //
+    return candidate;
 
-    return {
-      user: {
-        id: candidate.id,
-        email: candidate.email,
-        name: candidate.name,
-        surname: candidate.surname,
-      },
-    };
+    // return {
+    //   user: {
+    //     id: candidate.id,
+    //     email: candidate.email,
+    //     name: candidate.name,
+    //     surname: candidate.surname,
+    //   },
+    // };
   }
 
   async refresh(refreshToken: string): Promise<LoginOutputDto> {
@@ -112,23 +107,24 @@ class AccountService {
       role: user.role,
     };
 
-    const tokens = tokenService.generateTokens(tokenPayload);
+    const tokens = await tokenService.generateTokens(tokenPayload);
 
-    await tokenService.saveToken(user.id, (await tokens).refreshToken);
+    await tokenService.saveToken(user.id, tokens.refreshToken);
 
-    return {
-      tokens: {
-        accessToken: (await tokens).accessToken,
-        refreshToken: (await tokens).refreshToken,
-      },
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        surname: user.surname,
-        role: user.role,
-      },
-    };
+    return { user, tokens };
+    // return {
+    //   tokens: {
+    //     accessToken: tokens.accessToken,
+    //     refreshToken: tokens.refreshToken,
+    //   },
+    //   user: {
+    //     id: user.id,
+    //     email: user.email,
+    //     name: user.name,
+    //     surname: user.surname,
+    //     role: user.role,
+    //   },
+    // };
   }
 
   async verify(linkId: string) {

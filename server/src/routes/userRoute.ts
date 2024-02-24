@@ -5,7 +5,7 @@ import { accountRegisterValidation } from '../validation/register.validation';
 
 const userRouter: Router = express.Router();
 
-userRouter.get('/verify', userController.verify);
+userRouter.get('/verify', accountRegisterValidation, userController.verify);
 userRouter.post(
   '/registration',
   accountRegisterValidation,

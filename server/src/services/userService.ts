@@ -2,13 +2,8 @@ import { Repository } from 'typeorm';
 import appDataSource from '../appDataSourse';
 import { User } from '../models/userEntity';
 import UserCreateDto from '../models/dto/userCreate.dto';
-import UserLoginDto from '../models/dto/userLoginInput.dto';
-import TokenPayloadDto from '../models/dto/tokenPayload.dto';
-import bcrypt from 'bcrypt';
-import { randomUUID } from 'crypto';
-import emailService from './emailService';
-import tokenService from './tokenService';
 import ApiError from '../utils/exeptions/apiError';
+import UserDto from '../models/dto/user.dto';
 
 class UserService {
   private userRepository: Repository<User>;
@@ -17,8 +12,11 @@ class UserService {
     this.userRepository = appDataSource.getRepository(User);
   }
 
-  async getById(id: string) {
+  async getById(id: string): Promise<UserDto> {
     const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new Error('User is not found');
+    }
     return user;
   }
 

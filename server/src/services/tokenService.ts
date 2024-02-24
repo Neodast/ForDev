@@ -13,7 +13,7 @@ class TokenService {
     this.tokenRepository = appDataSource.getRepository(Token);
   }
 
-  async generateTokens(payload: any) {
+  async generateTokens(payload: TokenPayloadDto) {
     const accessToken = jwt.sign(
       payload,
       String(process.env.JWT_ACCESS_SECRET),
