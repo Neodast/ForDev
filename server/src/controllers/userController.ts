@@ -1,5 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
-import userService from '../services/userService';
+import { NextFunction, Request, Response } from 'express';
 import { RequestWithBody, RequestWithQuery } from '../utils/types/request.type';
 import UserCreateDto from '../models/dto/userCreate.dto';
 import accountService from '../services/accountService';
@@ -9,22 +8,8 @@ import IVerify from '../models/dto/verify.dto';
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // const users = await userService.getAll();
-    // res.send(users);
-    res.send(req.cookies);
-  } catch (e) {
-    next(e);
-  }
-};
 
-const createUser = async (
-  req: RequestWithBody<UserCreateDto>,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user = await userService.create(req.body);
-    res.send(await userService.getAll());
+    res.send(req.cookies);
   } catch (e) {
     next(e);
   }
@@ -89,7 +74,6 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default {
-  createUser,
   getAllUsers,
   registration,
   refresh,

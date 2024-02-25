@@ -5,13 +5,11 @@ import appDataSource from '../appDataSourse';
 import { Response } from 'express';
 import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 import ApiError from '../utils/exeptions/apiError';
+import ITokenRepository from '../repositories/ITokenRepository';
+import tokenPgRepository from '../repositories/PostgreSQL/tokenPgRepository';
 
 class TokenService {
-  private tokenRepository: Repository<Token>;
-
-  constructor() {
-    this.tokenRepository = appDataSource.getRepository(Token);
-  }
+  private readonly tokenRepository: ITokenRepository = tokenPgRepository;
 
   async generateTokens(payload: TokenPayloadDto) {
     const accessToken = jwt.sign(
@@ -35,26 +33,7 @@ class TokenService {
   }
 
   async saveToken(userId: string, refreshToken: string) {
-    const token = await this.tokenRepository.findOneBy({
-      user: { id: userId },
-    });
-
-    if (token) {
-      token.refreshToken = refreshToken;
-
-      const updatedToken = await this.tokenRepository.save(token);
-
-      return updatedToken;
-    }
-
-    const createdToken = this.tokenRepository.create({
-      user: { id: userId },
-      refreshToken,
-    });
-
-    const newToken = await this.tokenRepository.save(createdToken);
-
-    return newToken;
+    await this.tokenRepository.createRefreshToken(userId, refreshToken);
   }
 
   async saveRefreshTokenCookie(res: Response, refreshToken: string) {
@@ -69,14 +48,10 @@ class TokenService {
     res.clearCookie('refreshToken');
   }
 
-  async deleteToken(refreshToken: string) {
-    const token = await this.tokenRepository.findOneBy({ refreshToken });
+  async deleteToken(userId: string) {
+    const token = await this.tokenRepository.getByUserId(userId);
 
-    if (!token) {
-      throw ApiError.BadRequest('Token is not found');
-    }
-
-    await this.tokenRepository.delete(token.id);
+    await this.tokenRepository.deleteRefreshToken(token.id);
   }
 
   validateRefreshToken(refreshToken: string) {
@@ -101,14 +76,6 @@ class TokenService {
     } catch (error) {
       throw ApiError.BadRequest('Access-token is not valid');
     }
-  }
-
-  async getByRefreshToken(refreshToken: string) {
-    const token = await this.tokenRepository.findOneBy({
-      refreshToken,
-    });
-
-    return token;
   }
 }
 

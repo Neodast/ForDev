@@ -41,6 +41,7 @@ class UserPgRepository implements IUserRepository {
     const user = await this.userRepository.findOneBy({
       email: candidate.email,
     });
+
     if (user) {
       throw new Error('User alredy exists');
     }
@@ -54,16 +55,12 @@ class UserPgRepository implements IUserRepository {
     await this.userRepository.delete(user);
   }
 
-  async updateUser(user: UserDto, newUser: UserCreateDto): Promise<UserDto> {
-    await this.getByEmail(user.email);
-    return await this.userRepository.save({ ...user, ...newUser });
-  }
-
-  async verify(id: string): Promise<UserDto> {
+  async updateUser(
+    id: string,
+    newData: UserModelDto
+  ): Promise<UserDto> {
     const user = await this.getById(id);
-
-    user.isVerified = true;
-
+    Object.assign(user, newData);
     return await this.userRepository.save(user);
   }
 }
