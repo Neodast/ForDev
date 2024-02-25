@@ -5,16 +5,17 @@ import UserCreateDto from '../models/dto/userCreate.dto';
 import UserLoginDto from '../models/dto/userLoginInput.dto';
 import TokenPayloadDto from '../models/dto/tokenPayload.dto';
 import bcrypt from 'bcrypt';
-import { UUID, randomUUID } from 'crypto';
 import LoginOutputDto from '../models/dto/loginOutput.dto';
 import ApiError from '../utils/exeptions/apiError';
 import UserLoginOutputDto from '../models/dto/userLoginOutput.dto';
+import userPgRepository from '../repositories/PostgreSQL/userPgRepository';
+import UserRegisterDto from '../models/dto/userRegisterOutput.dto';
 
 class AccountService {
-  async register(user: UserCreateDto) {
+  async register(user: UserCreateDto): Promise<UserRegisterDto> {
     const hashedPassword = await bcrypt.hash(user.password, 3);
 
-    const createdUser = await userService.create({
+    const createdUser = await userPgRepository.createUser({
       email: user.email,
       password: hashedPassword,
       name: user.name,
@@ -35,25 +36,11 @@ class AccountService {
 
     await emailService.sendActivateEmail(createdUser.email, verificationLink);
 
-    return {
-      tokens: {
-        refreshToken: tokens.refreshToken,
-      },
-      user: {
-        id: createdUser.id,
-        email: createdUser.email,
-        name: createdUser.name,
-        surname: createdUser.surname,
-      },
-    };
+    return { tokens, user };
   }
 
   async login(userData: UserLoginDto): Promise<UserLoginOutputDto> {
-    const candidate = await userService.getByEmail(userData.email);
-
-    if (!candidate) {
-      throw ApiError.BadRequest('User is not found');
-    }
+    const candidate = await userPgRepository.getByEmail(userData.email);
 
     if (!candidate.isVerified) {
       throw ApiError.BadRequest('User is not verify');
@@ -69,15 +56,6 @@ class AccountService {
     }
 
     return candidate;
-
-    // return {
-    //   user: {
-    //     id: candidate.id,
-    //     email: candidate.email,
-    //     name: candidate.name,
-    //     surname: candidate.surname,
-    //   },
-    // };
   }
 
   async refresh(refreshToken: string): Promise<LoginOutputDto> {
@@ -95,11 +73,7 @@ class AccountService {
       throw ApiError.BadRequest('Refresh-token is alredy delete');
     }
 
-    const user = await userService.getById(userData.id);
-
-    if (!user) {
-      throw ApiError.BadRequest('User is not found');
-    }
+    const user = await userPgRepository.getById(userData.id);
 
     const tokenPayload: TokenPayloadDto = {
       id: user.id,
@@ -112,26 +86,10 @@ class AccountService {
     await tokenService.saveToken(user.id, tokens.refreshToken);
 
     return { user, tokens };
-    // return {
-    //   tokens: {
-    //     accessToken: tokens.accessToken,
-    //     refreshToken: tokens.refreshToken,
-    //   },
-    //   user: {
-    //     id: user.id,
-    //     email: user.email,
-    //     name: user.name,
-    //     surname: user.surname,
-    //     role: user.role,
-    //   },
-    // };
   }
 
   async verify(linkId: string) {
-    const userData = await userService.getById(linkId);
-    if (!userData) {
-      throw ApiError.BadRequest('Verify link is not found');
-    }
+    const userData = await userPgRepository.getById(linkId);
     userService.verify(linkId);
   }
 

@@ -4,15 +4,16 @@ import appDataSource from '../../appDataSourse';
 import UserDto from '../../models/dto/user.dto';
 import IUserRepository from '../IUserRepository';
 import UserCreateDto from '../../models/dto/userCreate.dto';
+import UserModelDto from '../../models/dto/userModel.dto';
 
 class UserPgRepository implements IUserRepository {
-  readonly userRepository: Repository<User>;
+  private readonly userRepository: Repository<User>;
 
   constructor() {
     this.userRepository = appDataSource.getRepository(User);
   }
 
-  async findUser(criteria: Record<string, any>): Promise<UserDto> {
+  private async findUser(criteria: Record<string, any>): Promise<UserModelDto> {
     const user = await this.userRepository.findOneBy(criteria);
     if (!user) {
       throw new Error('User is not found');
@@ -20,11 +21,11 @@ class UserPgRepository implements IUserRepository {
     return user;
   }
 
-  async getById(id: string): Promise<UserDto> {
+  async getById(id: string): Promise<UserModelDto> {
     return this.findUser({ id });
   }
 
-  async getByEmail(email: string): Promise<UserDto> {
+  async getByEmail(email: string): Promise<UserModelDto> {
     return this.findUser({ email });
   }
 
@@ -37,30 +38,34 @@ class UserPgRepository implements IUserRepository {
   }
 
   async createUser(candidate: UserCreateDto): Promise<UserDto> {
-    const user = await this.getByEmail(candidate.email);
-
+    const user = await this.userRepository.findOneBy({
+      email: candidate.email,
+    });
     if (user) {
       throw new Error('User alredy exists');
     }
 
     const newUser = this.userRepository.create(candidate);
-
-    const createdUser = await this.userRepository.save(newUser);
-
-    return createdUser;
+    return await this.userRepository.save(newUser);
   }
 
   async deleteUser(candidate: UserCreateDto): Promise<void> {
     const user = await this.getByEmail(candidate.email);
-
     await this.userRepository.delete(user);
   }
 
-  updateUser(): Promise<UserDto> {
-    // implementation
+  async updateUser(user: UserDto, newUser: UserCreateDto): Promise<UserDto> {
+    await this.getByEmail(user.email);
+    return await this.userRepository.save({ ...user, ...newUser });
   }
 
-  verify(): Promise<void> {
-    // implementation
+  async verify(id: string): Promise<UserDto> {
+    const user = await this.getById(id);
+
+    user.isVerified = true;
+
+    return await this.userRepository.save(user);
   }
 }
+
+export default new UserPgRepository();
