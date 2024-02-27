@@ -9,7 +9,7 @@ import IVerify from '../models/dto/AuthDtos/verify.dto';
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await accountService.getAllUsers();
-    res.status(200).send(users);
+    res.json(users);
   } catch (e) {
     next(e);
   }
@@ -49,7 +49,7 @@ const login = async (
   try {
     const { email, password } = req.body;
     const userData = await accountService.login({ email, password });
-    tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
+    await tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
     // req.headers.authorization = userData.tokens.accessToken;
     res.send(userData);
   } catch (e) {
