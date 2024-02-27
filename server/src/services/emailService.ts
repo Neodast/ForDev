@@ -14,7 +14,7 @@ class EmailService {
       },
     });
   }
-  async sendActivateEmail(email: string, link: string) {
+  async sendActivateEmail(email: string, link: string): Promise<void> {
     await this.transporter.sendMail({
       from: String(process.env.SMTP_USER),
       to: email,

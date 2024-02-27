@@ -2,8 +2,7 @@ import { Repository } from 'typeorm';
 import ITokenRepository from '../ITokenRepository';
 import { Token } from '../../models/tokenEntity';
 import appDataSource from '../../appDataSourse';
-import RefreshTokenDto from '../../models/dto/refreshToken.dto';
-import TokenModelDto from '../../models/dto/tokenModel.dto';
+import TokenModelDto from '../../models/dto/TokenDtos/tokenModel.dto';
 
 class TokenPgRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;
@@ -55,8 +54,8 @@ class TokenPgRepository implements ITokenRepository {
   }
 
   async getByRefreshToken(refreshToken: string): Promise<TokenModelDto> {
-    const token = await this.tokenRepository.findOneBy({refreshToken});
-    if(!token){
+    const token = await this.tokenRepository.findOneBy({ refreshToken });
+    if (!token) {
       throw new Error('Token is not found');
     }
     return token;

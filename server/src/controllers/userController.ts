@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import { RequestWithBody, RequestWithQuery } from '../utils/types/request.type';
-import UserCreateDto from '../models/dto/userCreate.dto';
+import UserCreateDto from '../models/dto/UserDtos/userCreate.dto';
 import accountService from '../services/accountService';
 import tokenService from '../services/tokenService';
-import UserLoginDto from '../models/dto/userLoginInput.dto';
-import IVerify from '../models/dto/verify.dto';
+import UserLoginDto from '../models/dto/AuthDtos/userLoginInput.dto';
+import IVerify from '../models/dto/AuthDtos/verify.dto';
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
-    res.send(req.cookies);
+    const users = await accountService.getAllUsers();
+    res.status(200).send(users);
   } catch (e) {
     next(e);
   }
@@ -47,9 +47,10 @@ const login = async (
   next: NextFunction
 ) => {
   try {
-    const userData = await accountService.login(req.body);
-    // req.headers.authorization = userData.tokens.refreshToken;
-    // res.send(req.headers.authorization);
+    const { email, password } = req.body;
+    const userData = await accountService.login({ email, password });
+    tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
+    // req.headers.authorization = userData.tokens.accessToken;
     res.send(userData);
   } catch (e) {
     next(e);

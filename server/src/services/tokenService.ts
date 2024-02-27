@@ -1,17 +1,16 @@
-import { Repository } from 'typeorm';
 import jwt from 'jsonwebtoken';
-import { Token } from '../models/tokenEntity';
-import appDataSource from '../appDataSourse';
 import { Response } from 'express';
-import TokenPayloadDto from '../models/dto/tokenPayload.dto';
+import TokenPayloadDto from '../models/dto/TokenDtos/tokenPayload.dto';
 import ApiError from '../utils/exeptions/apiError';
 import ITokenRepository from '../repositories/ITokenRepository';
 import tokenPgRepository from '../repositories/PostgreSQL/tokenPgRepository';
+import TokensOutputDto from '../models/dto/TokenDtos/tokensOutput.dto';
+import UserModelDto from '../models/dto/UserDtos/userModel.dto';
 
 class TokenService {
   private readonly tokenRepository: ITokenRepository = tokenPgRepository;
 
-  async generateTokens(payload: TokenPayloadDto) {
+  async generateTokens(payload: TokenPayloadDto): Promise<TokensOutputDto> {
     const accessToken = jwt.sign(
       payload,
       String(process.env.JWT_ACCESS_SECRET),
@@ -32,11 +31,14 @@ class TokenService {
     };
   }
 
-  async saveToken(userId: string, refreshToken: string) {
+  async saveToken(userId: string, refreshToken: string): Promise<void> {
     await this.tokenRepository.createRefreshToken(userId, refreshToken);
   }
 
-  async saveRefreshTokenCookie(res: Response, refreshToken: string) {
+  async saveRefreshTokenCookie(
+    res: Response,
+    refreshToken: string
+  ): Promise<void> {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -44,17 +46,31 @@ class TokenService {
     });
   }
 
-  async removeRefreshTokenCookie(res: Response) {
+  async removeRefreshTokenCookie(res: Response): Promise<void> {
     res.clearCookie('refreshToken');
   }
 
-  async deleteToken(userId: string) {
+  async createTokens(userData: UserModelDto): Promise<TokensOutputDto> {
+    const tokenPayload: TokenPayloadDto = {
+      id: userData.id,
+      email: userData.email,
+      role: userData.role,
+    };
+
+    const tokens = await this.generateTokens(tokenPayload);
+
+    await this.saveToken(userData.id, tokens.refreshToken);
+
+    return tokens;
+  }
+
+  async deleteToken(userId: string): Promise<void> {
     const token = await this.tokenRepository.getByUserId(userId);
 
     await this.tokenRepository.deleteRefreshToken(token.id);
   }
 
-  validateRefreshToken(refreshToken: string) {
+  validateRefreshToken(refreshToken: string): TokenPayloadDto {
     try {
       const jwtRefreshSecret = String(process.env.JWT_REFRESH_SECRET);
 
@@ -66,7 +82,7 @@ class TokenService {
     }
   }
 
-  validateAccessToken(accessToken: string) {
+  validateAccessToken(accessToken: string): TokenPayloadDto {
     try {
       const jwtAccessSecret = String(process.env.JWT_ACCESS_SECRET);
 
@@ -74,7 +90,7 @@ class TokenService {
 
       return userData as TokenPayloadDto;
     } catch (error) {
-      throw ApiError.BadRequest('Access-token is not valid');
+      throw ApiError.UnauthorizedError();
     }
   }
 }

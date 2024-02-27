@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
 import { User } from '../../models/userEntity';
 import appDataSource from '../../appDataSourse';
-import UserDto from '../../models/dto/user.dto';
+import UserDto from '../../models/dto/UserDtos/user.dto';
 import IUserRepository from '../IUserRepository';
-import UserCreateDto from '../../models/dto/userCreate.dto';
-import UserModelDto from '../../models/dto/userModel.dto';
+import UserCreateDto from '../../models/dto/UserDtos/userCreate.dto';
+import UserModelDto from '../../models/dto/UserDtos/userModel.dto';
 
 class UserPgRepository implements IUserRepository {
   private readonly userRepository: Repository<User>;
@@ -18,7 +18,7 @@ class UserPgRepository implements IUserRepository {
     if (!user) {
       throw new Error('User is not found');
     }
-    return user;
+    return user;// : User але функція то все у UserModelDto кастить
   }
 
   async getById(id: string): Promise<UserModelDto> {
@@ -55,10 +55,7 @@ class UserPgRepository implements IUserRepository {
     await this.userRepository.delete(user);
   }
 
-  async updateUser(
-    id: string,
-    newData: UserModelDto
-  ): Promise<UserDto> {
+  async updateUser(id: string, newData: UserModelDto): Promise<UserDto> {
     const user = await this.getById(id);
     Object.assign(user, newData);
     return await this.userRepository.save(user);

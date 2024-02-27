@@ -1,22 +1,23 @@
 import emailService from './emailService';
 import tokenService from './tokenService';
-import UserCreateDto from '../models/dto/userCreate.dto';
-import UserLoginDto from '../models/dto/userLoginInput.dto';
-import TokenPayloadDto from '../models/dto/tokenPayload.dto';
+import UserCreateDto from '../models/dto/UserDtos/userCreate.dto';
+import UserLoginDto from '../models/dto/AuthDtos/userLoginInput.dto';
+import TokenPayloadDto from '../models/dto/TokenDtos/tokenPayload.dto';
 import bcrypt from 'bcrypt';
-import LoginOutputDto from '../models/dto/loginOutput.dto';
+import LoginOutputDto from '../models/dto/AuthDtos/loginOutput.dto';
 import ApiError from '../utils/exeptions/apiError';
-import UserLoginOutputDto from '../models/dto/userLoginOutput.dto';
+import UserLoginOutputDto from '../models/dto/AuthDtos/userLoginOutput.dto';
 import userPgRepository from '../repositories/PostgreSQL/userPgRepository';
-import UserRegisterDto from '../models/dto/userRegisterOutput.dto';
+import UserRegisterDto from '../models/dto/AuthDtos/userRegisterOutput.dto';
 import IUserRepository from '../repositories/IUserRepository';
 import tokenPgRepository from '../repositories/PostgreSQL/tokenPgRepository';
 import ITokenRepository from '../repositories/ITokenRepository';
+import UserDto from '../models/dto/UserDtos/user.dto';
+import TokensOutputDto from '../models/dto/TokenDtos/tokensOutput.dto';
 
 class AccountService {
   private readonly userRepository: IUserRepository = userPgRepository;
   private readonly tokenRepository: ITokenRepository = tokenPgRepository;
-
 
   async register(user: UserCreateDto): Promise<UserRegisterDto> {
     const hashedPassword = await bcrypt.hash(user.password, 3);
@@ -45,23 +46,25 @@ class AccountService {
     return { tokens, user };
   }
 
-  async login(userData: UserLoginDto): Promise<UserLoginOutputDto> {
-    const candidate = await this.userRepository.getByEmail(userData.email);
+  async login(userData: UserLoginDto): Promise<LoginOutputDto> {
+    const user = await this.userRepository.getByEmail(userData.email);
 
-    if (!candidate.isVerified) {
+    if (!user.isVerified) {
       throw ApiError.BadRequest('User is not verify');
     }
 
     const isValidPassword = await bcrypt.compare(
       userData.password,
-      candidate.password
+      user.password
     );
 
     if (!isValidPassword) {
       throw ApiError.BadRequest('Incorrected password');
     }
 
-    return candidate;
+    const tokens = await tokenService.createTokens(user);
+
+    return {user, tokens}
   }
 
   async refresh(refreshToken: string): Promise<LoginOutputDto> {
@@ -94,14 +97,19 @@ class AccountService {
     return { user, tokens };
   }
 
-  async verify(linkId: string) {
+  async verify(linkId: string): Promise<void> {
     const userData = await this.userRepository.getById(linkId);
     userData.isVerified = true;
     this.userRepository.updateUser(linkId, userData);
   }
 
-  async logout(refreshToken: string) {
+  async logout(refreshToken: string): Promise<void> {
     await tokenService.deleteToken(refreshToken);
+  }
+
+  async getAllUsers() : Promise<Array<UserDto>> {
+    const users = await this.userRepository.getAll();
+    return users;
   }
 }
 
