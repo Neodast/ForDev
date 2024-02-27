@@ -20,7 +20,7 @@ class TokenPgRepository implements ITokenRepository {
     });
 
     if (token) {
-      await this.updateRefreshToken(token, refreshToken);
+      return await this.updateRefreshToken(token, refreshToken);
     }
 
     const newToken = this.tokenRepository.create({
