@@ -22,6 +22,6 @@ export const authMiddleware = (
 
     next();
   } catch (e) {
-    return next(ApiError.UnauthorizedError('err'));
+    return next(ApiError.UnauthorizedError('err26'));
   }
 };
