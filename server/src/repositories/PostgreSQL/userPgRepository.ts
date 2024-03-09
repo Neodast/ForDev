@@ -18,7 +18,7 @@ class UserPgRepository implements IUserRepository {
     if (!user) {
       throw new Error('User is not found');
     }
-    return user;// : User але функція то все у UserModelDto кастить
+    return user;
   }
 
   async getById(id: string): Promise<UserModelDto> {

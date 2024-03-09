@@ -8,7 +8,8 @@ import TokensOutputDto from '../models/dto/TokenDtos/tokensOutput.dto';
 import UserModelDto from '../models/dto/UserDtos/userModel.dto';
 
 class TokenService {
-  private readonly tokenRepository: ITokenRepository = tokenPgRepository;
+
+  constructor(readonly tokenRepository: ITokenRepository){}
 
   async generateTokens(payload: TokenPayloadDto): Promise<TokensOutputDto> {
     const accessToken = jwt.sign(
@@ -95,4 +96,4 @@ class TokenService {
   }
 }
 
-export default new TokenService();
+export default new TokenService(tokenPgRepository);

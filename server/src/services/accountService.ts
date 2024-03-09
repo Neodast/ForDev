@@ -6,18 +6,16 @@ import TokenPayloadDto from '../models/dto/TokenDtos/tokenPayload.dto';
 import bcrypt from 'bcrypt';
 import LoginOutputDto from '../models/dto/AuthDtos/loginOutput.dto';
 import ApiError from '../utils/exeptions/apiError';
-import UserLoginOutputDto from '../models/dto/AuthDtos/userLoginOutput.dto';
 import userPgRepository from '../repositories/PostgreSQL/userPgRepository';
 import UserRegisterDto from '../models/dto/AuthDtos/userRegisterOutput.dto';
 import IUserRepository from '../repositories/IUserRepository';
 import tokenPgRepository from '../repositories/PostgreSQL/tokenPgRepository';
 import ITokenRepository from '../repositories/ITokenRepository';
 import UserDto from '../models/dto/UserDtos/user.dto';
-import TokensOutputDto from '../models/dto/TokenDtos/tokensOutput.dto';
 
 class AccountService {
-  private readonly userRepository: IUserRepository = userPgRepository;
-  private readonly tokenRepository: ITokenRepository = tokenPgRepository;
+
+  constructor(readonly userRepository: IUserRepository, readonly tokenRepository: ITokenRepository){}
 
   async register(user: UserCreateDto): Promise<UserRegisterDto> {
     const hashedPassword = await bcrypt.hash(user.password, 3);
@@ -50,7 +48,7 @@ class AccountService {
     const user = await this.userRepository.getByEmail(userData.email);
 
     if (!user.isVerified) {
-      throw ApiError.BadRequest('User is not verify');
+      throw ApiError.BadRequest('User is not verified');
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -64,7 +62,7 @@ class AccountService {
 
     const tokens = await tokenService.createTokens(user);
 
-    return {user, tokens}
+    return { user, tokens };
   }
 
   async refresh(refreshToken: string): Promise<LoginOutputDto> {
@@ -100,17 +98,17 @@ class AccountService {
   async verify(linkId: string): Promise<void> {
     const userData = await this.userRepository.getById(linkId);
     userData.isVerified = true;
-    this.userRepository.updateUser(linkId, userData);
+    await this.userRepository.updateUser(linkId, userData);
   }
 
   async logout(refreshToken: string): Promise<void> {
     await tokenService.deleteToken(refreshToken);
   }
 
-  async getAllUsers() : Promise<Array<UserDto>> {
+  async getAllUsers(): Promise<Array<UserDto>> {
     const users = await this.userRepository.getAll();
     return users;
   }
 }
 
-export default new AccountService();
+export default new AccountService(userPgRepository, tokenPgRepository);
