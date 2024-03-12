@@ -4,10 +4,10 @@ import {
   RequestWithQuery,
 } from '../../utils/types/request.type';
 import UserCreateDto from '../../utils/dtos/userDtos/userCreate.dto';
-import accountService from '../../core/services/accountService';
-import tokenService from '../../core/services/tokenService';
+import accountService from '../../core/services/userService';
 import UserLoginDto from '../../utils/dtos/authDtos/userLoginInput.dto';
 import IVerify from '../../utils/dtos/authDtos/verify.dto';
+import CookieHelper from '../helpers/cookieHelper';
 
 class UserController {
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
@@ -26,7 +26,7 @@ class UserController {
   ) {
     try {
       const userData = await accountService.register(req.body);
-      tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
+      CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
       res.send(userData);
     } catch (e) {
       next(e);
@@ -53,11 +53,8 @@ class UserController {
     try {
       const { email, password } = req.body;
       const userData = await accountService.login({ email, password });
-      await tokenService.saveRefreshTokenCookie(
-        res,
-        userData.tokens.refreshToken
-      );
-      res.send(userData);
+      CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
+      res.sendStatus(200).json(userData);
     } catch (e) {
       next(e);
     }
@@ -66,11 +63,8 @@ class UserController {
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
-
       const userData = await accountService.refresh(refreshToken);
-
-      tokenService.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
-
+      CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
       res.json({
         ...userData.user,
         accessToken: userData.tokens.accessToken,

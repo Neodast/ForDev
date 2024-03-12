@@ -1,7 +1,9 @@
 import Role from '../../enums/roles.enum';
 
-export default interface TokenPayloadDto {
+interface TokenPayloadDto {
   id: string;
   email: string;
   role: Role;
 }
+
+export default TokenPayloadDto;

@@ -1,4 +1,6 @@
-export default interface TokensOutputDto {
+interface TokensOutputDto {
   accessToken: string;
   refreshToken: string;
 }
+
+export default TokensOutputDto;

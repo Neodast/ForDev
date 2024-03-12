@@ -109,7 +109,7 @@ class AccountService {
 
   async getAllUsers(): Promise<Array<UserCreateDto>> {
     const users = await this.userRepository.getAll();
-    return users as UserCreateDto[];
+    return users;
   }
 }
 

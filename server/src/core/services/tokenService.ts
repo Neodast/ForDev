@@ -35,21 +35,6 @@ class TokenService {
     await this.tokenRepository.createRefreshToken(userId, refreshToken);
   }
 
-  async saveRefreshTokenCookie(
-    res: Response,
-    refreshToken: string
-  ): Promise<void> {
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      sameSite: 'lax',
-    });
-  }
-
-  async removeRefreshTokenCookie(res: Response): Promise<void> {
-    res.clearCookie('refreshToken');
-  }
-
   async createTokens(userData: UserModel): Promise<TokensOutputDto> {
     const tokenPayload: TokenPayloadDto = {
       id: userData.id,

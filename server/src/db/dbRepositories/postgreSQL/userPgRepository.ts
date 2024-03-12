@@ -36,7 +36,7 @@ class UserPgRepository implements IUserRepository {
     if (!dbUsers.length) {
       throw new Error('Users is not found');
     }
-    const users = dbUsers.map((dbUser) => PgUserMapper.mapToUserModel(dbUser));
+    const users = dbUsers.map((dbUser) => PgUserMapper.mapToUserCreateDto(dbUser));
     return users;
   }
 
@@ -44,13 +44,11 @@ class UserPgRepository implements IUserRepository {
     const user = await this.userRepository.findOneBy({
       email: candidate.email,
     });
-
     if (user) {
       throw new Error('User alredy exists');
     }
-
     const newUser = this.userRepository.create(candidate);
-    return PgUserMapper.mapToUserModel(await this.userRepository.save(newUser));
+    return PgUserMapper.mapToUserSafeDto(await this.userRepository.save(newUser));
   }
 
   async deleteUser(candidate: UserCreateDto): Promise<void> {
@@ -61,7 +59,7 @@ class UserPgRepository implements IUserRepository {
   async updateUser(id: string, newData: UserModel): Promise<UserSafeDto> {
     const user = await this.getById(id);
     Object.assign(user, newData);
-    return await this.userRepository.save(user);
+    return PgUserMapper.mapToUserModel(await this.userRepository.save(user));
   }
 }
 

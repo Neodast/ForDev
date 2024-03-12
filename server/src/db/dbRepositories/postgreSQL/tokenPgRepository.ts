@@ -3,6 +3,7 @@ import ITokenRepository from '../../../core/repositories/ITokenRepository';
 import { Token } from '../../entities/tokenEntity';
 import appDataSource from '../../appDataSourse';
 import TokenModel from '../../../core/models/tokenModel';
+import PgTokenMapper from '../../dbMappers/pgMappers/dbTokenMappers';
 
 class TokenPgRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;
@@ -28,14 +29,18 @@ class TokenPgRepository implements ITokenRepository {
       refreshToken,
     });
 
-    return await this.tokenRepository.save(newToken);
+    return PgTokenMapper.mapToTokenModel(
+      await this.tokenRepository.save(newToken)
+    );
   }
   async updateRefreshToken(
     refreshToken: TokenModel,
     newRefresh: string
   ): Promise<TokenModel> {
     refreshToken.refreshToken = newRefresh;
-    return await this.tokenRepository.save(refreshToken);
+    return PgTokenMapper.mapToTokenModel(
+      await this.tokenRepository.save(refreshToken)
+    );
   }
 
   async deleteRefreshToken(tokenId: number): Promise<void> {
@@ -50,7 +55,7 @@ class TokenPgRepository implements ITokenRepository {
     if (!token) {
       throw new Error('Token is not found');
     }
-    return token;
+    return PgTokenMapper.mapToTokenModel(token);
   }
 
   async getByRefreshToken(refreshToken: string): Promise<TokenModel> {
@@ -58,7 +63,7 @@ class TokenPgRepository implements ITokenRepository {
     if (!token) {
       throw new Error('Token is not found');
     }
-    return token;
+    return  PgTokenMapper.mapToTokenModel(token);
   }
 }
 
