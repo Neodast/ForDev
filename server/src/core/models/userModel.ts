@@ -1,6 +1,6 @@
 import Role from '../../utils/enums/roles.enum';
 
-interface UserModelDto {
+interface UserModel {
   id: string;
   email: string;
   name: string;
@@ -10,4 +10,4 @@ interface UserModelDto {
   isVerified: boolean;
 }
 
-export default UserModelDto;
+export default UserModel;

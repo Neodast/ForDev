@@ -5,7 +5,7 @@ import ApiError from '../../utils/exeptions/apiError';
 import ITokenRepository from '../repositories/ITokenRepository';
 import tokenPgRepository from '../../db/dbRepositories/postgreSQL/tokenPgRepository';
 import TokensOutputDto from '../../utils/dtos/tokenDtos/tokensOutput.dto';
-import UserModelDto from '../models/userModel';
+import UserModel from '../models/userModel';
 
 class TokenService {
   constructor(readonly tokenRepository: ITokenRepository) {}
@@ -50,7 +50,7 @@ class TokenService {
     res.clearCookie('refreshToken');
   }
 
-  async createTokens(userData: UserModelDto): Promise<TokensOutputDto> {
+  async createTokens(userData: UserModel): Promise<TokensOutputDto> {
     const tokenPayload: TokenPayloadDto = {
       id: userData.id,
       email: userData.email,

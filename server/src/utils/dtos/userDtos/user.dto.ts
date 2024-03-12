@@ -1,6 +1,6 @@
 import Role from '../../enums/roles.enum';
 
-export default interface UserDto {
+export default interface UserSafeDto {
   id: string;
   email: string;
   name: string;

@@ -1,15 +1,12 @@
-import TokenModelDto from '../models/tokenModel';
+import TokenModel from '../models/tokenModel';
 interface ITokenRepository {
-  getByUserId(userId: string): Promise<TokenModelDto>;
-  getByRefreshToken(refreshToken: string): Promise<TokenModelDto>;
-  createRefreshToken(
-    userId: string,
-    refreshToken: string
-  ): Promise<TokenModelDto>;
+  getByUserId(userId: string): Promise<TokenModel>;
+  getByRefreshToken(refreshToken: string): Promise<TokenModel>;
+  createRefreshToken(userId: string, refreshToken: string): Promise<TokenModel>;
   updateRefreshToken(
-    refreshToken: TokenModelDto,
+    refreshToken: TokenModel,
     newRefresh: string
-  ): Promise<TokenModelDto>;
+  ): Promise<TokenModel>;
   deleteRefreshToken(tokenId: number): Promise<void>;
 }
 

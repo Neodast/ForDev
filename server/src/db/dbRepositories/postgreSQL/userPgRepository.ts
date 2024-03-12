@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import { User } from '../../entities/userEntity';
 import appDataSource from '../../appDataSourse';
-import UserDto from '../../../utils/dtos/userDtos/user.dto';
+import UserSafeDto from '../../../utils/dtos/userDtos/user.dto';
 import IUserRepository from '../../../core/repositories/IUserRepository';
 import UserCreateDto from '../../../utils/dtos/userDtos/userCreate.dto';
-import UserModelDto from '../../../core/models/userModel';
-import UserMapper from '../../dbMappers/dbUserMappers';
+import UserModel from '../../../core/models/userModel';
+import PgUserMapper from '../../dbMappers/pgMappers/dbUserMappers';
 
 class UserPgRepository implements IUserRepository {
   private readonly userRepository: Repository<User>;
@@ -14,20 +14,20 @@ class UserPgRepository implements IUserRepository {
     this.userRepository = appDataSource.getRepository(User);
   }
 
-  private async findUser(criteria: Record<string, any>): Promise<UserModelDto> {
+  private async findUser(criteria: Record<string, any>): Promise<UserModel> {
     const dbUser = await this.userRepository.findOneBy(criteria);
     if (!dbUser) {
       throw new Error('User is not found');
     }
-    const user: UserModelDto = UserMapper.mapToUserModel(dbUser);
+    const user: UserModel = PgUserMapper.mapToUserModel(dbUser);
     return user;
   }
 
-  async getById(id: string): Promise<UserModelDto> {
+  async getById(id: string): Promise<UserModel> {
     return this.findUser({ id });
   }
 
-  async getByEmail(email: string): Promise<UserModelDto> {
+  async getByEmail(email: string): Promise<UserModel> {
     return this.findUser({ email });
   }
 
@@ -36,11 +36,11 @@ class UserPgRepository implements IUserRepository {
     if (!dbUsers.length) {
       throw new Error('Users is not found');
     }
-    const users = dbUsers.map((dbUser) => UserMapper.mapToUserModel(dbUser));
+    const users = dbUsers.map((dbUser) => PgUserMapper.mapToUserModel(dbUser));
     return users;
   }
 
-  async createUser(candidate: UserCreateDto): Promise<UserDto> {
+  async createUser(candidate: UserCreateDto): Promise<UserSafeDto> {
     const user = await this.userRepository.findOneBy({
       email: candidate.email,
     });
@@ -50,7 +50,7 @@ class UserPgRepository implements IUserRepository {
     }
 
     const newUser = this.userRepository.create(candidate);
-    return await this.userRepository.save(newUser);
+    return PgUserMapper.mapToUserModel(await this.userRepository.save(newUser));
   }
 
   async deleteUser(candidate: UserCreateDto): Promise<void> {
@@ -58,7 +58,7 @@ class UserPgRepository implements IUserRepository {
     await this.userRepository.delete(user);
   }
 
-  async updateUser(id: string, newData: UserModelDto): Promise<UserDto> {
+  async updateUser(id: string, newData: UserModel): Promise<UserSafeDto> {
     const user = await this.getById(id);
     Object.assign(user, newData);
     return await this.userRepository.save(user);

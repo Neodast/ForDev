@@ -1,9 +1,6 @@
-import UserModelDto from './userModel';
-import { User } from '../../db/entities/userEntity';
-
-interface TokenModelDto {
+interface TokenModel {
   id: number;
   refreshToken: string;
 }
 
-export default TokenModelDto;
+export default TokenModel;

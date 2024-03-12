@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import ITokenRepository from '../../../core/repositories/ITokenRepository';
 import { Token } from '../../entities/tokenEntity';
 import appDataSource from '../../appDataSourse';
-import TokenModelDto from '../../../core/models/tokenModel';
+import TokenModel from '../../../core/models/tokenModel';
 
 class TokenPgRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;
@@ -14,7 +14,7 @@ class TokenPgRepository implements ITokenRepository {
   async createRefreshToken(
     userId: string,
     refreshToken: string
-  ): Promise<TokenModelDto> {
+  ): Promise<TokenModel> {
     const token = await this.tokenRepository.findOneBy({
       user: { id: userId },
     });
@@ -31,9 +31,9 @@ class TokenPgRepository implements ITokenRepository {
     return await this.tokenRepository.save(newToken);
   }
   async updateRefreshToken(
-    refreshToken: TokenModelDto,
+    refreshToken: TokenModel,
     newRefresh: string
-  ): Promise<TokenModelDto> {
+  ): Promise<TokenModel> {
     refreshToken.refreshToken = newRefresh;
     return await this.tokenRepository.save(refreshToken);
   }
@@ -42,7 +42,7 @@ class TokenPgRepository implements ITokenRepository {
     await this.tokenRepository.delete(tokenId);
   }
 
-  async getByUserId(userId: string): Promise<TokenModelDto> {
+  async getByUserId(userId: string): Promise<TokenModel> {
     const token = await this.tokenRepository.findOneBy({
       user: { id: userId },
     });
@@ -53,7 +53,7 @@ class TokenPgRepository implements ITokenRepository {
     return token;
   }
 
-  async getByRefreshToken(refreshToken: string): Promise<TokenModelDto> {
+  async getByRefreshToken(refreshToken: string): Promise<TokenModel> {
     const token = await this.tokenRepository.findOneBy({ refreshToken });
     if (!token) {
       throw new Error('Token is not found');

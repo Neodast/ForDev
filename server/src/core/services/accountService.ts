@@ -11,7 +11,7 @@ import UserRegisterDto from '../../utils/dtos/authDtos/userRegisterOutput.dto';
 import IUserRepository from '../repositories/IUserRepository';
 import tokenPgRepository from '../../db/dbRepositories/postgreSQL/tokenPgRepository';
 import ITokenRepository from '../repositories/ITokenRepository';
-import UserDto from '../../utils/dtos/userDtos/user.dto';
+import UserSafeDto from '../../utils/dtos/userDtos/user.dto';
 
 class AccountService {
   constructor(
