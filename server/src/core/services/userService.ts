@@ -12,6 +12,7 @@ import IUserRepository from '../repositories/IUserRepository';
 import tokenPgRepository from '../../db/dbRepositories/postgreSQL/tokenPgRepository';
 import ITokenRepository from '../repositories/ITokenRepository';
 import UserSafeDto from '../../utils/dtos/userDtos/user.dto';
+import UserMapper from '../mappers/userMappers';
 
 class AccountService {
   constructor(
@@ -47,22 +48,23 @@ class AccountService {
   }
 
   async login(userData: UserLoginDto): Promise<LoginOutputDto> {
-    const user = await this.userRepository.getByEmail(userData.email);
+    const dbUser = await this.userRepository.getByEmail(userData.email);
 
-    if (!user.isVerified) {
+    if (!dbUser.isVerified) {
       throw ApiError.BadRequest('User is not verified');
     }
 
     const isValidPassword = await bcrypt.compare(
       userData.password,
-      user.password
+      dbUser.password
     );
 
     if (!isValidPassword) {
       throw ApiError.BadRequest('Incorrected password');
     }
 
-    const tokens = await tokenService.createTokens(user);
+    const tokens = await tokenService.createTokens(dbUser);
+    const user: UserSafeDto = UserMapper.mapToUserSafeDto(dbUser);
 
     return { user, tokens };
   }

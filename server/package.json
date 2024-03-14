@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
+    "format": "eslint src/**/*.ts --fix",
     "build": "rimraf dist && npx tsc",
     "start": "node dist/app.js",
     "server": "nodemon dist/app.js ",
-    "compile": "tsc -w",
-    "dev": "concurrently \"npx tsc -w\" \"nodemon dist/app.js\""
+    "compile": "tsc -w"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,11 @@
     "@types/node": "^20.10.6",
     "@types/nodemailer": "^6.4.14",
     "@types/validator": "^13.11.7",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
     "nodemon": "^3.0.2",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   },
   "dependencies": {

@@ -1,3 +1,5 @@
-export default interface IVerify {
+interface IVerify {
   id: string;
 }
+
+export default IVerify;

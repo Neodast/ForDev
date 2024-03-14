@@ -54,7 +54,7 @@ class UserController {
       const { email, password } = req.body;
       const userData = await accountService.login({ email, password });
       CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
-      res.sendStatus(200).json(userData);
+      res.json(userData);
     } catch (e) {
       next(e);
     }

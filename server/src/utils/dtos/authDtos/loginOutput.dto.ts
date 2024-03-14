@@ -1,7 +1,9 @@
 import TokensOutputDto from '../tokenDtos/tokensOutput.dto';
 import UserSafeDto from '../userDtos/user.dto';
 
-export default interface LoginOutputDto {
+interface LoginOutputDto {
   user: UserSafeDto;
   tokens: TokensOutputDto;
 }
+
+export default LoginOutputDto;

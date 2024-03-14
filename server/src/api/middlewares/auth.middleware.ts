@@ -22,6 +22,6 @@ export const authMiddleware = (
 
     next();
   } catch (e) {
-    return next(ApiError.UnauthorizedError('err26'));
+    return next(ApiError.UnauthorizedError('Token is not valid'));
   }
 };
