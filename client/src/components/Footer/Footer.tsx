@@ -1,11 +1,7 @@
-import { lazy } from 'react';
-import telegramIconUrl from '../../assets/telegram-icon.png';
-import GitHubIconUrl from '../../assets/github-icon.png';
-import GitLabIconUrl from '../../assets/gitlab-icon.png';
+import { memo } from 'react';
+import Image from '../Image';
 
-const SocialIcon = lazy(() => import('../Image'));
-
-export default function Footer() {
+const Footer = memo(() => {
   return (
     <footer className='box-border bg-blue-500 overflow-hidden flex flex-row flex-wrap items-center justify-between p-4'>
       <div className='text-sm'>
@@ -13,15 +9,29 @@ export default function Footer() {
       </div>
       <div className='flex items-center'>
         <a href='#' className='p-2'>
-          <SocialIcon src={telegramIconUrl} alt='Telegram' className='w84 h-8 mr-2'></SocialIcon>
+          <Image
+            src={'/icons/telegram-icon.webp'}
+            alt='Telegram'
+            className='w84 h-8 mr-2'
+          />
         </a>
         <a href='#' className='p-2'>
-        <SocialIcon src={GitHubIconUrl} alt='Github' className='w84 h-8 mr-2'></SocialIcon>
+          <Image
+            src={'/icons/github-icon.webp'}
+            alt='Github'
+            className='w84 h-8 mr-2'
+          />
         </a>
         <a href='#' className='p-2'>
-        <SocialIcon src={GitLabIconUrl} alt='Gitlab' className='w84 h-8 mr-2'></SocialIcon>
+          <Image
+            src={'/icons/gitlab-icon.webp'}
+            alt='Gitlab'
+            className='w84 h-8 mr-2'
+          />
         </a>
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;

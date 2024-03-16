@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Application } from 'express';
 import 'reflect-metadata';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -6,30 +6,42 @@ import appDataSource from './db/appDataSourse';
 import router from './api/routes/routes';
 import errorMiddleware from './api/middlewares/error.middleware';
 
-const app = express();
-const port = Number(process.env.SERVER_PORT) || 3000;
+class App {
+  private app: Application;
+  private readonly port: number = Number(process.env.SERVER_PORT) || 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:5173',
-  })
-);
-app.use('/', router);
-app.use(errorMiddleware);
+  private initializeApp() {
+    try{
 
-async function start() {
-  try {
-    await appDataSource.initialize();
-  } catch (e) {
-    console.log(e);
+    }catch(e){
+      console.log(e);
+    }
+    this.app = express();
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cookieParser());
+    this.app.use(
+      cors({
+        credentials: true,
+        origin: String(process.env.CLIENT_URL) || 'http://localhost:5173',
+      }),
+    );
+    this.app.use('/', router);
+    this.app.use(errorMiddleware);
   }
-  app.listen(port, async () => {
-    console.log(`Example app listening on port ${port}!`);
-  });
+
+  public async startServer() {
+    try{
+      this.initializeApp();
+      await appDataSource.initialize();
+      this.app.listen(this.port, async () => {
+        console.log(`Example app listening on port ${this.port}!`);
+      });
+    }catch(e){
+      console.log(e);
+    }
+  }
 }
 
-start();
+const application = new App();
+application.startServer();

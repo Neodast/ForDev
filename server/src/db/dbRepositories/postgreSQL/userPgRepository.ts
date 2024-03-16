@@ -14,7 +14,7 @@ class UserPgRepository implements IUserRepository {
     this.userRepository = appDataSource.getRepository(User);
   }
 
-  private async findUser(criteria: Record<string, any>): Promise<UserModel> {
+  private async findUser(criteria: Record<string, unknown>): Promise<UserModel> {
     const dbUser = await this.userRepository.findOneBy(criteria);
     if (!dbUser) {
       throw new Error('User is not found');

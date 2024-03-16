@@ -1,6 +1,5 @@
 import UserMapper from '../../../core/mappers/userMappers';
 import UserModel from '../../../core/models/userModel';
-import UserCreateDto from '../../../utils/dtos/userDtos/userCreate.dto';
 import { User } from '../../entities/userEntity';
 
 class PgUserMapper extends UserMapper {

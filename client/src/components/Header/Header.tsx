@@ -1,15 +1,16 @@
 import HeaderLeftPanel from './HeaderLeftPanel';
-import { lazy } from 'react';
+import HeaderRightPanel from './HeaderRightPanel';
+import { memo } from 'react';
 
-const RightPanel = lazy(() => import('./HeaderRightPanel'));
-
-export default function Header() {
+const Header = memo(() => {
   return (
     <>
       <header className='box-border overflow-hidden h-16 bg-blue-500 flex flex-row justify-between flex-wrap'>
-        <HeaderLeftPanel></HeaderLeftPanel>
-        <RightPanel></RightPanel>
+        <HeaderLeftPanel />
+        <HeaderRightPanel />
       </header>
     </>
   );
-}
+});
+
+export default Header;

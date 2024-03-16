@@ -1,18 +1,15 @@
-import { lazy } from 'react';
-import logoIconUrl from '../../assets/logo.png';
-
-const Logo = lazy(() => import('../Image'));
+import Image from '../Image';
 
 export default function HeaderLeftPanel() {
   return (
     <>
       <div className='flex flex-row flex-1 flex-wrap'>
         <span>
-          <Logo
-            src={logoIconUrl}
+          <Image
+            src={'/icons/logo.webp'}
             alt='ForDev'
             className='size-16 p-1 hover:bg-blue-700'
-          ></Logo>
+          ></Image>
         </span>
         <span className=' pt-4 pr-8 pl-8  hover:bg-blue-700 cursor-pointer'>
           Home

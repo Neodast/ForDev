@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { Response } from 'express';
 import TokenPayloadDto from '../../utils/dtos/tokenDtos/tokenPayload.dto';
 import ApiError from '../../utils/exeptions/apiError';
 import ITokenRepository from '../repositories/ITokenRepository';

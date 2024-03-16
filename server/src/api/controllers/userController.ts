@@ -6,7 +6,7 @@ import {
 import UserCreateDto from '../../utils/dtos/userDtos/userCreate.dto';
 import accountService from '../../core/services/userService';
 import UserLoginDto from '../../utils/dtos/authDtos/userLoginInput.dto';
-import IVerify from '../../utils/dtos/authDtos/verify.dto';
+import VerifyIdDto from '../../utils/dtos/authDtos/verifyId.dto';
 import CookieHelper from '../helpers/cookieHelper';
 
 class UserController {
@@ -22,7 +22,7 @@ class UserController {
   async registration(
     req: RequestWithBody<UserCreateDto>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const userData = await accountService.register(req.body);
@@ -34,9 +34,9 @@ class UserController {
   }
 
   async verify(
-    req: RequestWithQuery<IVerify>,
+    req: RequestWithQuery<VerifyIdDto>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       accountService.verify(req.query.id);
@@ -48,7 +48,7 @@ class UserController {
   async login(
     req: RequestWithBody<UserLoginDto>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { email, password } = req.body;

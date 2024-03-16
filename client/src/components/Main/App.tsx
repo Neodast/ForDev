@@ -1,33 +1,40 @@
 import Footer from '../Footer/Footer';
 import LoginForm from '../Forms/LoginForm/LoginForm';
+import RegistrationForm from '../Forms/RegistrationForm/RegistrationForm';
 import Header from '../Header/Header';
-import { Suspense, lazy } from 'react';
+import { Suspense, useMemo } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const RegisterForm = lazy(
-  () => import('../Forms/RegistrationForm/RegistrationForm')
-);
+const router = createBrowserRouter([
+  {
+    path: '/register',
+    element: <RegistrationForm></RegistrationForm>,
+  },
+  {
+    path: '/login',
+    element: <LoginForm></LoginForm>,
+  },
+]);
 
 export default function App() {
   console.log('App render');
 
+  const memoHeader = useMemo(() => <Header></Header>, []);
+  const memoFooter = useMemo(() => <Footer></Footer>, []);
+
   return (
     <div className='flex flex-col min-h-screen'>
-      <Header></Header>
+      {memoHeader}
       <Suspense
         fallback={
-          <div className='flex-1 items-center justify-center mt-16 h-96'></div>
+          <div className='flex-1 items-center justify-center mt-16 h-96'>
+            Loading...
+          </div>
         }
       >
-        <RegisterForm></RegisterForm>
+        <RouterProvider router={router}></RouterProvider>
       </Suspense>
-      <Suspense
-        fallback={
-          <div className='flex-1 items-center justify-center mt-16 h-96'></div>
-        }
-      >
-        <LoginForm></LoginForm>
-      </Suspense>
-      <Footer></Footer>
+      {memoFooter}
     </div>
   );
 }
