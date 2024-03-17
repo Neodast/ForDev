@@ -6,18 +6,18 @@ import TokenPayloadDto from '../../utils/dtos/tokenDtos/tokenPayload.dto';
 import bcrypt from 'bcrypt';
 import LoginOutputDto from '../../utils/dtos/authDtos/loginOutput.dto';
 import ApiError from '../../utils/exeptions/apiError';
-import userPgRepository from '../../db/dbRepositories/postgreSQL/userPgRepository';
+import userPgRepository from '../../db/dbRepositories/postgreSQL/pgUserRepository';
 import UserRegisterDto from '../../utils/dtos/authDtos/userRegisterOutput.dto';
 import IUserRepository from '../repositories/IUserRepository';
-import tokenPgRepository from '../../db/dbRepositories/postgreSQL/tokenPgRepository';
+import tokenPgRepository from '../../db/dbRepositories/postgreSQL/pgTokenRepository';
 import ITokenRepository from '../repositories/ITokenRepository';
-import UserSafeDto from '../../utils/dtos/userDtos/user.dto';
+import UserSafeDto from '../../utils/dtos/userDtos/userSafe.dto';
 import UserMapper from '../mappers/userMappers';
 
 class AccountService {
   constructor(
     readonly userRepository: IUserRepository,
-    readonly tokenRepository: ITokenRepository
+    readonly tokenRepository: ITokenRepository,
   ) {}
 
   async register(user: UserCreateDto): Promise<UserRegisterDto> {
@@ -56,7 +56,7 @@ class AccountService {
 
     const isValidPassword = await bcrypt.compare(
       userData.password,
-      dbUser.password
+      dbUser.password,
     );
 
     if (!isValidPassword) {
@@ -76,9 +76,8 @@ class AccountService {
 
     const userData = tokenService.validateRefreshToken(refreshToken);
 
-    const tokenFromDatabase = await this.tokenRepository.getByRefreshToken(
-      refreshToken
-    );
+    const tokenFromDatabase =
+      await this.tokenRepository.getByRefreshToken(refreshToken);
 
     if (!tokenFromDatabase) {
       throw ApiError.BadRequest('Refresh-token is alredy delete');
@@ -109,7 +108,7 @@ class AccountService {
     await tokenService.deleteToken(refreshToken);
   }
 
-  async getAllUsers(): Promise<Array<UserCreateDto>> {
+  async getAllUsers(): Promise<UserCreateDto[]> {
     const users = await this.userRepository.getAll();
     return users;
   }

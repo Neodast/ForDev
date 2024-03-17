@@ -1,4 +1,4 @@
-import Image from '../Image';
+import Image from '../../Base/Images/Image';
 
 export default function HeaderLeftPanel() {
   return (

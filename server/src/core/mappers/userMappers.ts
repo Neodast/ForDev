@@ -1,4 +1,4 @@
-import UserSafeDto from '../../utils/dtos/userDtos/user.dto';
+import UserSafeDto from '../../utils/dtos/userDtos/userSafe.dto';
 import UserCreateDto from '../../utils/dtos/userDtos/userCreate.dto';
 import UserModel from '../models/userModel';
 
@@ -8,8 +8,8 @@ class UserMapper {
       email: user.email,
       password: user.password,
       name: user.name,
-      surname: user.surname
-    }
+      surname: user.surname,
+    };
   }
 
   public static mapToUserSafeDto(user: UserModel): UserSafeDto {

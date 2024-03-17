@@ -7,9 +7,8 @@ class PgTokenMapper extends TokenMapper {
     return {
       id: token.id,
       refreshToken: token.refreshToken,
-    }
+    };
   }
-
 }
 
 export default PgTokenMapper;

@@ -3,9 +3,9 @@ import ITokenRepository from '../../../core/repositories/ITokenRepository';
 import { Token } from '../../entities/tokenEntity';
 import appDataSource from '../../appDataSourse';
 import TokenModel from '../../../core/models/tokenModel';
-import PgTokenMapper from '../../dbMappers/pgMappers/dbTokenMappers';
+import PgTokenMapper from '../../dbMappers/postgreSQL/pgTokenMappers';
 
-class TokenPgRepository implements ITokenRepository {
+class PgTokenRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;
 
   constructor() {
@@ -14,7 +14,7 @@ class TokenPgRepository implements ITokenRepository {
 
   async createRefreshToken(
     userId: string,
-    refreshToken: string
+    refreshToken: string,
   ): Promise<TokenModel> {
     const token = await this.tokenRepository.findOneBy({
       user: { id: userId },
@@ -30,16 +30,16 @@ class TokenPgRepository implements ITokenRepository {
     });
 
     return PgTokenMapper.mapToTokenModel(
-      await this.tokenRepository.save(newToken)
+      await this.tokenRepository.save(newToken),
     );
   }
   async updateRefreshToken(
     refreshToken: TokenModel,
-    newRefresh: string
+    newRefresh: string,
   ): Promise<TokenModel> {
     refreshToken.refreshToken = newRefresh;
     return PgTokenMapper.mapToTokenModel(
-      await this.tokenRepository.save(refreshToken)
+      await this.tokenRepository.save(refreshToken),
     );
   }
 
@@ -63,8 +63,8 @@ class TokenPgRepository implements ITokenRepository {
     if (!token) {
       throw new Error('Token is not found');
     }
-    return  PgTokenMapper.mapToTokenModel(token);
+    return PgTokenMapper.mapToTokenModel(token);
   }
 }
 
-export default new TokenPgRepository();
+export default new PgTokenRepository();

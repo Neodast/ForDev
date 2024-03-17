@@ -1,6 +1,10 @@
-import InputField from '../InputField';
-import Button from '../Button';
-import { useLoginFormStore, login, getAllUser } from '../../../store/LoginFormStore';
+import InputField from '../../Base/Inputs/InputField';
+import Button from '../../Base/Buttons/Button';
+import {
+  useLoginFormStore,
+  login,
+  getAllUser,
+} from '../../../store/LoginFormStore';
 
 export default function LoginForm() {
   const { email, password, updateEmail, updatePassword } = useLoginFormStore();

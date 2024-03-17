@@ -1,5 +1,5 @@
-import InputField from '../InputField';
-import Button from '../Button';
+import InputField from '../../Base/Inputs/InputField';
+import Button from '../../Base/Buttons/Button';
 import { useRegistrationFormStore } from '../../../store/RegistrationFormStore';
 import axios from 'axios';
 
@@ -74,12 +74,16 @@ export default function RegistrationForm() {
             e.preventDefault();
             async function register() {
               try {
-                const res = await axios.post('http://localhost:3000/auth/registration', {
-                  email: email,
-                  password: firstPassword,
-                  name: name,
-                  surname: surname,
-                }, { withCredentials: true});
+                const res = await axios.post(
+                  'http://localhost:3000/auth/registration',
+                  {
+                    email: email,
+                    password: firstPassword,
+                    name: name,
+                    surname: surname,
+                  },
+                  { withCredentials: true }
+                );
                 console.log(res);
               } catch (e) {
                 console.log(e);

@@ -1,5 +1,5 @@
 import TokensOutputDto from '../tokenDtos/tokensOutput.dto';
-import UserSafeDto from '../userDtos/user.dto';
+import UserSafeDto from '../userDtos/userSafe.dto';
 
 interface LoginOutputDto {
   user: UserSafeDto;

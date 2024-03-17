@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import TokenPayloadDto from '../../utils/dtos/tokenDtos/tokenPayload.dto';
 import ApiError from '../../utils/exeptions/apiError';
 import ITokenRepository from '../repositories/ITokenRepository';
-import tokenPgRepository from '../../db/dbRepositories/postgreSQL/tokenPgRepository';
+import tokenPgRepository from '../../db/dbRepositories/postgreSQL/pgTokenRepository';
 import TokensOutputDto from '../../utils/dtos/tokenDtos/tokensOutput.dto';
 import UserModel from '../models/userModel';
 
@@ -15,14 +15,14 @@ class TokenService {
       String(process.env.JWT_ACCESS_SECRET),
       {
         expiresIn: '30s',
-      }
+      },
     );
     const refreshToken = jwt.sign(
       payload,
       String(process.env.JWT_REFRESH_SECRET),
       {
         expiresIn: '30d',
-      }
+      },
     );
     return {
       accessToken,

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import Image from '../Image';
+import Image from '../../Base/Images/Image';
 
 const Footer = memo(() => {
   return (

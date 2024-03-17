@@ -2,10 +2,13 @@ import {
   Column,
   Entity,
   OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Token } from './tokenEntity';
 import Role from '../../utils/enums/roles.enum';
+import { Post } from './postEntity';
+import { Comment } from './commentEntity';
 
 @Entity()
 export class User {
@@ -36,4 +39,10 @@ export class User {
 
   @OneToOne(() => Token, (token) => token.user)
   token: Token;
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[];
 }
