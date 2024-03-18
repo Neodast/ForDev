@@ -3,7 +3,7 @@ import { Comment } from '../../entities/commentEntity';
 import appDataSource from '../../appDataSourse';
 import CommentModel from '../../../core/models/commentModel';
 import ICommentRepository from '../../../core/repositories/ICommentRepository';
-import PgCommentMapper from '../../dbMappers/postgreSQL/pgCommentMapper';
+import PgCommentMapper from '../../dbMappers/postgre/pgCommentMapper';
 import ApiError from '../../../utils/exeptions/apiError';
 import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
 
@@ -43,25 +43,32 @@ class PgCommentRepository implements ICommentRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<CommentModel[]> {
-    return this.findComments({author});
+    return this.findComments({ author });
   }
 
   public async getAll(): Promise<CommentModel[]> {
-      return this.findComments();
+    return this.findComments();
   }
 
   public async createComment(commentData: CommentModel): Promise<CommentModel> {
-    if(!commentData) {
+    if (!commentData) {
       throw ApiError.BadRequest('Comment is undefined!');
     }
     const comment = this.commentRepository.create(commentData);
-    return PgCommentMapper.mapToCommentModel( await this.commentRepository.save(comment));
+    return PgCommentMapper.mapToCommentModel(
+      await this.commentRepository.save(comment),
+    );
   }
 
-  public async updateComment(id: number, newCommentData: CommentModel): Promise<CommentModel> {
+  public async updateComment(
+    id: number,
+    newCommentData: CommentModel,
+  ): Promise<CommentModel> {
     const comment = await this.getById(id);
     Object.assign(comment, newCommentData);
-    return PgCommentMapper.mapToCommentModel(await this.commentRepository.save(comment));
+    return PgCommentMapper.mapToCommentModel(
+      await this.commentRepository.save(comment),
+    );
   }
 
   public async deleteComment(comment: CommentModel): Promise<void> {

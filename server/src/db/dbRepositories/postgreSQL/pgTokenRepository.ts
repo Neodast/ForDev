@@ -3,7 +3,7 @@ import ITokenRepository from '../../../core/repositories/ITokenRepository';
 import { Token } from '../../entities/tokenEntity';
 import appDataSource from '../../appDataSourse';
 import TokenModel from '../../../core/models/tokenModel';
-import PgTokenMapper from '../../dbMappers/postgreSQL/pgTokenMappers';
+import PgTokenMapper from '../../dbMappers/postgre/pgTokenMappers';
 
 class PgTokenRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;

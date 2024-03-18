@@ -5,7 +5,7 @@ import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
 import IUserRepository from '../../../core/repositories/IUserRepository';
 import UserCreateDto from '../../../utils/dtos/userDtos/userCreate.dto';
 import UserModel from '../../../core/models/userModel';
-import PgUserMapper from '../../dbMappers/postgreSQL/pgUserMappers';
+import PgUserMapper from '../../dbMappers/postgre/pgUserMappers';
 
 class PgUserRepository implements IUserRepository {
   private readonly userRepository: Repository<User>;
@@ -62,7 +62,10 @@ class PgUserRepository implements IUserRepository {
     await this.userRepository.delete(dbUser);
   }
 
-  public async updateUser(id: string, newUserData: UserModel): Promise<UserSafeDto> {
+  public async updateUser(
+    id: string,
+    newUserData: UserModel,
+  ): Promise<UserSafeDto> {
     const user = await this.getById(id);
     Object.assign(user, newUserData);
     return PgUserMapper.mapToUserModel(await this.userRepository.save(user));

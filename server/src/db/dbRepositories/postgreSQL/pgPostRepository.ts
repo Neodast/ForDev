@@ -3,7 +3,7 @@ import { Post } from '../../entities/postEntity';
 import appDataSource from '../../appDataSourse';
 import PostModel from '../../../core/models/postModel';
 import IPostRepository from '../../../core/repositories/IPostRepository';
-import PgPostMapper from '../../dbMappers/postgreSQL/pgPostMapper';
+import PgPostMapper from '../../dbMappers/postgre/pgPostMapper';
 import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
 
@@ -17,7 +17,7 @@ class PgPostRepository implements IPostRepository {
   private async findPost(
     criteria: Record<string, unknown>,
   ): Promise<PostModel> {
-    const dbPost = await this.postRepository.findOneBy(criteria);
+    const dbPost = await this.postRepository.findOne({where: criteria, relations: ['author', 'comments'] });
     if (!dbPost) {
       throw new Error('Post is not found!');
     }
@@ -28,7 +28,7 @@ class PgPostRepository implements IPostRepository {
   private async findPosts(
     criteria?: Record<string, unknown>,
   ): Promise<PostModel[]> {
-    const dbPosts = await this.postRepository.find(criteria);
+    const dbPosts = await this.postRepository.find({where: criteria, relations: ['author', 'comments'] });
     if (!dbPosts.length) {
       throw new Error('Posts are not found!');
     }
@@ -46,6 +46,7 @@ class PgPostRepository implements IPostRepository {
 
   public async getAll(): Promise<PostModel[]> {
     return this.findPosts();
+    // return this.postRepository.find();
   }
 
   public async createPost(postData: PostModel): Promise<PostModel> {

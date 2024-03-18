@@ -14,7 +14,7 @@ import ITokenRepository from '../repositories/ITokenRepository';
 import UserSafeDto from '../../utils/dtos/userDtos/userSafe.dto';
 import UserMapper from '../mappers/userMappers';
 
-class AccountService {
+class UserService {
   constructor(
     readonly userRepository: IUserRepository,
     readonly tokenRepository: ITokenRepository,
@@ -109,9 +109,8 @@ class AccountService {
   }
 
   async getAllUsers(): Promise<UserCreateDto[]> {
-    const users = await this.userRepository.getAll();
-    return users;
+    return this.userRepository.getAll();
   }
 }
 
-export default new AccountService(userPgRepository, tokenPgRepository);
+export default new UserService(userPgRepository, tokenPgRepository);
