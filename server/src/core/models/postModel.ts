@@ -1,13 +1,8 @@
-import UserSafeDto from '../../utils/dtos/userDtos/userSafe.dto';
-import CommentModel from './commentModel';
+import IPost from './interfaces/IPost';
 
-interface PostModel {
-  id: number;
-  author: UserSafeDto;
-  title: string;
+interface PostModel extends IPost {
+  // image?: ImageBitmap;
   text: string;
-  likes: number;
-  comments: CommentModel[];
 }
 
 export default PostModel;

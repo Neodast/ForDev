@@ -1,9 +1,9 @@
-import { ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 interface LayoutProps {
-  children: ReactNode;
+  children: JSX.Element;
 }
 
 export default function Layout({ children }: LayoutProps) {

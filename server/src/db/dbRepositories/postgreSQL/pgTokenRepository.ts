@@ -44,7 +44,11 @@ class PgTokenRepository implements ITokenRepository {
   }
 
   async deleteRefreshToken(tokenId: number): Promise<void> {
-    await this.tokenRepository.delete(tokenId);
+    const token = await this.tokenRepository.findOneBy({id: tokenId});
+    if(!token) {
+      throw new Error('Token is not found!')
+    }
+    await this.tokenRepository.remove(token);
   }
 
   async getByUserId(userId: string): Promise<TokenModel> {

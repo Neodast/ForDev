@@ -16,28 +16,34 @@ class PgUserRepository implements IUserRepository {
 
   private async findUser(
     criteria: Record<string, unknown>,
-  ): Promise<UserModel> {
+  ): Promise<User> {
     const dbUser = await this.userRepository.findOneBy(criteria);
     if (!dbUser) {
       throw new Error('User is not found');
     }
-    const user: UserModel = PgUserMapper.mapToUserModel(dbUser);
-    return user;
+    return dbUser;
+  }
+
+  private async findUsers(
+    criteria?: Record<string, unknown>,
+  ): Promise<User[]> {
+    const dbUsers = await this.userRepository.find(criteria);
+    if(!dbUsers.length){
+      throw new Error('Users are not found');
+    }
+    return dbUsers;
   }
 
   public async getById(id: string): Promise<UserModel> {
-    return this.findUser({ id });
+    return PgUserMapper.mapToUserModel( await this.findUser({ id }));
   }
 
   public async getByEmail(email: string): Promise<UserModel> {
-    return this.findUser({ email });
+    return PgUserMapper.mapToUserModel( await this.findUser({ email }));
   }
 
   public async getAll(): Promise<UserCreateDto[]> {
-    const dbUsers = await this.userRepository.find();
-    if (!dbUsers.length) {
-      throw new Error('Users are not found');
-    }
+    const dbUsers = await this.findUsers();
     const users = dbUsers.map((dbUser) =>
       PgUserMapper.mapToUserCreateDto(dbUser),
     );
@@ -58,8 +64,8 @@ class PgUserRepository implements IUserRepository {
   }
 
   public async deleteUser(user: UserCreateDto): Promise<void> {
-    const dbUser = await this.getByEmail(user.email);
-    await this.userRepository.delete(dbUser);
+    const dbUser = await this.findUser({user});
+    await this.userRepository.remove(dbUser);
   }
 
   public async updateUser(

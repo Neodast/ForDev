@@ -10,7 +10,6 @@ class PgCommentMapper extends CommentMaper {
       author: PgUserMapper.mapToUserModel(comment.author),
       likes: comment.likes,
       text: comment.text,
-      post: comment.post,
     };
   }
 }

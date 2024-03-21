@@ -3,7 +3,6 @@ import userController from '../controllers/userController';
 import { accountLoginValidation } from '../validators/login.validator';
 import { accountRegisterValidation } from '../validators/register.validator';
 import { authMiddleware } from '../middlewares/auth.middleware';
-import postController from '../controllers/postController';
 
 const userRouter: Router = express.Router();
 
@@ -16,6 +15,5 @@ userRouter.post(
 userRouter.get('/users', authMiddleware, userController.getAllUsers);
 userRouter.post('/login', accountLoginValidation, userController.login);
 userRouter.get('/refresh', userController.refresh);
-userRouter.get('/posts', postController.getAllUsers);
 
 export default userRouter;

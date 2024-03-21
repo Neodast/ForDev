@@ -16,38 +16,38 @@ class PgCommentRepository implements ICommentRepository {
 
   private async findComment(
     criteria: Record<string, unknown>,
-  ): Promise<CommentModel> {
-    const dbComment = await this.commentRepository.findOneBy(criteria);
+  ): Promise<Comment> {
+    const dbComment = await this.commentRepository.findOne({where: criteria, relations: ['author'] });
     if (!dbComment) {
       throw new Error('Comment is not found!');
     }
-    const comment: CommentModel = PgCommentMapper.mapToCommentModel(dbComment);
-    return comment;
+    return dbComment;
   }
 
   private async findComments(
     criteria?: Record<string, unknown>,
-  ): Promise<CommentModel[]> {
-    const dbComments = await this.commentRepository.find(criteria);
+  ): Promise<Comment[]> {
+    const dbComments = await this.commentRepository.find({where: criteria, relations: ['author'] });
     if (!dbComments.length) {
       throw new Error('Comments are not found!');
     }
-    const comments = dbComments.map((dbPost) =>
-      PgCommentMapper.mapToCommentModel(dbPost),
-    );
-    return comments;
+    return dbComments;
   }
 
   public async getById(id: number): Promise<CommentModel> {
-    return this.findComment({ id });
+    return PgCommentMapper.mapToCommentModel( await this.findComment({ id }));
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<CommentModel[]> {
-    return this.findComments({ author });
+    return (await this.findComments({author})).map((dbPost) =>
+    PgCommentMapper.mapToCommentModel(dbPost),
+  );
   }
 
   public async getAll(): Promise<CommentModel[]> {
-    return this.findComments();
+    return (await this.findComments()).map((dbPost) =>
+    PgCommentMapper.mapToCommentModel(dbPost),
+  );
   }
 
   public async createComment(commentData: CommentModel): Promise<CommentModel> {
@@ -72,8 +72,8 @@ class PgCommentRepository implements ICommentRepository {
   }
 
   public async deleteComment(comment: CommentModel): Promise<void> {
-    const dbComment = await this.getById(comment.id);
-    await this.commentRepository.delete(dbComment);
+    const dbComment = await this.findComment({comment});
+    await this.commentRepository.remove(dbComment);
   }
 }
 

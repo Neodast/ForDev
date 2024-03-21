@@ -14,30 +14,30 @@ class PgPostRepository implements IPostRepository {
     this.postRepository = appDataSource.getRepository(Post);
   }
 
-  private async findPost(
-    criteria: Record<string, unknown>,
-  ): Promise<PostModel> {
-    const dbPost = await this.postRepository.findOne({where: criteria, relations: ['author', 'comments'] });
+  private async findPost(criteria: Record<string, unknown>): Promise<Post> {
+    const dbPost = await this.postRepository.findOne({
+      where: criteria,
+      relations: ['author', 'comments', 'comments.author'],
+    });
     if (!dbPost) {
       throw new Error('Post is not found!');
     }
-    const post: PostModel = PgPostMapper.mapToPostModel(dbPost);
-    return post;
+    return dbPost;
   }
 
-  private async findPosts(
-    criteria?: Record<string, unknown>,
-  ): Promise<PostModel[]> {
-    const dbPosts = await this.postRepository.find({where: criteria, relations: ['author', 'comments'] });
+  private async findPosts(criteria?: Record<string, unknown>): Promise<Post[]> {
+    const dbPosts = await this.postRepository.find({
+      where: criteria,
+      relations: ['author', 'comments', 'comments.author'],
+    });
     if (!dbPosts.length) {
       throw new Error('Posts are not found!');
     }
-    const posts = dbPosts.map((dbPost) => PgPostMapper.mapToPostModel(dbPost));
-    return posts;
+    return dbPosts;
   }
 
   public async getById(id: number): Promise<PostModel> {
-    return this.findPost({ id });
+    return PgPostMapper.mapToPostModel(await this.findPost({ id }));
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<PostModel[]> {
@@ -45,8 +45,9 @@ class PgPostRepository implements IPostRepository {
   }
 
   public async getAll(): Promise<PostModel[]> {
-    return this.findPosts();
-    // return this.postRepository.find();
+    return (await this.findPosts()).map((dbPost) =>
+      PgPostMapper.mapToPostModel(dbPost),
+    );
   }
 
   public async createPost(postData: PostModel): Promise<PostModel> {
@@ -67,8 +68,8 @@ class PgPostRepository implements IPostRepository {
   }
 
   public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.getById(post.id);
-    await this.postRepository.delete(dbPost);
+    const dbPost = await this.findPost({post});
+    await this.postRepository.remove(dbPost);
   }
 }
 
