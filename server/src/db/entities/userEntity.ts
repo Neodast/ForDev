@@ -9,6 +9,8 @@ import { Token } from './tokenEntity';
 import Role from '../../utils/enums/roles.enum';
 import { Post } from './postEntity';
 import { Comment } from './commentEntity';
+import { Thread } from './threadEntity';
+import { Quiz } from './quizEntity';
 
 @Entity()
 export class User {
@@ -42,6 +44,12 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
+
+  @OneToMany(() => Thread, (thread) => thread.author)
+  threads: Thread[];
+
+  @OneToMany(() => Quiz, (quiz) => quiz.author)
+  quizzes: Quiz[];
 
   @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];

@@ -9,26 +9,32 @@ import { Comment } from './commentEntity';
 import { User } from './userEntity';
 
 @Entity()
-export class Post {
+export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
     type: "varchar",
-    length: 255,
+    length: 150,
     unique: true,
   })
   title: string;
 
   @Column()
-  text: string;
+  question: string;
+
+  @Column("text",{ array: true })
+  answers: string[];
+
+  @Column()
+  rightAnswer: string;
 
   @Column()
   likes: number;
 
-  @OneToMany(() => Comment, (comment) => comment.post)
+  @OneToMany(() => Comment, (comment) => comment.quiz)
   comments: Comment[];
 
-  @ManyToOne(() => User, (user) => user.posts, { nullable: false })
+  @ManyToOne(() => User, (user) => user.quizzes, { nullable: false })
   author: User;
 }

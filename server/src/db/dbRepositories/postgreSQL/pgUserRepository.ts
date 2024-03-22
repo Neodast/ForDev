@@ -72,9 +72,9 @@ class PgUserRepository implements IUserRepository {
     id: string,
     newUserData: UserModel,
   ): Promise<UserSafeDto> {
-    const user = await this.getById(id);
-    Object.assign(user, newUserData);
-    return PgUserMapper.mapToUserModel(await this.userRepository.save(user));
+    const dbUser = await this.getById(id);
+    Object.assign(dbUser, newUserData);
+    return PgUserMapper.mapToUserModel(await this.userRepository.save(dbUser));
   }
 }
 

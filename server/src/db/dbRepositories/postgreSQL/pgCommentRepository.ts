@@ -64,11 +64,9 @@ class PgCommentRepository implements ICommentRepository {
     id: number,
     newCommentData: CommentModel,
   ): Promise<CommentModel> {
-    const comment = await this.getById(id);
-    Object.assign(comment, newCommentData);
-    return PgCommentMapper.mapToCommentModel(
-      await this.commentRepository.save(comment),
-    );
+    const dbComment = await this.getById(id);
+    Object.assign(dbComment,newCommentData);
+    return PgCommentMapper.mapToCommentModel(await this.commentRepository.save(dbComment));
   }
 
   public async deleteComment(comment: CommentModel): Promise<void> {

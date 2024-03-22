@@ -1,5 +1,6 @@
+import IPost from './interfaces/IPost';
 
-interface ThreadModel {
+interface ThreadModel extends IPost {
   text: string;
 }
 

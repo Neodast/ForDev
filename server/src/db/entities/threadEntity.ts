@@ -9,13 +9,13 @@ import { Comment } from './commentEntity';
 import { User } from './userEntity';
 
 @Entity()
-export class Post {
+export class Thread {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
     type: "varchar",
-    length: 255,
+    length: 150,
     unique: true,
   })
   title: string;

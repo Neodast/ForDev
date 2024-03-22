@@ -62,13 +62,13 @@ class PgPostRepository implements IPostRepository {
     id: number,
     newPostData: PostModel,
   ): Promise<PostModel> {
-    const post = await this.getById(id);
-    Object.assign(post, newPostData);
-    return PgPostMapper.mapToPostModel(await this.postRepository.save(post));
+    const dbPost = await this.getById(id);
+    Object.assign(dbPost, newPostData);
+    return PgPostMapper.mapToPostModel(await this.postRepository.save(dbPost));
   }
 
   public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.findPost({post});
+    const dbPost = await this.findPost({ post });
     await this.postRepository.remove(dbPost);
   }
 }
