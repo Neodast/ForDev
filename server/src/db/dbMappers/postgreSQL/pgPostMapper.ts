@@ -15,6 +15,7 @@ class PgPostMapper extends PostMapper {
       comments: post.comments.map((comment) =>
         PgCommentMapper.mapToCommentModel(comment),
       ),
+      section: post.section,
     };
   }
 }

@@ -3,9 +3,10 @@ import QuizModel from './quizModel';
 import ThreadModel from './threadModel';
 
 interface SectionModel {
+  id: number;
   title: string;
   posts: PostModel[];
-  quizes: QuizModel[];
+  quizzes: QuizModel[];
   threads: ThreadModel[];
 }
 

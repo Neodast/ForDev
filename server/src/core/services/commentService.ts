@@ -6,11 +6,11 @@ class CommentService {
   constructor(readonly commentRepository: ICommentRepository) {}
 
   public async createComment(commentData: CommentModel): Promise<CommentModel> {
-    return pgCommentRepository.createComment(commentData);
+    return this.commentRepository.createComment(commentData);
   }
 
   public async deleteComment(comment: CommentModel): Promise<void> {
-    return pgCommentRepository.deleteComment(comment);
+    return this.commentRepository.deleteComment(comment);
   }
 
   public async getAllComments(): Promise<CommentModel[]> {

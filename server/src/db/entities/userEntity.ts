@@ -42,15 +42,27 @@ export class User {
   @OneToOne(() => Token, (token) => token.user)
   token: Token;
 
-  @OneToMany(() => Post, (post) => post.author)
+  @OneToMany(() => Post, (post) => post.author, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   posts: Post[];
 
-  @OneToMany(() => Thread, (thread) => thread.author)
+  @OneToMany(() => Thread, (thread) => thread.author, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   threads: Thread[];
 
-  @OneToMany(() => Quiz, (quiz) => quiz.author)
+  @OneToMany(() => Quiz, (quiz) => quiz.author, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   quizzes: Quiz[];
 
-  @OneToMany(() => Comment, (comment) => comment.author)
+  @OneToMany(() => Comment, (comment) => comment.author, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   comments: Comment[];
 }

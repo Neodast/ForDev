@@ -15,6 +15,7 @@ class PgThreadMapper extends ThreadMapper {
       comments: thread.comments.map((comment) =>
         PgCommentMapper.mapToCommentModel(comment),
       ),
+      section: thread.section,
     };
   }
 }

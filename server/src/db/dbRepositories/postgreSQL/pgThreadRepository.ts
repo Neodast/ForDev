@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import IThreadRepository from '../../../core/repositories/IThreadRepository';
 import { Thread } from '../../entities/threadEntity';
 import appDataSource from '../../appDataSourse';
-import PgThreadMapper from '../../dbMappers/postgre/pgThreadMapper';
+import PgThreadMapper from '../../dbMappers/postgreSQL/pgThreadMapper';
 import ThreadModel from '../../../core/models/threadModel';
 import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
@@ -25,7 +25,9 @@ class PgThreadRepository implements IThreadRepository {
     return dbThread;
   }
 
-  private async findThreads(criteria?: Record<string, unknown>): Promise<Thread[]> {
+  private async findThreads(
+    criteria?: Record<string, unknown>,
+  ): Promise<Thread[]> {
     const dbThreads = await this.threadRepository.find({
       where: criteria,
       relations: ['author', 'comments', 'comments.author'],
@@ -55,7 +57,9 @@ class PgThreadRepository implements IThreadRepository {
       throw ApiError.BadRequest('Thread is undefined!');
     }
     const Thread = this.threadRepository.create(ThreadData);
-    return PgThreadMapper.mapToThreadModel(await this.threadRepository.save(Thread));
+    return PgThreadMapper.mapToThreadModel(
+      await this.threadRepository.save(Thread),
+    );
   }
 
   public async updateThread(
@@ -64,11 +68,13 @@ class PgThreadRepository implements IThreadRepository {
   ): Promise<ThreadModel> {
     const dbThread = await this.getById(id);
     Object.assign(dbThread, newThreadData);
-    return PgThreadMapper.mapToThreadModel(await this.threadRepository.save(dbThread));
+    return PgThreadMapper.mapToThreadModel(
+      await this.threadRepository.save(dbThread),
+    );
   }
 
   public async deleteThread(Thread: ThreadModel): Promise<void> {
-    const dbThread = await this.findThread({Thread});
+    const dbThread = await this.findThread({ Thread });
     await this.threadRepository.remove(dbThread);
   }
 }

@@ -17,6 +17,7 @@ class PgQuizMapper extends QuizMapper {
       comments: quiz.comments.map((comment) =>
         PgCommentMapper.mapToCommentModel(comment),
       ),
+      section: quiz.section,
     };
   }
 }

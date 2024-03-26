@@ -3,7 +3,7 @@ import { Post } from '../../entities/postEntity';
 import appDataSource from '../../appDataSourse';
 import PostModel from '../../../core/models/postModel';
 import IPostRepository from '../../../core/repositories/IPostRepository';
-import PgPostMapper from '../../dbMappers/postgre/pgPostMapper';
+import PgPostMapper from '../../dbMappers/postgreSQL/pgPostMapper';
 import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
 

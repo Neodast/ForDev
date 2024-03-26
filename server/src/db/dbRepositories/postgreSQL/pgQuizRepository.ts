@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Quiz } from '../../entities/quizEntity';
 import appDataSource from '../../appDataSourse';
-import QuizMapper from '../../dbMappers/postgre/pgQuizMapper';
+import QuizMapper from '../../dbMappers/postgreSQL/pgQuizMapper';
 import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
 import QuizModel from '../../../core/models/quizModel';
@@ -25,7 +25,9 @@ class PgQuizRepository implements IQuizRepository {
     return dbQuiz;
   }
 
-  private async findQuizzes(criteria?: Record<string, unknown>): Promise<Quiz[]> {
+  private async findQuizzes(
+    criteria?: Record<string, unknown>,
+  ): Promise<Quiz[]> {
     const dbQuizzes = await this.quizRepository.find({
       where: criteria,
       relations: ['author', 'comments', 'comments.author'],

@@ -1,7 +1,7 @@
 import IPost from './interfaces/IPost';
 
 interface PostModel extends IPost {
-  // image?: ImageBitmap;
+  // image?;
   text: string;
 }
 

@@ -7,23 +7,24 @@ import {
 } from 'typeorm';
 import { Comment } from './commentEntity';
 import { User } from './userEntity';
+import { Section } from './sectionEntity';
 
 @Entity()
 export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    type: "varchar",
-    length: 150,
-    unique: true,
-  })
+  @Column()
   title: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 100,
+    unique: true,
+  })
   question: string;
 
-  @Column("text",{ array: true })
+  @Column('text', { array: true })
   answers: string[];
 
   @Column()
@@ -32,9 +33,15 @@ export class Quiz {
   @Column()
   likes: number;
 
-  @OneToMany(() => Comment, (comment) => comment.quiz)
+  @OneToMany(() => Comment, (comment) => comment.quiz, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   comments: Comment[];
 
   @ManyToOne(() => User, (user) => user.quizzes, { nullable: false })
   author: User;
+
+  @ManyToOne(() => Section, (section) => section.posts, { nullable: false })
+  section: Section;
 }
