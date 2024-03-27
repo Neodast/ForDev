@@ -9,6 +9,7 @@ class UserMapper {
       password: user.password,
       name: user.name,
       surname: user.surname,
+      nickname: user.nickname,
     };
   }
 
@@ -18,6 +19,7 @@ class UserMapper {
       email: user.email,
       name: user.name,
       surname: user.surname,
+      nickname: user.nickname,
       isVerified: user.isVerified,
       role: user.role,
     };

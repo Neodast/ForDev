@@ -5,6 +5,7 @@ interface UserModel {
   email: string;
   name: string;
   surname: string;
+  nickname: string;
   password: string;
   role: Role;
   isVerified: boolean;

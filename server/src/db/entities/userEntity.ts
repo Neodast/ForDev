@@ -29,6 +29,9 @@ export class User {
   @Column()
   surname: string;
 
+  @Column()
+  nickname: string;
+
   @Column({ default: false })
   isVerified: boolean;
 

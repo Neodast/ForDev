@@ -6,18 +6,27 @@ import axios from 'axios';
 export default function RegistrationForm() {
   const name = useRegistrationFormStore((state) => state.name);
   const updateName = useRegistrationFormStore((state) => state.updateName);
+
   const surname = useRegistrationFormStore((state) => state.surname);
   const updateSurname = useRegistrationFormStore(
     (state) => state.updateSurname
   );
+
   const email = useRegistrationFormStore((state) => state.email);
   const updateEmail = useRegistrationFormStore((state) => state.updateEmail);
+
+  const nickname = useRegistrationFormStore((state) => state.nickname);
+  const updateNickname = useRegistrationFormStore(
+    (state) => state.updateNickname
+  );
+
   const firstPassword = useRegistrationFormStore(
     (state) => state.firstPassword
   );
   const updateFirstPass = useRegistrationFormStore(
     (state) => state.updateFirstPassword
   );
+
   const secondPassword = useRegistrationFormStore(
     (state) => state.secondPassword
   );
@@ -44,6 +53,14 @@ export default function RegistrationForm() {
           onChange={(e) => updateSurname(e.currentTarget.value)}
         />
         <span>{surname}</span>
+        <InputField
+          label='Nickname'
+          type='text'
+          placeholder='user123'
+          value={nickname}
+          onChange={(e) => updateNickname(e.currentTarget.value)}
+        />
+        <span>{nickname}</span>
         <InputField
           label='Email'
           type='email'
@@ -80,6 +97,7 @@ export default function RegistrationForm() {
                     email: email,
                     password: firstPassword,
                     name: name,
+                    nickname: nickname,
                     surname: surname,
                   },
                   { withCredentials: true }

@@ -28,6 +28,7 @@ class UserService {
       password: hashedPassword,
       name: user.name,
       surname: user.surname,
+      nickname: user.nickname,
     });
 
     const tokenPayload: TokenPayloadDto = {

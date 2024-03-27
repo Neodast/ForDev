@@ -8,11 +8,13 @@ export const useRegistrationFormStore = create<
   name: '',
   surname: '',
   email: '',
+  nickname: '',
   firstPassword: '',
   secondPassword: '',
   updateName: (name) => set(() => ({ name: name })),
   updateSurname: (surname) => set(() => ({ surname: surname })),
   updateEmail: (email) => set(() => ({ email: email })),
+  updateNickname: (nickname) => set(() => ({nickname: nickname})),
   updateFirstPassword: (firstPassword) =>
     set(() => ({ firstPassword: firstPassword })),
   updateSecondPassword: (secondPassword) =>

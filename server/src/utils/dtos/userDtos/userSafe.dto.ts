@@ -5,6 +5,7 @@ interface UserSafeDto {
   email: string;
   name: string;
   surname: string;
+  nickname: string;
   role: Role;
   isVerified: boolean;
 }

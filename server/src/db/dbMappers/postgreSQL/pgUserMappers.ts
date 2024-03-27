@@ -10,6 +10,7 @@ class PgUserMapper extends UserMapper {
       password: user.password,
       name: user.name,
       surname: user.surname,
+      nickname: user.nickname,
       isVerified: user.isVerified,
       role: user.role,
     };

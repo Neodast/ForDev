@@ -5,14 +5,15 @@ import PgPostMapper from './pgPostMapper';
 import PgQuizMapper from './pgQuizMapper';
 import PgThreadMapper from './pgThreadMapper';
 
+
 class PgSectionMapper extends SectionMapper {
   public static mapToSectionModel(section: Section): SectionModel {
     return {
       id: section.id,
       title: section.title,
-      posts: section.posts.map((post) => PgPostMapper.mapToPostModel(post)),
-      quizzes: section.quizzes.map((quiz) => PgQuizMapper.mapToQuizModel(quiz)),
-      threads: section.threads.map((thread) => PgThreadMapper.mapToThreadModel(thread)),
+      posts: section.posts ? section.posts.map((post) => PgPostMapper.mapToPostModel(post)) : [],
+      quizzes: section.quizzes ? section.quizzes.map((quiz) => PgQuizMapper.mapToQuizModel(quiz)) : [],
+      threads: section.threads ? section.threads.map((thread) => PgThreadMapper.mapToThreadModel(thread)) : [],
     };
   }
 }

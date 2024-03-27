@@ -43,7 +43,9 @@ class PgQuizRepository implements IQuizRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<QuizModel[]> {
-    return this.findQuizzes({ author });
+    return (await this.findQuizzes({author})).map((dbQuiz) =>
+    QuizMapper.mapToQuizModel(dbQuiz),
+  );
   }
 
   public async getAll(): Promise<QuizModel[]> {

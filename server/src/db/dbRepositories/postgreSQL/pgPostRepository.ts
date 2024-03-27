@@ -41,7 +41,9 @@ class PgPostRepository implements IPostRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<PostModel[]> {
-    return this.findPosts({ author });
+    return (await this.findPosts({author})).map((dbPost) =>
+    PgPostMapper.mapToPostModel(dbPost),
+  );
   }
 
   public async getAll(): Promise<PostModel[]> {

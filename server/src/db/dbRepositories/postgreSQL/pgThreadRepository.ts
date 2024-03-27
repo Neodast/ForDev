@@ -43,7 +43,9 @@ class PgThreadRepository implements IThreadRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<ThreadModel[]> {
-    return this.findThreads({ author });
+    return (await this.findThreads({author})).map((dbThread) =>
+    PgThreadMapper.mapToThreadModel(dbThread),
+  );
   }
 
   public async getAll(): Promise<ThreadModel[]> {

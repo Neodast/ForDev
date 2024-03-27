@@ -5,10 +5,11 @@ import { Quiz } from './quizEntity';
 
 @Entity()
 export class Section {
+
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false})
   title: string;
 
   @OneToMany(() => Thread, (thread) => thread.section, {
@@ -28,4 +29,5 @@ export class Section {
     cascade: true,
   })
   quizzes: Quiz[];
+
 }

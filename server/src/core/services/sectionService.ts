@@ -12,7 +12,6 @@ class SectionService {
   public async deleteSection(title: string): Promise<void> {
     const dbSection = await this.sectionRepository.getByTitle(title);
     return this.sectionRepository.deleteSection(dbSection);
-
   }
 
   public async getAllSections(): Promise<SectionModel[]> {

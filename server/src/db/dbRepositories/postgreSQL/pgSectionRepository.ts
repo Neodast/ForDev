@@ -18,7 +18,17 @@ class PgSectionRepository implements ISectionRepository {
   ): Promise<Section> {
     const dbsection = await this.sectionRepository.findOne({
       where: criteria,
-      relations: ['posts', 'quizzes', 'threads'],
+      relations: [
+        'posts',
+        'quizzes',
+        'threads',
+        'posts.author',
+        'quizzes.author',
+        'threads.author',
+        'posts.comments',
+        'quizzes.comments',
+        'threads.comments',
+      ],
     });
     if (!dbsection) {
       throw new Error('section is not found!');
@@ -31,7 +41,17 @@ class PgSectionRepository implements ISectionRepository {
   ): Promise<Section[]> {
     const dbsections = await this.sectionRepository.find({
       where: criteria,
-      relations: ['posts', 'quizzes', 'threads'],
+      relations: [
+        'posts',
+        'quizzes',
+        'threads',
+        'posts.author',
+        'quizzes.author',
+        'threads.author',
+        'posts.comments',
+        'quizzes.comments',
+        'threads.comments',
+      ],
     });
     if (!dbsections.length) {
       throw new Error('sections are not found!');
