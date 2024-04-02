@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import LoginFormAction from '../types/LoginFormAction';
-import LoginFormState from '../types/LoginFormState';
-import AuthService from '../http/services/authService';
-import UserService from '../http/services/userService';
+import LoginFormAction from '../types/user/LoginFormAction';
+import LoginFormState from '../types/user/LoginFormState';
+import AuthService from '../services/authService';
+import UserService from '../services/userService';
 
 export const useLoginFormStore = create<LoginFormState & LoginFormAction>(
   (set) => ({
@@ -10,13 +10,13 @@ export const useLoginFormStore = create<LoginFormState & LoginFormAction>(
     password: '',
     updateEmail: (email) => set(() => ({ email: email })),
     updatePassword: (password) => set(() => ({ password: password })),
-  })
+  }),
 );
 
 export const login = async (email: string, password: string) => {
   try {
     const res = await AuthService.login(email, password);
-    localStorage.setItem('token', res.data.tokens.accessToken);
+    localStorage.setItem('token', res.data.accessToken);
   } catch (e) {
     console.log(e);
   }

@@ -1,25 +1,18 @@
-import api from '..';
+import api from '../http';
 import { AxiosResponse } from 'axios';
-import IUser from '../../models/IUser';
+import IUser from '../models/IUser';
+import ILoginInput from '../types/user/ILoginInput';
 
-interface IAuth {
-  tokens: ITokenDto
-  user: IUser;
-}
+interface IAuth extends ITokenDto, IUser {}
 
 interface ITokenDto {
   accessToken: string;
   refreshToken: string;
 }
 
-
-
-export default class AuthService {
-  static async login(
-    email: string,
-    password: string
-  ): Promise<AxiosResponse<IAuth>> {
-    return await api.post<IAuth>('/auth/login', { email, password });
+class AuthService {
+  static async login(loginData: ILoginInput): Promise<AxiosResponse<IAuth>> {
+    return await api.post<IAuth>('/auth/login', { ...loginData });
   }
 
   static async logout(): Promise<void> {
@@ -34,3 +27,4 @@ export default class AuthService {
     return api.get<IAuth>(`/auth/refresh`);
   }
 }
+export default AuthService;

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import RegistrationFormState from '../types/RegistrationFormState';
-import RegistrationFormAction from '../types/RegistrationFormAction';
+import RegistrationFormState from '../types/user/RegistrationFormState';
+import RegistrationFormAction from '../types/user/RegistrationFormAction';
 
 export const useRegistrationFormStore = create<
   RegistrationFormState & RegistrationFormAction
@@ -14,7 +14,7 @@ export const useRegistrationFormStore = create<
   updateName: (name) => set(() => ({ name: name })),
   updateSurname: (surname) => set(() => ({ surname: surname })),
   updateEmail: (email) => set(() => ({ email: email })),
-  updateNickname: (nickname) => set(() => ({nickname: nickname})),
+  updateNickname: (nickname) => set(() => ({ nickname: nickname })),
   updateFirstPassword: (firstPassword) =>
     set(() => ({ firstPassword: firstPassword })),
   updateSecondPassword: (secondPassword) =>
