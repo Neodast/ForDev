@@ -1,4 +1,4 @@
-import Role from '../types/user/roles.enum';
+import Role from '../user/roles.enum';
 
 interface IUser {
   id: string;
@@ -7,7 +7,6 @@ interface IUser {
   surname: string;
   nickname: string;
   role: Role;
-
 }
 
 export default IUser;

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import IUser from '../models/IUser';
+import IUser from '../types/models/IUser';
 import ILoginOutput from '../types/user/ILoginOutput';
-import IUserStore from '../types/user/IUserStore';
+import IUserStore from '../types/user/userStore/IUserStore';
 
 export const useUserStore = create<IUserStore>((set) => ({
   isLoading: false,

@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
-import TokenPayloadDto from '../../utils/dtos/tokenDtos/tokenPayload.dto';
+import TokenPayloadDto from '../../utils/dtos/tokens/tokenPayload.dto';
 import ApiError from '../../utils/exeptions/apiError';
 import ITokenRepository from '../repositories/ITokenRepository';
 import tokenPgRepository from '../../db/dbRepositories/postgreSQL/pgTokenRepository';
-import TokensOutputDto from '../../utils/dtos/tokenDtos/tokensOutput.dto';
+import TokensOutputDto from '../../utils/dtos/tokens/tokensOutput.dto';
 import UserModel from '../models/userModel';
 
 class TokenService {

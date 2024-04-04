@@ -1,115 +1,98 @@
 import InputField from '../../Base/Inputs/InputField';
 import Button from '../../Base/Buttons/Button';
-import { useRegistrationFormStore } from '../../../store/RegistrationFormStore';
-import axios from 'axios';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import IRegisterInput from '../../../types/user/IRegisterInput';
+import AuthService from '../../../services/authService';
 
 export default function RegistrationForm() {
-  const name = useRegistrationFormStore((state) => state.name);
-  const updateName = useRegistrationFormStore((state) => state.updateName);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<IRegisterInput>({
+    defaultValues: {},
+    mode: 'onChange',
+  });
 
-  const surname = useRegistrationFormStore((state) => state.surname);
-  const updateSurname = useRegistrationFormStore(
-    (state) => state.updateSurname
-  );
+  const mutation = useMutation({
+    mutationKey: ['register'],
+    mutationFn: AuthService.registration,
+    onSuccess: ({ data }) => {
+      reset(data);
+    },
+  });
 
-  const email = useRegistrationFormStore((state) => state.email);
-  const updateEmail = useRegistrationFormStore((state) => state.updateEmail);
-
-  const nickname = useRegistrationFormStore((state) => state.nickname);
-  const updateNickname = useRegistrationFormStore(
-    (state) => state.updateNickname
-  );
-
-  const firstPassword = useRegistrationFormStore(
-    (state) => state.firstPassword
-  );
-  const updateFirstPass = useRegistrationFormStore(
-    (state) => state.updateFirstPassword
-  );
-
-  const secondPassword = useRegistrationFormStore(
-    (state) => state.secondPassword
-  );
-  const updateSecondPass = useRegistrationFormStore(
-    (state) => state.updateSecondPassword
-  );
+  const submit: SubmitHandler<IRegisterInput> = async (data) => {
+    await mutation.mutateAsync(data);
+  };
 
   return (
-    <div className='flex-1 items-center justify-center mt-16'>
-      <form className='w-96 mx-auto'>
+    <div className="flex-1 items-center justify-center mt-16">
+      <form className="w-96 mx-auto" onSubmit={handleSubmit(submit)}>
         <InputField
-          label='Name'
-          type='text'
-          placeholder='Name'
-          value={name}
-          onChange={(e) => updateName(e.currentTarget.value)}
+          label="Name"
+          type="text"
+          placeholder="Name"
+          {...register('name')}
         />
-        <span>{name}</span>
         <InputField
-          label='Surname'
-          type='text'
-          placeholder='Surname'
-          value={surname}
-          onChange={(e) => updateSurname(e.currentTarget.value)}
+          label="Surname"
+          type="text"
+          placeholder="Surname"
+          {...register('surname')}
         />
-        <span>{surname}</span>
         <InputField
-          label='Nickname'
-          type='text'
-          placeholder='user123'
-          value={nickname}
-          onChange={(e) => updateNickname(e.currentTarget.value)}
+          label="Nickname"
+          type="text"
+          placeholder="user123"
+          {...register('nickname', {
+            required: 'Nickname is required',
+          })}
         />
-        <span>{nickname}</span>
         <InputField
-          label='Email'
-          type='email'
-          placeholder='example@example.com'
-          value={email}
-          onChange={(e) => updateEmail(e.currentTarget.value)}
+          label="Email"
+          type="email"
+          placeholder="example@example.com"
+          {...register('email')}
         />
-        <span>{email}</span>
         <InputField
-          label='Password'
-          type='password'
-          placeholder='Password'
-          value={firstPassword}
-          onChange={(e) => updateFirstPass(e.currentTarget.value)}
+          label="Password"
+          type="password"
+          placeholder="Password"
+          {...register('password', {
+            required: 'Password is required',
+            maxLength: {
+              value: 16,
+              message: 'Max pass length is 16 symbols',
+            },
+            minLength: {
+              value: 5,
+              message: 'Min pass length at least 5 symbols',
+            },
+            pattern: {
+              value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+              message:
+                'Password require to contaion 1 number, 1 uppercase, 1 lowercase letters',
+            },
+          })}
         />
-        <span>{firstPassword}</span>
         <InputField
-          label='Password'
-          type='password'
-          placeholder='Password'
-          value={secondPassword}
-          onChange={(e) => updateSecondPass(e.currentTarget.value)}
-        />
-        <span>{secondPassword}</span>
-        <Button
-          label='Send'
-          onClick={(e) => {
-            e.preventDefault();
-            async function register() {
-              try {
-                const res = await axios.post(
-                  'http://localhost:3000/auth/registration',
-                  {
-                    email: email,
-                    password: firstPassword,
-                    name: name,
-                    nickname: nickname,
-                    surname: surname,
-                  },
-                  { withCredentials: true }
-                );
-                console.log(res);
-              } catch (e) {
-                console.log(e);
+          label="Password"
+          type="password"
+          placeholder="Password"
+          {...register('passwordConfirm', {
+            required: 'Confirm password is required',
+            validate: (value: string) => {
+              if (watch('password') !== value) {
+                return "Passwords don't match";
               }
-            }
-            register();
-          }}
+            },
+          })}
         />
+        <Button label="Send" />
       </form>
     </div>
   );

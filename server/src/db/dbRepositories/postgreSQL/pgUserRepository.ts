@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
 import { User } from '../../entities/userEntity';
 import appDataSource from '../../appDataSourse';
-import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 import IUserRepository from '../../../core/repositories/IUserRepository';
-import UserCreateDto from '../../../utils/dtos/userDtos/userCreate.dto';
+import UserCreateDto from '../../../utils/dtos/users/userCreate.dto';
 import UserModel from '../../../core/models/userModel';
 import PgUserMapper from '../../dbMappers/postgreSQL/pgUserMappers';
 

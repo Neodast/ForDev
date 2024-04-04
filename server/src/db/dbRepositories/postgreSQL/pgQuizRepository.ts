@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import { Quiz } from '../../entities/quizEntity';
 import appDataSource from '../../appDataSourse';
 import QuizMapper from '../../dbMappers/postgreSQL/pgQuizMapper';
-import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
 import QuizModel from '../../../core/models/quizModel';
 import IQuizRepository from '../../../core/repositories/IQuizRepository';
@@ -43,9 +43,9 @@ class PgQuizRepository implements IQuizRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<QuizModel[]> {
-    return (await this.findQuizzes({author})).map((dbQuiz) =>
-    QuizMapper.mapToQuizModel(dbQuiz),
-  );
+    return (await this.findQuizzes({ author })).map((dbQuiz) =>
+      QuizMapper.mapToQuizModel(dbQuiz),
+    );
   }
 
   public async getAll(): Promise<QuizModel[]> {

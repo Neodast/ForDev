@@ -21,7 +21,7 @@ export const accountRegisterValidation = [
     .notEmpty()
     .isLength({ max: 50 })
     .isStrongPassword({
-      minLength: 6,
+      minLength: 5,
       minLowercase: 1,
       minUppercase: 1,
       minNumbers: 1,

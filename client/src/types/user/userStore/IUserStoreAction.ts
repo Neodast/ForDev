@@ -1,10 +1,7 @@
 import IUser from '../../models/IUser';
-import ILoginOutput from './ILoginOutput';
+import ILoginOutput from '../ILoginOutput';
 
-interface IUserStore {
-  user: IUser | null;
-  isLoading: boolean;
-  isAuth: boolean;
+interface IUserStoreAction {
   setUser: (user: IUser | null) => void;
   setIsLoading: (isLoading: boolean) => void;
   setIsAuth: (isAuthenticated: boolean) => void;
@@ -12,4 +9,4 @@ interface IUserStore {
   removeCredentials: () => void;
 }
 
-export default IUserStore;
+export default IUserStoreAction;

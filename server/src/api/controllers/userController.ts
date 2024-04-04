@@ -3,10 +3,10 @@ import {
   RequestWithBody,
   RequestWithQuery,
 } from '../../utils/types/request.type';
-import UserCreateDto from '../../utils/dtos/userDtos/userCreate.dto';
+import UserCreateDto from '../../utils/dtos/users/userCreate.dto';
 import userService from '../../core/services/userService';
-import UserLoginDto from '../../utils/dtos/authDtos/userLoginInput.dto';
-import VerifyIdDto from '../../utils/dtos/authDtos/verifyId.dto';
+import UserLoginDto from '../../utils/dtos/auth/userLoginInput.dto';
+import VerifyIdDto from '../../utils/dtos/auth/verifyId.dto';
 import CookieHelper from '../helpers/cookieHelper';
 
 class UserController {

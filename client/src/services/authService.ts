@@ -1,7 +1,8 @@
 import api from '../http';
 import { AxiosResponse } from 'axios';
-import IUser from '../models/IUser';
+import IUser from '../types/models/IUser';
 import ILoginInput from '../types/user/ILoginInput';
+import IRegisterInput from '../types/user/IRegisterInput';
 
 interface IAuth extends ITokenDto, IUser {}
 
@@ -19,8 +20,10 @@ class AuthService {
     return api.post(`auth/logout`);
   }
 
-  static async registration(email: string, password: string) {
-    return api.post<IAuth>('/auth/registration', { email, password });
+  static async registration(
+    registerData: IRegisterInput,
+  ): Promise<AxiosResponse<IAuth>> {
+    return api.post<IAuth>('/auth/registration', { ...registerData });
   }
 
   static async refresh() {

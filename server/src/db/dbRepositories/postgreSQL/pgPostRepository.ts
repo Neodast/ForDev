@@ -4,7 +4,7 @@ import appDataSource from '../../appDataSourse';
 import PostModel from '../../../core/models/postModel';
 import IPostRepository from '../../../core/repositories/IPostRepository';
 import PgPostMapper from '../../dbMappers/postgreSQL/pgPostMapper';
-import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
 
 class PgPostRepository implements IPostRepository {
@@ -41,9 +41,9 @@ class PgPostRepository implements IPostRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<PostModel[]> {
-    return (await this.findPosts({author})).map((dbPost) =>
-    PgPostMapper.mapToPostModel(dbPost),
-  );
+    return (await this.findPosts({ author })).map((dbPost) =>
+      PgPostMapper.mapToPostModel(dbPost),
+    );
   }
 
   public async getAll(): Promise<PostModel[]> {

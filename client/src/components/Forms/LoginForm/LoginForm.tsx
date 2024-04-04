@@ -3,9 +3,8 @@ import Button from '../../Base/Buttons/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import ILoginInput from '../../../types/user/ILoginInput';
 import { useMutation } from '@tanstack/react-query';
-import authService from '../../../services/authService';
+import AuthService from '../../../services/authService';
 import { useUserStore } from '../../../store/UserStore';
-import { useShallow } from 'zustand/react/shallow';
 
 export default function LoginForm() {
   // const { setCredentials } = useUserStore(
@@ -27,18 +26,14 @@ export default function LoginForm() {
 
   const mutation = useMutation({
     mutationKey: ['login'],
-    mutationFn: authService.login,
+    mutationFn: AuthService.login,
     onSuccess: ({ data }) => {
       setCredentials(data);
     },
   });
 
   const submit: SubmitHandler<ILoginInput> = async (data) => {
-    try {
-      await mutation.mutateAsync(data);
-    } catch (error) {
-      throw new Error('Login is faled');
-    }
+    await mutation.mutateAsync(data);
   };
 
   return (

@@ -5,7 +5,7 @@ import CommentModel from '../../../core/models/commentModel';
 import ICommentRepository from '../../../core/repositories/ICommentRepository';
 import PgCommentMapper from '../../dbMappers/postgreSQL/pgCommentMapper';
 import ApiError from '../../../utils/exeptions/apiError';
-import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 
 class PgCommentRepository implements ICommentRepository {
   private readonly commentRepository: Repository<Comment>;

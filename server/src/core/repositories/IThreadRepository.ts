@@ -1,4 +1,4 @@
-import UserSafeDto from '../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
 import ThreadModel from '../models/threadModel';
 
 interface IThreadRepository {

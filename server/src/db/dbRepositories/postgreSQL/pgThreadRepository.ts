@@ -4,7 +4,7 @@ import { Thread } from '../../entities/threadEntity';
 import appDataSource from '../../appDataSourse';
 import PgThreadMapper from '../../dbMappers/postgreSQL/pgThreadMapper';
 import ThreadModel from '../../../core/models/threadModel';
-import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
 
 class PgThreadRepository implements IThreadRepository {
@@ -43,9 +43,9 @@ class PgThreadRepository implements IThreadRepository {
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<ThreadModel[]> {
-    return (await this.findThreads({author})).map((dbThread) =>
-    PgThreadMapper.mapToThreadModel(dbThread),
-  );
+    return (await this.findThreads({ author })).map((dbThread) =>
+      PgThreadMapper.mapToThreadModel(dbThread),
+    );
   }
 
   public async getAll(): Promise<ThreadModel[]> {

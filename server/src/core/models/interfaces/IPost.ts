@@ -1,5 +1,5 @@
 import { Section } from '../../../db/entities/sectionEntity';
-import UserSafeDto from '../../../utils/dtos/userDtos/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 import CommentModel from '../commentModel';
 
 interface IPost {
