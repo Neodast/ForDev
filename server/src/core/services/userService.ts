@@ -32,9 +32,7 @@ class UserService {
     });
 
     const tokenPayload: TokenPayloadDto = {
-      id: createdUser.id,
-      email: createdUser.email,
-      role: createdUser.role,
+      ...createdUser,
     };
 
     const tokens = await tokenService.generateTokens(tokenPayload);
@@ -77,19 +75,16 @@ class UserService {
 
     const userData = tokenService.validateRefreshToken(refreshToken);
 
-    const tokenFromDatabase =
-      await this.tokenRepository.getByRefreshToken(refreshToken);
+    const dbToken = await this.tokenRepository.getByRefreshToken(refreshToken);
 
-    if (!tokenFromDatabase) {
+    if (!dbToken) {
       throw ApiError.BadRequest('Refresh-token is alredy delete');
     }
 
     const user = await this.userRepository.getById(userData.id);
 
     const tokenPayload: TokenPayloadDto = {
-      id: user.id,
-      email: user.email,
-      role: user.role,
+      ...user,
     };
 
     const tokens = await tokenService.generateTokens(tokenPayload);

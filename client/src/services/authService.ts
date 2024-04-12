@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import IUser from '../types/models/IUser';
 import ILoginInput from '../types/user/ILoginInput';
 import IRegisterInput from '../types/user/IRegisterInput';
+import ILoginOutput from '../types/user/ILoginOutput';
 
 interface IAuth extends ITokenDto, IUser {}
 
@@ -27,7 +28,7 @@ class AuthService {
   }
 
   static async refresh() {
-    return api.get<IAuth>(`/auth/refresh`);
+    return api.get<ILoginOutput>(`/auth/refresh`);
   }
 }
 export default AuthService;

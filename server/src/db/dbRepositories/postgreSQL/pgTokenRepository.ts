@@ -57,13 +57,14 @@ class PgTokenRepository implements ITokenRepository {
     });
 
     if (!token) {
+      console.log(token);
       throw new Error('Token is not found');
     }
     return PgTokenMapper.mapToTokenModel(token);
   }
 
   async getByRefreshToken(refreshToken: string): Promise<TokenModel> {
-    const token = await this.tokenRepository.findOneBy({ refreshToken });
+    const token = await this.tokenRepository.findOneBy( {refreshToken: refreshToken});
     if (!token) {
       throw new Error('Token is not found');
     }

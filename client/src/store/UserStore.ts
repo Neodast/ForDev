@@ -16,7 +16,7 @@ export const useUserStore = create<IUserStore>((set) => ({
   setIsAuth: (isAuth: boolean) => {
     set(() => ({ isAuth }));
   },
-  setCredentials: (credentials: ILoginOutput) => {
+  login: (credentials: ILoginOutput) => {
     set(() => ({
       user: {
         id: credentials.id,
@@ -30,11 +30,12 @@ export const useUserStore = create<IUserStore>((set) => ({
     }));
     localStorage.setItem('accessToken', credentials.accessToken);
   },
-  removeCredentials: () => {
+  logout: () => {
     set(() => ({
       user: null,
       isAuthenticated: false,
     }));
     localStorage.removeItem('accessToken');
   },
+
 }));

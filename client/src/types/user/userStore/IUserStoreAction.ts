@@ -5,8 +5,8 @@ interface IUserStoreAction {
   setUser: (user: IUser | null) => void;
   setIsLoading: (isLoading: boolean) => void;
   setIsAuth: (isAuthenticated: boolean) => void;
-  setCredentials: (credentials: ILoginOutput) => void;
-  removeCredentials: () => void;
+  login: (credentials: ILoginOutput) => void;
+  logout: () => void;
 }
 
 export default IUserStoreAction;

@@ -3,7 +3,8 @@ import Button from '../../Base/Buttons/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import IRegisterInput from '../../../types/user/IRegisterInput';
-import AuthService from '../../../services/authService';
+import AuthService from '../../../services/AuthService';
+import FormValidationError from './Errors/FormValidationError';
 
 export default function RegistrationForm() {
   const {
@@ -20,8 +21,8 @@ export default function RegistrationForm() {
   const mutation = useMutation({
     mutationKey: ['register'],
     mutationFn: AuthService.registration,
-    onSuccess: ({ data }) => {
-      reset(data);
+    onSuccess: () => {
+      reset();
     },
   });
 
@@ -38,26 +39,45 @@ export default function RegistrationForm() {
           placeholder="Name"
           {...register('name')}
         />
+        <FormValidationError
+          message={errors.name?.message}
+        ></FormValidationError>
         <InputField
           label="Surname"
           type="text"
           placeholder="Surname"
           {...register('surname')}
         />
+        <FormValidationError
+          message={errors.surname?.message}
+        ></FormValidationError>
         <InputField
           label="Nickname"
           type="text"
           placeholder="user123"
           {...register('nickname', {
             required: 'Nickname is required',
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*[A-Z]).{2,}$/,
+              message:
+                'Nickname require to contain 1 uppercase, 1 lowercase letters',
+            },
           })}
         />
+        <FormValidationError
+          message={errors.nickname?.message}
+        ></FormValidationError>
         <InputField
           label="Email"
           type="email"
           placeholder="example@example.com"
-          {...register('email')}
+          {...register('email', {
+            required: 'Email is required',
+          })}
         />
+        <FormValidationError
+          message={errors.email?.message}
+        ></FormValidationError>
         <InputField
           label="Password"
           type="password"
@@ -75,10 +95,13 @@ export default function RegistrationForm() {
             pattern: {
               value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
               message:
-                'Password require to contaion 1 number, 1 uppercase, 1 lowercase letters',
+                'Password require to contain 1 number, 1 uppercase, 1 lowercase letters',
             },
           })}
         />
+        <FormValidationError
+          message={errors.password?.message}
+        ></FormValidationError>
         <InputField
           label="Password"
           type="password"
@@ -92,6 +115,9 @@ export default function RegistrationForm() {
             },
           })}
         />
+        <FormValidationError
+          message={errors.passwordConfirm?.message}
+        ></FormValidationError>
         <Button label="Send" />
       </form>
     </div>

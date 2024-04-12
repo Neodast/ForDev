@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../Layouts/Layout';
-import RegistrationForm from '../Forms/RegistrationForm/RegistrationForm';
+import Layout from '../components/Layouts/Layout';
+import RegistrationForm from '../components/Forms/RegistrationForm/RegistrationForm';
 
 export default function RegistrationPage() {
   return (

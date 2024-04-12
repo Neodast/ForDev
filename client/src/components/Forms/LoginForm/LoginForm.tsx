@@ -3,21 +3,17 @@ import Button from '../../Base/Buttons/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import ILoginInput from '../../../types/user/ILoginInput';
 import { useMutation } from '@tanstack/react-query';
-import AuthService from '../../../services/authService';
+import AuthService from '../../../services/AuthService';
 import { useUserStore } from '../../../store/UserStore';
+import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
 
 export default function LoginForm() {
-  // const { setCredentials } = useUserStore(
-  //   useShallow((state) => ({
-  //     setCredentials: state.setCredentials,
-  //   })),
-  // );
-
-  const { setCredentials } = useUserStore();
+  const login = useUserStore((state) => state.login);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ILoginInput>({
     defaultValues: {},
@@ -28,7 +24,8 @@ export default function LoginForm() {
     mutationKey: ['login'],
     mutationFn: AuthService.login,
     onSuccess: ({ data }) => {
-      setCredentials(data);
+      login(data);
+      reset();
     },
   });
 
@@ -45,12 +42,18 @@ export default function LoginForm() {
           type="email"
           {...register('email')}
         ></InputField>
+        <FormValidationError
+          message={errors.email?.message}
+        ></FormValidationError>
         <InputField
           label="password"
           placeholder=""
           type="password"
           {...register('password')}
         ></InputField>
+        <FormValidationError
+          message={errors.password?.message}
+        ></FormValidationError>
         <Button label="Send" />
       </form>
     </div>

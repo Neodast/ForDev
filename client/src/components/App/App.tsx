@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ErrorPage from '../Pages/ErrorPage';
-import RegistrationPage from '../Pages/RegistrationPage';
-import LoginPage from '../Pages/LoginPage';
-import PostsPage from '../Pages/PostsPage';
+import ErrorPage from '../../Pages/ErrorPage';
+import RegistrationPage from '../../Pages/RegistrationPage';
+import LoginPage from '../../Pages/LoginPage';
+import PostsPage from '../../Pages/PostsPage';
 import QueryProvider from '../../providers/QueryProvider';
+import AuthProvider from '../../providers/AuthProvider';
 
 const router = createBrowserRouter([
   {
@@ -30,9 +31,11 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <>
-      <QueryProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </QueryProvider>
+      <AuthProvider>
+        <QueryProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </QueryProvider>
+      </AuthProvider>
     </>
   );
 }
