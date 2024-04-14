@@ -1,4 +1,3 @@
-import React from 'react';
 import Layout from '../components/Layouts/Layout';
 import LoginForm from '../components/Forms/LoginForm/LoginForm';
 

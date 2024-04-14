@@ -4,16 +4,15 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import appDataSource from './db/appDataSourse';
 import router from './api/routes/routes';
-import errorMiddleware from './api/middlewares/error.middleware';
+import errorMiddleware from './api/helpers/middlewares/error.middleware';
 
 class App {
   private app: Application;
   private readonly port: number = Number(process.env.SERVER_PORT) || 3000;
 
   private initializeApp() {
-    try{
-
-    }catch(e){
+    try {
+    } catch (e) {
       console.log(e);
     }
     this.app = express();
@@ -31,13 +30,13 @@ class App {
   }
 
   public async startServer() {
-    try{
+    try {
       this.initializeApp();
       await appDataSource.initialize();
       this.app.listen(this.port, async () => {
         console.log(`Example app listening on port ${this.port}!`);
       });
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
   }

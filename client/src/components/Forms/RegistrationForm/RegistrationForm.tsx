@@ -1,10 +1,10 @@
 import InputField from '../../Base/Inputs/InputField';
-import Button from '../../Base/Buttons/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import IRegisterInput from '../../../types/user/IRegisterInput';
 import AuthService from '../../../services/AuthService';
 import FormValidationError from './Errors/FormValidationError';
+import { Button } from '@/components/ui/button';
 
 export default function RegistrationForm() {
   const {
@@ -118,7 +118,7 @@ export default function RegistrationForm() {
         <FormValidationError
           message={errors.passwordConfirm?.message}
         ></FormValidationError>
-        <Button label="Send" />
+        <Button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]'>Register</Button>
       </form>
     </div>
   );

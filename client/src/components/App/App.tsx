@@ -5,17 +5,32 @@ import LoginPage from '../../Pages/LoginPage';
 import PostsPage from '../../Pages/PostsPage';
 import QueryProvider from '../../providers/QueryProvider';
 import AuthProvider from '../../providers/AuthProvider';
+import MainPage from '@/Pages/MainPage';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <div></div>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
+      // {
+      //   path: '/threads',
+      //   element: <ThreadPage></ThreadPage>,
+      // },
       {
-        path: '/board',
+        path: '/',
+        element: <MainPage></MainPage>,
+      },
+      {
+        path: '/posts',
         element: <PostsPage></PostsPage>,
       },
+      // {
+      //   path: "/quizzes",
+      //   element: <QuizzesPage></QuizzesPage>
+      // },
+      // {
+      //   path: "/board",
+      //   element: <BoardPage></BoardPage>
+      // }
     ],
   },
   {

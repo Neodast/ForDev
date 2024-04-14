@@ -1,28 +1,22 @@
-import Image from '../../Base/Images/Image';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+} from '@radix-ui/react-navigation-menu';
+import NavItem from './Navigation/NavItem';
 
 export default function HeaderLeftPanel() {
   return (
     <>
-      <div className='flex flex-row flex-1 flex-wrap'>
-        <span>
-          <Image
-            src={'/icons/logo.webp'}
-            alt='ForDev'
-            className='size-16 p-1 hover:bg-blue-700'
-          ></Image>
-        </span>
-        <span className=' pt-4 pr-8 pl-8  hover:bg-blue-700 cursor-pointer'>
-          Home
-        </span>
-        <span className='pt-4 pr-8 pl-8  hover:bg-blue-700  cursor-pointer'>
-          Board
-        </span>
-        <span className='pt-4 pr-8 pl-8  hover:bg-blue-700  cursor-pointer'>
-          Trending
-        </span>
-        <span className='pt-4 pr-8 pl-8  hover:bg-blue-700  cursor-pointer'>
-          Top
-        </span>
+      <div className="flex flex-row flex-1 flex-wrap">
+        <NavigationMenu>
+          <NavigationMenuList className=''>
+            <NavItem to="/">Home</NavItem>
+            <NavItem to="/board">Board</NavItem>
+            <NavItem to="/posts">Posts</NavItem>
+            <NavItem to="/threads">Threads</NavItem>
+            <NavItem to="/quizzes">Quizzes</NavItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
     </>
   );

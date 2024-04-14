@@ -6,7 +6,7 @@ export default function HeaderRightPanel() {
       <Image
         src={'/icons/user.webp'}
         alt='User'
-        className='rounded-full w-16 h-16 hover:border-[#979dac] border-4 border-transparent'
+        className='rounded-full w-12 h-12 hover:border-[#979dac] border-4 border-transparent'
       ></Image>
     </div>
   );

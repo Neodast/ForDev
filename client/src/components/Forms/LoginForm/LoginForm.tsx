@@ -1,11 +1,12 @@
 import InputField from '../../Base/Inputs/InputField';
-import Button from '../../Base/Buttons/Button';
+// import Button from '../../Base/Buttons/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import ILoginInput from '../../../types/user/ILoginInput';
 import { useMutation } from '@tanstack/react-query';
 import AuthService from '../../../services/AuthService';
 import { useUserStore } from '../../../store/UserStore';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
+import { Button } from '@/components/ui/button';
 
 export default function LoginForm() {
   const login = useUserStore((state) => state.login);
@@ -54,7 +55,7 @@ export default function LoginForm() {
         <FormValidationError
           message={errors.password?.message}
         ></FormValidationError>
-        <Button label="Send" />
+        <Button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]'>Login</Button>
       </form>
     </div>
   );
