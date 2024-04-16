@@ -1,33 +1,21 @@
 import { memo } from 'react';
-import Image from '../../Base/Images/Image';
+import { FaGithub, FaGitlab, FaTelegram } from 'react-icons/fa';
 
 const Footer = memo(() => {
   return (
-    <footer className='box-border bg-blue-500 overflow-hidden flex flex-row flex-wrap items-center justify-between p-4'>
-      <div className='text-sm'>
+    <footer className="box-border bg-blue-400 overflow-hidden flex flex-row flex-wrap items-center justify-between p-4 z-50 shadow-inner shadow-blue-500">
+      <div className="text-sm">
         &copy; 2024 ForDev. All copyrights reserved. Roman Valinkevych.
       </div>
-      <div className='flex items-center'>
-        <a href='#' className='p-2'>
-          <Image
-            src={'/icons/telegram-icon.webp'}
-            alt='Telegram'
-            className='w84 h-8 mr-2'
-          />
+      <div className="flex items-center">
+        <a href="#" className="p-2">
+          <FaTelegram className="size-10"></FaTelegram>
         </a>
-        <a href='#' className='p-2'>
-          <Image
-            src={'/icons/github-icon.webp'}
-            alt='Github'
-            className='w84 h-8 mr-2'
-          />
+        <a href="#" className="p-2">
+          <FaGithub className="size-10"></FaGithub>
         </a>
-        <a href='#' className='p-2'>
-          <Image
-            src={'/icons/gitlab-icon.webp'}
-            alt='Gitlab'
-            className='w84 h-8 mr-2'
-          />
+        <a href="#" className="p-2">
+          <FaGitlab className="size-10"></FaGitlab>
         </a>
       </div>
     </footer>

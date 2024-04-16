@@ -5,8 +5,11 @@ import IRegisterInput from '../../../types/user/IRegisterInput';
 import AuthService from '../../../services/AuthService';
 import FormValidationError from './Errors/FormValidationError';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationForm() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ export default function RegistrationForm() {
     mutationFn: AuthService.registration,
     onSuccess: () => {
       reset();
+      navigate('/');
     },
   });
 
@@ -31,7 +35,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="flex-1 items-center justify-center mt-16">
+    <div className="flex-1 m-8">
       <form className="w-96 mx-auto" onSubmit={handleSubmit(submit)}>
         <InputField
           label="Name"
@@ -118,7 +122,9 @@ export default function RegistrationForm() {
         <FormValidationError
           message={errors.passwordConfirm?.message}
         ></FormValidationError>
-        <Button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]'>Register</Button>
+        <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]">
+          Register
+        </Button>
       </form>
     </div>
   );

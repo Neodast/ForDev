@@ -1,15 +1,16 @@
 import InputField from '../../Base/Inputs/InputField';
-// import Button from '../../Base/Buttons/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import ILoginInput from '../../../types/user/ILoginInput';
 import { useMutation } from '@tanstack/react-query';
 import AuthService from '../../../services/AuthService';
-import { useUserStore } from '../../../store/UserStore';
+import { useUserStore } from '../../../stores/UserStore';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const login = useUserStore((state) => state.login);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,6 +28,7 @@ export default function LoginForm() {
     onSuccess: ({ data }) => {
       login(data);
       reset();
+      navigate('/');
     },
   });
 
@@ -35,7 +37,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex-1 items-center justify-center mt-16">
+    <div className="flex-1 items-center justify-center m-8">
       <form className="w-96 mx-auto" onSubmit={handleSubmit(submit)}>
         <InputField
           label="Email"
@@ -48,14 +50,16 @@ export default function LoginForm() {
         ></FormValidationError>
         <InputField
           label="password"
-          placeholder=""
+          placeholder="Password"
           type="password"
           {...register('password')}
         ></InputField>
         <FormValidationError
           message={errors.password?.message}
         ></FormValidationError>
-        <Button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]'>Login</Button>
+        <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]">
+          Login
+        </Button>
       </form>
     </div>
   );

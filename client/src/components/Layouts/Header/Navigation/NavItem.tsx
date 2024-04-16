@@ -9,13 +9,13 @@ interface NavItemProps {
 
 export default function NavItem(props: NavItemProps) {
   return (
-    <NavigationMenuItem className="h-12 w-max mt-1 ml-1 font-nimbus text-md inline-flex">
+    <NavigationMenuItem className="h-12 w-max mt-2 mb-1 ml-2 font-nimbus text-md inline-flex">
       <NavLink
         to={props.to}
         className={({ isActive }) => {
           return isActive
-            ? navigationMenuTriggerStyle() + 'bg-blue-400'
-            : navigationMenuTriggerStyle() + 'bg-blue-500 hover:bg-blue-400';
+            ? navigationMenuTriggerStyle() + 'bg-blue-300'
+            : navigationMenuTriggerStyle() + 'bg-blue-400 hover:bg-blue-300';
         }}
       >
         {props.children}

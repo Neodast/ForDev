@@ -5,7 +5,7 @@ import { memo } from 'react';
 const Header = memo(() => {
   return (
     <>
-      <header className='box-border overflow-hidden h-12 bg-blue-500 flex flex-row justify-between flex-wrap'>
+      <header className="box-border overflow-hidden h-14 bg-blue-400 flex flex-row justify-between flex-wrap sticky top-0 z-50 shadow-2xl">
         <HeaderLeftPanel />
         <HeaderRightPanel />
       </header>
