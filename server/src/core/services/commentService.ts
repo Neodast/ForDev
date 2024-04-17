@@ -9,6 +9,7 @@ class CommentService {
     return this.commentRepository.createComment(commentData);
   }
 
+
   public async deleteComment(comment: CommentModel): Promise<void> {
     return this.commentRepository.deleteComment(comment);
   }

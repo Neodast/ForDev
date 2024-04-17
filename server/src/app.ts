@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import appDataSource from './db/appDataSourse';
 import router from './api/routes/routes';
-import errorMiddleware from './api/helpers/middlewares/error.middleware';
+import errorMiddleware from './api/middlewares/error.middleware';
 
 class App {
   private app: Application;

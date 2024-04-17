@@ -1,5 +1,5 @@
-import tokenService from '../../../core/services/tokenService';
-import ApiError from '../../../utils/exeptions/apiError';
+import tokenService from '../../core/services/tokenService';
+import ApiError from '../../utils/exeptions/apiError';
 import { NextFunction, Request, Response } from 'express';
 
 export const authMiddleware = (
@@ -22,6 +22,6 @@ export const authMiddleware = (
 
     next();
   } catch (e) {
-    return next(ApiError.UnauthorizedError('Token is not valid'));
+    return next();
   }
 };

@@ -13,6 +13,16 @@ class PostController {
     }
   }
 
+  public async updatePost(req: Request, res:Response, next: NextFunction) {
+    try{
+      const post: PostModel = req.body;
+      const updatedPost = await postService.updatePost(post);
+      res.json(updatedPost);
+    }catch(e){
+      next(e);
+    }
+  }
+
   public async deletePost(req: Request, res: Response, next: NextFunction) {
     try {
       const post: PostModel = req.body;

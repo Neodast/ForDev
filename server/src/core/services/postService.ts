@@ -9,6 +9,10 @@ class PostService {
     return this.postRepository.createPost(postData);
   }
 
+  public async updatePost(post: PostModel): Promise<PostModel> {
+    return this.postRepository.updatePost(post.id, post);
+  }
+
   public async deletePost(post: PostModel): Promise<void> {
     const dbPost = await this.postRepository.getById(post.id);
     return this.postRepository.deletePost(dbPost);
