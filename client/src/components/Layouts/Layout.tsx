@@ -8,15 +8,15 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const memoHeader = useMemo(() => <Header/>, []);
-  const memoFooter = useMemo(() => <Footer/>, []);
-  const memoLeftMenuBer = useMemo(() => <MenuBar/>, []);
+  const memoHeader = useMemo(() => <Header />, []);
+  const memoFooter = useMemo(() => <Footer />, []);
+  const memoLeftMenuBar = useMemo(() => <MenuBar />, []);
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className="flex flex-col min-h-screen">
       {memoHeader}
-      {memoLeftMenuBer}
-      <main className="flex-grow ml-32">{children}</main>
+      {memoLeftMenuBar}
+      <main className="flex-grow font-roboto">{children}</main>
       {memoFooter}
     </div>
   );

@@ -1,4 +1,5 @@
 interface IPostUpdate {
+  id: number;
   title?: string;
   likes?: number;
   text?: string;

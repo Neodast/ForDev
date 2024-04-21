@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import AuthService from '../../../services/AuthService';
 import { useUserStore } from '../../../stores/UserStore';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
-import { Button } from '@/components/ui/button';
+import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
@@ -38,7 +38,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex-1 items-center justify-center m-8">
-      <form className="w-96 mx-auto" onSubmit={handleSubmit(submit)}>
+      <form className="w-96 mx-auto font-roboto" onSubmit={handleSubmit(submit)}>
         <InputField
           label="Email"
           placeholder="email@gmail.com"
@@ -57,7 +57,7 @@ export default function LoginForm() {
         <FormValidationError
           message={errors.password?.message}
         ></FormValidationError>
-        <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]">
+        <Button size='large' shape='default' type='primary' htmlType='submit' formAction='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]">
           Login
         </Button>
       </form>

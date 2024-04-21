@@ -1,5 +1,3 @@
-import React from 'react';
-
 type PropsType = {
   message?: string;
   className?: string;

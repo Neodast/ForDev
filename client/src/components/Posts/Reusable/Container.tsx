@@ -1,3 +1,4 @@
+import { Card } from 'antd';
 import React from 'react';
 
 interface ContainerProps {
@@ -7,9 +8,9 @@ interface ContainerProps {
 export default function Container(props: ContainerProps) {
   return (
     <>
-      <div className=" rounded-3xl w-[70rem] mb-6 max-w-full mx-auto p-4 shadow-xl border-t-slate-100 border-t-2 bg-background px-4 py-2 transition-colors disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:cursor-default font-nimbus">
+      <Card className='rounded-xl w-auto max-w-[200rem] mb-6 mr-64 ml-40 transition-colors disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:cursor-pointer font-nimbus'>
         {props.children}
-      </div>
+      </Card>
     </>
   );
 }

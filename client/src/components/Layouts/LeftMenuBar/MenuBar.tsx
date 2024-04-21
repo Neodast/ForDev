@@ -1,30 +1,64 @@
 import { memo } from 'react';
 import MenuBarItem from './MenuBarItem';
-import { Heart } from 'lucide-react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import { Collapse } from 'antd';
+import { BiHeart } from 'react-icons/bi';
 
 const LeftMenuBar = memo(() => {
   return (
-    <div className="fixed left-0 top-0 h-full w-48 bg-blue-400 border-slate-200 pt-16">
+    <div className="fixed font-roboto left-0 top-0 h-full w-48 bg-blue-400 border-slate-200 pt-16">
       <nav className="mx-4 flex flex-col">
-        <MenuBarItem to="/" icon={<Heart></Heart>}>
+        <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
           Shototam
         </MenuBarItem>
-        <MenuBarItem to="/" icon={<Heart></Heart>}>
+        <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
           Shototam
         </MenuBarItem>
-        <MenuBarItem to="/" icon={<Heart></Heart>}>
+        <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
           Shototam
         </MenuBarItem>
         <hr />
-        <Accordion type="multiple" className="w-full">
-          <AccordionItem value="1">
+        <Collapse
+          className="w-full bg-blue-400"
+          ghost
+          size='large'
+          items={[
+            {
+              key: '1',
+              label: 'Recent',
+              children: (
+                <div className='flex flex-col items-center bg-blue-400'>
+                  <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
+                    Shototam
+                  </MenuBarItem>
+                  <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
+                    Shototam
+                  </MenuBarItem>
+                  <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
+                    Shototam
+                  </MenuBarItem>
+                </div>
+              ),
+            },
+            {
+              key: '2',
+              label: 'Saved',
+              children: (
+                <div className='flex flex-col items-center bg-blue-400'>
+                  <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
+                    Shototam
+                  </MenuBarItem>
+                  <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
+                    Shototam
+                  </MenuBarItem>
+                  <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
+                    Shototam
+                  </MenuBarItem>
+                </div>
+              ),
+            },
+          ]}
+        >
+          {/* <AccordionItem value="1">
             <AccordionTrigger
               className={
                 navigationMenuTriggerStyle() +
@@ -34,13 +68,13 @@ const LeftMenuBar = memo(() => {
               <span className="mr-10">Recent</span>
             </AccordionTrigger>
             <AccordionContent>
-              <MenuBarItem to="/" icon={<Heart></Heart>}>
+              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
                 Shototam
               </MenuBarItem>
-              <MenuBarItem to="/" icon={<Heart></Heart>}>
+              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
                 Shototam
               </MenuBarItem>
-              <MenuBarItem to="/" icon={<Heart></Heart>}>
+              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
                 Shototam
               </MenuBarItem>
             </AccordionContent>
@@ -55,18 +89,18 @@ const LeftMenuBar = memo(() => {
               <span className="mr-10">Saved</span>
             </AccordionTrigger>
             <AccordionContent>
-              <MenuBarItem to="/" icon={<Heart></Heart>}>
+              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
                 Shototam
               </MenuBarItem>
-              <MenuBarItem to="/" icon={<Heart></Heart>}>
+              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
                 Shototam
               </MenuBarItem>
-              <MenuBarItem to="/" icon={<Heart></Heart>}>
+              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
                 Shototam
               </MenuBarItem>
             </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+          </AccordionItem> */}
+        </Collapse>
       </nav>
     </div>
   );

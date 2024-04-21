@@ -13,7 +13,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           {label}
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline-blue"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline-blue font-roboto"
           placeholder={placeholder}
           ref={ref}
           {...props}

@@ -6,6 +6,7 @@ import PostsPage from '../../Pages/PostsPage';
 import QueryProvider from '../../providers/QueryProvider';
 import AuthProvider from '../../providers/AuthProvider';
 import MainPage from '@/Pages/MainPage';
+import { ConfigProvider } from 'antd';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,18 @@ export default function App() {
     <>
       <AuthProvider>
         <QueryProvider>
-          <RouterProvider router={router}></RouterProvider>
+          <ConfigProvider
+            direction="ltr"
+            theme={{
+              cssVar: true,
+              hashed: false,
+              token: {
+                fontFamily: "Roboto",
+              }
+            }}
+          >
+            <RouterProvider router={router}></RouterProvider>
+          </ConfigProvider>
         </QueryProvider>
       </AuthProvider>
     </>
