@@ -5,6 +5,10 @@ import ISectionRepository from '../repositories/ISectionRepository';
 class SectionService {
   constructor(readonly sectionRepository: ISectionRepository) {}
 
+  public async getSection(title: string): Promise<SectionModel> {
+    return this.sectionRepository.getByTitle(title);
+  }
+
   public async createSection(title: string): Promise<SectionModel> {
     return this.sectionRepository.createSection(title);
   }

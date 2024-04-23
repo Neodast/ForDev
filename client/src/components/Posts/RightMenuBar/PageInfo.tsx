@@ -1,17 +1,26 @@
-import { Card } from 'antd'
+import IPostStat from '@/types/board/posts/IPostsStat';
+import { Card } from 'antd';
 
-export default function PageInfo() {
+interface PageInfoProps {
+  title: string;
+  text: string;
+  stats: IPostStat[];
+}
+
+export default function PageInfo(props: PageInfoProps) {
   return (
     <Card className="my-4" type="inner">
-        <h4 className="text-xl font-semibold mb-4">All posts from /ForDev</h4>
-        <span className="text-wrap text-start font-md font-nimbus ">
-          <p>In this page placed all posts from forum.</p>
-        </span>
-        <div className="flex-1 flex-col text-nowrap space-x-4">
-          <span className="text-sm font-semibold">145 posts</span>
-          <span className="text-sm font-semibold">18 sections</span>
-          <span className="text-sm font-semibold">67 authors</span>
-        </div>
-      </Card>
-  )
+      <h4 className="text-xl font-semibold mb-4">{props.title}</h4>
+      <span className="text-wrap text-start font-md font-nimbus ">
+        {props.text}
+      </span>
+      <div className="flex mt-4 text-nowrap justify-between">
+        {props.stats.map((stat) => (
+          <>
+            <span className="text-sm font-semibold flex space-x-1"><div>{stat.statMetric}</div><div>{stat.statName}</div></span>
+          </>
+        ))}
+      </div>
+    </Card>
+  );
 }

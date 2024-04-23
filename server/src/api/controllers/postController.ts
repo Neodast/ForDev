@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import postService from '../../core/services/postService';
 import PostModel from '../../core/models/postModel';
+import PostInputDto from '../../utils/dtos/posts/postInput.dto';
 
 class PostController {
   public async createPost(req: Request, res: Response, next: NextFunction) {
     try {
-      const post: PostModel = req.body;
+      const post: PostInputDto = req.body;
       const createdPost: PostModel = await postService.createPost(post);
       res.json(createdPost);
     } catch (e) {
@@ -13,12 +14,12 @@ class PostController {
     }
   }
 
-  public async updatePost(req: Request, res:Response, next: NextFunction) {
-    try{
+  public async updatePost(req: Request, res: Response, next: NextFunction) {
+    try {
       const post: PostModel = req.body;
       const updatedPost = await postService.updatePost(post);
       res.json(updatedPost);
-    }catch(e){
+    } catch (e) {
       next(e);
     }
   }
@@ -27,7 +28,7 @@ class PostController {
     try {
       const post: PostModel = req.body;
       res.send(postService.deletePost(post));
-    } catch (e)    {
+    } catch (e) {
       next(e);
     }
   }

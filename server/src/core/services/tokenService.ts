@@ -66,7 +66,7 @@ class TokenService {
     }
   }
 
-  validateAccessToken(accessToken: string): TokenPayloadDto {
+  async validateAccessToken(accessToken: string): Promise<TokenPayloadDto> {
     try {
       const jwtAccessSecret = String(process.env.JWT_ACCESS_SECRET);
 

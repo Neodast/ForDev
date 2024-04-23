@@ -1,6 +1,7 @@
 import api from '../http';
 import IPost from '@/types/models/IPost';
-import IPostUpdate from '@/types/board/IPostUpdate';
+import IPostUpdate from '@/types/board/posts/IPostUpdate';
+import IPostCreate from '@/types/board/posts/IPostCreate';
 
 export default class PostService {
   static async getAllPosts(): Promise<IPost[]> {
@@ -9,7 +10,12 @@ export default class PostService {
   }
 
   static async editPost(postData: IPostUpdate): Promise<IPost> {
-    const {data} = await api.put<IPost>("/board/updatePost", {...postData});
+    const { data } = await api.put<IPost>('/board/updatePost', { ...postData });
+    return data;
+  }
+
+  static async createPost(postData: IPostCreate): Promise<IPost> {
+    const {data} = await api.post<IPost>("/board/newPost", {...postData});
     return data;
   }
 }

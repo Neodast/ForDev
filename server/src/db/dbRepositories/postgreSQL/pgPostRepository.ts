@@ -6,6 +6,7 @@ import IPostRepository from '../../../core/repositories/IPostRepository';
 import PgPostMapper from '../../dbMappers/postgreSQL/pgPostMapper';
 import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
 import ApiError from '../../../utils/exeptions/apiError';
+import PostCreateDto from '../../../utils/dtos/posts/postCreate.dto';
 
 class PgPostRepository implements IPostRepository {
   private readonly postRepository: Repository<Post>;
@@ -52,10 +53,11 @@ class PgPostRepository implements IPostRepository {
     );
   }
 
-  public async createPost(postData: PostModel): Promise<PostModel> {
+  public async createPost(postData: PostCreateDto): Promise<PostModel> {
     if (!postData) {
       throw ApiError.BadRequest('Post is undefined!');
     }
+    Object.assign(postData, { likes: 0 });
     const post = this.postRepository.create(postData);
     return PgPostMapper.mapToPostModel(await this.postRepository.save(post));
   }

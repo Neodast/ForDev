@@ -14,7 +14,7 @@ export default function HeaderRightPanel() {
   return (
     <div>
       {isLoading ? (
-        <HiDotsHorizontal className="rounded-full w-12 h-12 mt-1 mr-1 hover:border-blue-300 hover:cursor-pointer border-4 border-transparent"></HiDotsHorizontal>
+        <HiDotsHorizontal className="rounded-full w-12 h-12 mt-1 mr-12 hover:border-blue-300 hover:cursor-pointer border-4 border-transparent"></HiDotsHorizontal>
       ) : (
         <>
           {isAuth ? (
@@ -108,11 +108,11 @@ export default function HeaderRightPanel() {
                 icon={
                   <FaUserCircle className="rounded-full size-16 h-12 w-12 hover:border-blue-300 hover:cursor-pointer border-4 border-transparent"></FaUserCircle>
                 }
-                className="rounded-full w-12 h-12 mt-1 mr-10 "
+                className="rounded-full w-12 h-12 mt-1 mr-14 "
               ></Button>
             </Dropdown>
           ) : (
-            <div className='mt-2 mr-2 flex space-x-2 font-roboto'>
+            <div className='mt-2 mr-12 flex space-x-2 font-roboto'>
               <NavItem to="/login">Login</NavItem>
               <NavItem to="/register">Register</NavItem>
             </div>

@@ -1,7 +1,7 @@
 import { BiComment, BiHeart } from 'react-icons/bi';
 import Action from './Action';
 import { useState } from 'react';
-import IPostUpdate from '@/types/board/IPostUpdate';
+import IPostUpdate from '@/types/board/posts/IPostUpdate';
 
 interface BottomActionsProps {
   options: IPostUpdate;
