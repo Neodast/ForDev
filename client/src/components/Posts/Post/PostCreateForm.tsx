@@ -3,37 +3,41 @@ import FormValidationError from '@/components/Forms/RegistrationForm/Errors/Form
 import PostService from '@/services/PostService';
 import { useUserStore } from '@/stores/UserStore';
 import IPostInput from '@/types/board/posts/IPostInput';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from 'antd';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import TextArea from 'antd/es/input/TextArea';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 export default function PostCreateForm() {
   const author = useUserStore((state) => state.user);
-  if(!author) {
-    throw new Error("User is unauthorize");
+  const queryClient = useQueryClient();
+
+  if (!author) {
+    throw new Error('User is unauthorize');
   }
-  Object.assign({author}, {isVerify: true});
+  Object.assign({ author }, { isVerify: true });
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<IPostInput>({
     defaultValues: { sectionTitle: 't1' },
-    mode: 'onChange',
   });
 
   const mutation = useMutation({
-    mutationKey: ['createPost'],
-    mutationFn: PostService.createPost,
-    onSuccess: () => {
+    mutationKey: ['posts'],
+    mutationFn: PostService.createPost, 
+    onSuccess: async () => {
       reset();
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
 
   const submit: SubmitHandler<IPostInput> = async (data) => {
-    await mutation.mutateAsync({author: author, ...data});
+    await mutation.mutateAsync({ author: author, comments: [], ...data });
   };
   return (
     <div className="flex-1 items-center justify-center m-8">
@@ -42,7 +46,7 @@ export default function PostCreateForm() {
         onSubmit={handleSubmit(submit)}
       >
         <InputField
-          label="title"
+          label=""
           placeholder="Title"
           type="text"
           {...register('title')}
@@ -50,12 +54,12 @@ export default function PostCreateForm() {
         <FormValidationError
           message={errors.title?.message}
         ></FormValidationError>
-        <InputField
-          label="text"
-          placeholder="Text"
-          type="text"
+        <Controller
+          control={control}
           {...register('text')}
-        ></InputField>
+          defaultValue=""
+          render={({ field }) => <TextArea {...field} placeholder="Text" autoSize={{minRows: 4, maxRows: 16}}/>}
+        />
         <FormValidationError
           message={errors.text?.message}
         ></FormValidationError>
@@ -65,7 +69,7 @@ export default function PostCreateForm() {
           type="primary"
           htmlType="submit"
           formAction="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]"
         >
           Create
         </Button>

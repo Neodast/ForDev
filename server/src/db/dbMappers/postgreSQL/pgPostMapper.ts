@@ -14,7 +14,7 @@ class PgPostMapper extends PostMapper {
       likes: post.likes,
       comments: post.comments.map((comment) =>
         PgCommentMapper.mapToCommentModel(comment),
-      ),
+      ) || [],
       section: post.section,
     };
   }

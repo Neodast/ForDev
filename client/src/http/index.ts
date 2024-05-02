@@ -18,11 +18,10 @@ api.interceptors.response.use(
   async (err) => {
     const originalRequest = err.config;
 
-    if (err.response.code === 401 && err.config && !err.config._isRetry) {
-      originalRequest._isRetry = true;
+    if (err.response?.status === 401 && err.config) {
       try {
         const response = await AuthService.refresh();
-        localStorage.setItem('token', response.data.accessToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
         return api.request(originalRequest);
       } catch (e) {
         console.log(e);

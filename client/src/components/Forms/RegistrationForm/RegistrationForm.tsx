@@ -35,7 +35,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="flex-1 m-8">
+    <div className="flex-1 items-center justify-center m-8 my-[7%]">
       <form className="w-96 mx-auto font-roboto" onSubmit={handleSubmit(submit)}>
         <InputField
           label="Name"

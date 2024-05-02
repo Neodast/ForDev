@@ -61,7 +61,7 @@ export default function HeaderRightPanel() {
                           </Link>
                         ),
                       },
-                      ...(userRole === Role.ADMIN
+                      ...(userRole === Role.admin
                         ? [
                             {
                               key: '5',
@@ -112,7 +112,7 @@ export default function HeaderRightPanel() {
               ></Button>
             </Dropdown>
           ) : (
-            <div className='mt-2 mr-12 flex space-x-2 font-roboto'>
+            <div className="mt-2 mr-12 flex space-x-2 font-roboto">
               <NavItem to="/login">Login</NavItem>
               <NavItem to="/register">Register</NavItem>
             </div>

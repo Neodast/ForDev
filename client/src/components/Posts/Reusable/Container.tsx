@@ -8,7 +8,7 @@ interface ContainerProps {
 export default function Container(props: ContainerProps) {
   return (
     <>
-      <Card className='rounded-xl w-auto max-w-[200rem] mb-6 mr-64 ml-40 transition-colors disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:cursor-pointer font-nimbus'>
+      <Card className='rounded-xl w-auto max-w-[200rem] shadow-sm mb-6 mr-64 ml-40 transition-colors disabled:pointer-events-none disabled:opacity-50 hover:bg-slate-50 hover:cursor-pointer font-nimbus'>
         {props.children}
       </Card>
     </>

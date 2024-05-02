@@ -1,10 +1,11 @@
 import IUser from '@/types/models/IUser';
+import IComment from '../IComment';
 
 interface IPostCreate {
   title: string;
   text: string;
   author: IUser
-  // comments: CommentModel[];
+  comments: IComment[] | [];
   sectionTitle: string;
 }
 

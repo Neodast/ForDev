@@ -9,7 +9,11 @@ import { Comment } from './commentEntity';
 import { User } from './userEntity';
 import { Section } from './sectionEntity';
 
-@Entity()
+@Entity({
+  orderBy: {
+    title: 'DESC',
+  },
+})
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;

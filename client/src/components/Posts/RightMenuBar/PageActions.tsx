@@ -2,6 +2,7 @@ import { Button, Dropdown, Modal } from 'antd';
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { HiDotsHorizontal } from 'react-icons/hi';
+import { IoCloseOutline } from 'react-icons/io5';
 
 interface PageActionsProps {
   actionTitle: string;
@@ -9,8 +10,15 @@ interface PageActionsProps {
 }
 
 export default function PageActions(props: PageActionsProps) {
+  const [isModalOpen, setOpen] = useState(false);
 
-  const [modalState, setModalState] = useState(true);
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="flex-1 flex-col space-x-4 mb-4">
@@ -19,16 +27,25 @@ export default function PageActions(props: PageActionsProps) {
         shape="round"
         size="middle"
         icon={<FaPlus className="size-[0.75rem]"></FaPlus>}
-        onClick={() => setModalState(true)}
+        onClick={showModal}
         className="flex-1 h-10 text-black border-t-1 border-slate-200"
       >
         {props.actionTitle}
         <Modal
-          title="Title"
-          open={modalState}
-          onOk={() => setModalState(false)}
-          onCancel={() => setModalState(false)}
-          className="size-4"
+          title={props.actionTitle}
+          open={isModalOpen}
+          onCancel={handleCancel}
+          closeIcon={
+            <IoCloseOutline
+              size={26}
+              onClick={() => {
+                setTimeout(() => {
+                  setOpen(false);
+                }, 100);
+              }}
+            ></IoCloseOutline>
+          }
+          footer={null}
         >
           {props.form}
         </Modal>

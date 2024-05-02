@@ -6,6 +6,7 @@ import IPostUpdate from '@/types/board/posts/IPostUpdate';
 import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
 import { useCallback, useMemo } from 'react';
 import PostCreateForm from '@/components/Posts/Post/PostCreateForm';
+import IPostDelete from '@/types/board/posts/IPostDelete';
 
 export default function PostsPage() {
   const queryClient = useQueryClient();
@@ -16,12 +17,20 @@ export default function PostsPage() {
   });
 
   const { mutateAsync: editPost } = useMutation({
-    mutationKey: ['postEdit'],
+    mutationKey: ['editPost'],
     mutationFn: PostService.editPost,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
+
+  const {mutateAsync: deletePost} = useMutation({
+    mutationKey: ['deletePost'],
+    mutationFn: PostService.deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["posts"] });
+    }
+  })
 
   const handleLike = useCallback(
     async (post: IPostUpdate) => {
@@ -29,6 +38,13 @@ export default function PostsPage() {
     },
     [editPost],
   );
+
+  const handleDelete = useCallback(
+    async (post: IPostDelete) => {
+      return await deletePost(post);
+    },
+    [deletePost]
+  )
 
   const memoMain = useMemo(
     () => (
@@ -40,6 +56,7 @@ export default function PostsPage() {
               nickname={post.author.nickname}
               options={post}
               editHandler={handleLike}
+              deleteHandler={handleDelete}
             >
               <p>{post.text}</p>
             </Post>
@@ -52,7 +69,7 @@ export default function PostsPage() {
         </div>
       </>
     ),
-    [posts, handleLike],
+    [posts, handleLike, handleDelete],
   );
 
   return (

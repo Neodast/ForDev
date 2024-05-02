@@ -1,5 +1,5 @@
 import { BiComment, BiHeart } from 'react-icons/bi';
-import Action from './Action';
+import Action from '../Reusable/Action';
 import { useState } from 'react';
 import IPostUpdate from '@/types/board/posts/IPostUpdate';
 
@@ -14,17 +14,26 @@ export default function BottomActions(props: BottomActionsProps) {
   return (
     <div className="flex items-cente space-x-2">
       <Action
+        type="primary"
+        shape="round"
+        size="small"
         inner={likesCount}
-        onClick={() => {
+        icon={<BiHeart className="w-6 h-6 mr-1"></BiHeart>}
+        className="h-10 text-black border-t-1 border-slate-200 flex items-center mb-2"
+        onClick={async () => {
           setLikesCount(likesCount + 1);
           props.editHandler({ id: props.options.id, likes: likesCount + 1 });
         }}
-      >
-        <BiHeart className="w-6 h-6 mr-1"></BiHeart>
-      </Action>
-      <Action inner={0} onClick={() => null}>
-        <BiComment className="w-6 h-6 mr-1"></BiComment>
-      </Action>
+      ></Action>
+      <Action
+        type="primary"
+        shape="round"
+        size="small"
+        inner={0}
+        className="h-10 text-black border-t-1 border-slate-200 flex items-center mb-2"
+        icon={<BiComment className="w-6 h-6 mr-1"></BiComment>}
+        onClick={() => null}
+      ></Action>
     </div>
   );
 }
