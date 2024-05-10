@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import IThreadRepository from '../../../core/repositories/IThreadRepository';
-import { Thread } from '../../entities/threadEntity';
+import { Thread } from '../../entities/ThreadEntity';
 import appDataSource from '../../appDataSourse';
-import PgThreadMapper from '../../dbMappers/postgreSQL/pgThreadMapper';
-import ThreadModel from '../../../core/models/threadModel';
-import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
-import ApiError from '../../../utils/exeptions/apiError';
+import PgThreadMapper from '../../dbMappers/postgreSQL/PgThreadMapper';
+import ThreadModel from '../../../core/models/ThreadModel';
+import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
+import ApiError from '../../../utils/exceptions/ApiError';
 
 class PgThreadRepository implements IThreadRepository {
   private readonly threadRepository: Repository<Thread>;

@@ -5,11 +5,14 @@ import { Button, Dropdown } from 'antd';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
+import useUserLogout from '@/hooks/user/useUserLogout';
 
 export default function HeaderRightPanel() {
   const isAuth = useUserStore((state) => state.isAuth);
   const isLoading = useUserStore((state) => state.isLoading);
   const userRole = useUserStore((state) => state.user?.role);
+
+  const { mutateAsync } = useUserLogout();
 
   return (
     <div>
@@ -88,12 +91,14 @@ export default function HeaderRightPanel() {
                       {
                         key: '7',
                         label: (
-                          <Link
-                            to="/"
+                          <div
                             className="hover:cursor-pointer font-semibold text-lg  "
+                            onClick={async () => {
+                              await mutateAsync();
+                            }}
                           >
                             Logout
-                          </Link>
+                          </div>
                         ),
                       },
                     ],

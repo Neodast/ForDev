@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
-import TokenPayloadDto from '../../utils/dtos/tokens/tokenPayload.dto';
-import ApiError from '../../utils/exeptions/apiError';
+import TokenPayloadDto from '../../utils/dtos/tokens/TokenPayload.dto';
+import ApiError from '../../utils/exceptions/ApiError';
 import ITokenRepository from '../repositories/ITokenRepository';
-import tokenPgRepository from '../../db/dbRepositories/postgreSQL/pgTokenRepository';
-import TokensOutputDto from '../../utils/dtos/tokens/tokensOutput.dto';
-import UserModel from '../models/userModel';
+import tokenPgRepository from '../../db/dbRepositories/postgreSQL/PgTokenRepository';
+import TokensOutputDto from '../../utils/dtos/tokens/TokensOutput.dto';
+import UserModel from '../models/UserModel';
 
 class TokenService {
   constructor(readonly tokenRepository: ITokenRepository) {}
@@ -51,7 +51,7 @@ class TokenService {
   async deleteToken(userId: string): Promise<void> {
     const token = await this.tokenRepository.getByUserId(userId);
 
-    await this.tokenRepository.deleteRefreshToken(token.id);
+    await this.tokenRepository.deleteRefreshToken(token.refreshToken);
   }
 
   validateRefreshToken(refreshToken: string): TokenPayloadDto {

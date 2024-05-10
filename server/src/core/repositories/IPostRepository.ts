@@ -1,6 +1,6 @@
-import PostCreateDto from '../../utils/dtos/posts/postCreate.dto';
-import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
-import PostModel from '../models/postModel';
+import PostCreateDto from '../../utils/dtos/posts/PostCreate.dto';
+import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import PostModel from '../models/PostModel';
 
 interface IPostRepository {
   getById(id: number): Promise<PostModel>;

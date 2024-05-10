@@ -3,10 +3,8 @@ import RegistrationForm from '../components/Forms/RegistrationForm/RegistrationF
 
 export default function RegistrationPage() {
   return (
-    <>
-      <Layout>
-        <RegistrationForm></RegistrationForm>
-      </Layout>
-    </>
+    <Layout>
+      <RegistrationForm></RegistrationForm>
+    </Layout>
   );
 }

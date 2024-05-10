@@ -1,26 +1,28 @@
 import api from '../http';
-import IPost from '@/types/models/IPost';
+import Post from '@/types/models/Post';
 import IPostUpdate from '@/types/board/posts/IPostUpdate';
 import IPostCreate from '@/types/board/posts/IPostCreate';
 import IPostDelete from '@/types/board/posts/IPostDelete';
 
 export default class PostService {
-  static async getAllPosts(): Promise<IPost[]> {
-    const { data } = await api.get<IPost[]>('/board/posts');
+  static getAllPosts = async (): Promise<Post[]> => {
+    const { data } = await api.get<Post[]>('/board/posts');
     return data;
-  }
+  };
 
-  static async editPost(postData: IPostUpdate): Promise<IPost> {
-    const { data } = await api.put<IPost>('/board/updatePost', { ...postData });
+  static editPost = async (postData: IPostUpdate) => {
+    const { data } = await api.put<Post>('/board/updatePost', { ...postData });
     return data;
-  }
+  };
 
-  static async createPost(postData: IPostCreate): Promise<IPost> {
-    const { data } = await api.post<IPost>('/board/newPost', { ...postData });
+  static createPost = async (postData: IPostCreate): Promise<Post> => {
+    const { data } = await api.post<Post>('/board/newPost', { ...postData });
     return data;
-  }
+  };
 
-  static async deletePost(postData: IPostDelete) {
-    await api.delete<IPost>('/board/deltePost', { data: postData });
-  }
+  static deletePost = async (postData: IPostDelete) => {
+    return await api.delete<Post>('/board/deletePost', {
+      data: { ...postData },
+    });
+  };
 }

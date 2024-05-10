@@ -1,4 +1,4 @@
-import UserSafeDto from '../users/userSafe.dto';
+import UserSafeDto from '../users/UserSafe.dto';
 
 interface PostInputDto {
   title: string;

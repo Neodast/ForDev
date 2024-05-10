@@ -1,12 +1,13 @@
 import Role from '../user/roles.enum';
 
-interface IUser {
+type User = {
   id: string;
   email: string;
   name: string;
   surname: string;
   nickname: string;
+  isVerify: boolean;
   role: Role;
-}
+};
 
-export default IUser;
+export default User;

@@ -58,48 +58,6 @@ const LeftMenuBar = memo(() => {
             },
           ]}
         >
-          {/* <AccordionItem value="1">
-            <AccordionTrigger
-              className={
-                navigationMenuTriggerStyle() +
-                'my-2 bg-blue-400 hover:bg-blue-300 hover:no-underline'
-              }
-            >
-              <span className="mr-10">Recent</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-                Shototam
-              </MenuBarItem>
-              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-                Shototam
-              </MenuBarItem>
-              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-                Shototam
-              </MenuBarItem>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="2">
-            <AccordionTrigger
-              className={
-                navigationMenuTriggerStyle() +
-                'my-2 bg-blue-400 hover:bg-blue-300 hover:no-underline'
-              }
-            >
-              <span className="mr-10">Saved</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-                Shototam
-              </MenuBarItem>
-              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-                Shototam
-              </MenuBarItem>
-              <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-                Shototam
-              </MenuBarItem>
-            </AccordionContent>
-          </AccordionItem> */}
         </Collapse>
       </nav>
     </div>

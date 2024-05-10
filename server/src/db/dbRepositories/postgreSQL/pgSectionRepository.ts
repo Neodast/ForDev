@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
 import ISectionRepository from '../../../core/repositories/ISectionRepository';
-import { Section } from '../../entities/sectionEntity';
+import { Section } from '../../entities/SectionEntity';
 import appDataSource from '../../appDataSourse';
-import SectionModel from '../../../core/models/sectionModel';
-import PgSectionMapper from '../../dbMappers/postgreSQL/pgSectionMapper';
-import ApiError from '../../../utils/exeptions/apiError';
+import SectionModel from '../../../core/models/SectionModel';
+import PgSectionMapper from '../../dbMappers/postgreSQL/PgSectionMapper';
+import ApiError from '../../../utils/exceptions/ApiError';
 
 class PgSectionRepository implements ISectionRepository {
   private readonly sectionRepository: Repository<Section>;

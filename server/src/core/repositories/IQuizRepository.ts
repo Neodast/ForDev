@@ -1,5 +1,5 @@
-import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
-import QuizModel from '../models/quizModel';
+import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import QuizModel from '../models/QuizModel';
 
 interface IQuizRepository {
   getById(id: number): Promise<QuizModel>;

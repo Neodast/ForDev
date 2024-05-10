@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import postService from '../../core/services/postService';
-import PostModel from '../../core/models/postModel';
-import PostInputDto from '../../utils/dtos/posts/postInput.dto';
+import postService from '../../core/services/PostService';
+import PostModel from '../../core/models/PostModel';
+import PostInputDto from '../../utils/dtos/posts/PostInput.dto';
 
 class PostController {
   public async createPost(req: Request, res: Response, next: NextFunction) {
@@ -27,7 +27,8 @@ class PostController {
   public async deletePost(req: Request, res: Response, next: NextFunction) {
     try {
       const post: PostModel = req.body;
-      res.send(postService.deletePost(post));
+      await postService.deletePost(post);
+      res.sendStatus(200);
     } catch (e) {
       next(e);
     }

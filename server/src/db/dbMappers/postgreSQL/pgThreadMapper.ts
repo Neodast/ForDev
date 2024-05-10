@@ -1,8 +1,8 @@
-import ThreadMapper from '../../../core/mappers/threadMapper';
-import UserMapper from '../../../core/mappers/userMappers';
-import ThreadModel from '../../../core/models/threadModel';
-import { Thread } from '../../entities/threadEntity';
-import PgCommentMapper from './pgCommentMapper';
+import ThreadMapper from '../../../core/mappers/ThreadMapper';
+import UserMapper from '../../../core/mappers/UserMappers';
+import ThreadModel from '../../../core/models/ThreadModel';
+import { Thread } from '../../entities/ThreadEntity';
+import PgCommentMapper from './PgCommentMapper';
 
 class PgThreadMapper extends ThreadMapper {
   public static mapToThreadModel(thread: Thread): ThreadModel {

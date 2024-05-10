@@ -11,15 +11,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (localStorage.getItem('accessToken')) {
       setIsLoading(true);
       AuthService.refresh()
-        .then(({ data }) => {
-          setUser({
-            id: data.id,
-            email: data.email,
-            name: data.name,
-            surname: data.surname,
-            nickname: data.nickname,
-            role: data.role,
-          });
+        .then((data) => {
+          setUser({...data});
           setIsAuth(true);
           localStorage.setItem('accessToken', data.accessToken);
         })
@@ -35,7 +28,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   });
 
-  return <>{children}</>;
+  return children;
 };
 
 export default AuthProvider;

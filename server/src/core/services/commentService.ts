@@ -1,5 +1,5 @@
-import pgCommentRepository from '../../db/dbRepositories/postgreSQL/pgCommentRepository';
-import CommentModel from '../models/commentModel';
+import pgCommentRepository from '../../db/dbRepositories/postgreSQL/PgCommentRepository';
+import CommentModel from '../models/CommentModel';
 import ICommentRepository from '../repositories/ICommentRepository';
 
 class CommentService {
@@ -8,7 +8,6 @@ class CommentService {
   public async createComment(commentData: CommentModel): Promise<CommentModel> {
     return this.commentRepository.createComment(commentData);
   }
-
 
   public async deleteComment(comment: CommentModel): Promise<void> {
     return this.commentRepository.deleteComment(comment);

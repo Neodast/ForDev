@@ -1,5 +1,5 @@
-import pgSectionRepository from '../../db/dbRepositories/postgreSQL/pgSectionRepository';
-import SectionModel from '../models/sectionModel';
+import pgSectionRepository from '../../db/dbRepositories/postgreSQL/PgSectionRepository';
+import SectionModel from '../models/SectionModel';
 import ISectionRepository from '../repositories/ISectionRepository';
 
 class SectionService {

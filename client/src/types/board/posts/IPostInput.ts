@@ -1,6 +1,6 @@
 interface IPostInput {
-  title: string;
-  text: string;
+  createTitle: string;
+  createText: string;
   sectionTitle: string;
 }
 

@@ -1,5 +1,5 @@
-import pgQuizRepository from '../../db/dbRepositories/postgreSQL/pgQuizRepository';
-import QuizModel from '../models/quizModel';
+import pgQuizRepository from '../../db/dbRepositories/postgreSQL/PgQuizRepository';
+import QuizModel from '../models/QuizModel';
 import IQuizRepository from '../repositories/IQuizRepository';
 
 class QuizService {

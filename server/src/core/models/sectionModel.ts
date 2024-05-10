@@ -1,6 +1,6 @@
-import PostModel from './postModel';
-import QuizModel from './quizModel';
-import ThreadModel from './threadModel';
+import PostModel from './PostModel';
+import QuizModel from './QuizModel';
+import ThreadModel from './ThreadModel';
 
 interface SectionModel {
   id: number;

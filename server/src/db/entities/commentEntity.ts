@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Post } from './postEntity';
-import { User } from './userEntity';
-import { Thread } from './threadEntity';
-import { Quiz } from './quizEntity';
+import { Post } from './PostEntity';
+import { User } from './UserEntity';
+import { Thread } from './ThreadEntity';
+import { Quiz } from './QuizEntity';
 
 @Entity()
 export class Comment {

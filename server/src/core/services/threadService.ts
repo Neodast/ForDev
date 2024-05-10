@@ -1,5 +1,5 @@
-import pgThreadRepository from '../../db/dbRepositories/postgreSQL/pgThreadRepository';
-import ThreadModel from '../models/threadModel';
+import pgThreadRepository from '../../db/dbRepositories/postgreSQL/PgThreadRepository';
+import ThreadModel from '../models/ThreadModel';
 import IThreadRepository from '../repositories/IThreadRepository';
 
 class ThreadService {

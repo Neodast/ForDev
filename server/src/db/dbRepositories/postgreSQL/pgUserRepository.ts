@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
-import { User } from '../../entities/userEntity';
+import { User } from '../../entities/UserEntity';
 import appDataSource from '../../appDataSourse';
-import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
+import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import IUserRepository from '../../../core/repositories/IUserRepository';
-import UserCreateDto from '../../../utils/dtos/users/userCreate.dto';
-import UserModel from '../../../core/models/userModel';
-import PgUserMapper from '../../dbMappers/postgreSQL/pgUserMappers';
+import UserCreateDto from '../../../utils/dtos/users/CserCreate.dto';
+import UserModel from '../../../core/models/UserModel';
+import PgUserMapper from '../../dbMappers/postgreSQL/PgUserMappers';
 
 class PgUserRepository implements IUserRepository {
   private readonly userRepository: Repository<User>;

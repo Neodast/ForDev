@@ -3,7 +3,6 @@ import NavLogo from './Navigation/NavLogo';
 import { Menu } from 'antd';
 
 export default function HeaderLeftPanel() {
-
   return (
     <>
       <div className="flex w-auto">

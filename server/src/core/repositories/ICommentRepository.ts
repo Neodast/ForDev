@@ -1,5 +1,5 @@
-import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
-import CommentModel from '../models/commentModel';
+import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import CommentModel from '../models/CommentModel';
 
 interface ICommentRepository {
   getById(id: number): Promise<CommentModel>;

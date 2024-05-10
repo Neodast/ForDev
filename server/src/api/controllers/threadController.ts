@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import threadService from '../../core/services/threadService';
-import threadModel from '../../core/models/threadModel';
+import threadService from '../../core/services/ThreadService';
+import threadModel from '../../core/models/ThreadModel';
 
 class ThreadController {
   public async createThread(req: Request, res: Response, next: NextFunction) {
     try {
       const thread: threadModel = req.body;
-      const createdThread: threadModel = await threadService.createThread(thread);
+      const createdThread: threadModel =
+        await threadService.createThread(thread);
       res.json(createdThread);
     } catch (e) {
       next(e);
@@ -17,7 +18,7 @@ class ThreadController {
     try {
       const thread: threadModel = req.body;
       res.send(threadService.deleteThread(thread));
-    } catch (e)    {
+    } catch (e) {
       next(e);
     }
   }

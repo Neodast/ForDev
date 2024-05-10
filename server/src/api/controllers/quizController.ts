@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import quizService from '../../core/services/quizService';
-import QuizModel from '../../core/models/quizModel';
+import quizService from '../../core/services/QuizService';
+import QuizModel from '../../core/models/QuizModel';
 
 class QuizController {
   public async createQuiz(req: Request, res: Response, next: NextFunction) {

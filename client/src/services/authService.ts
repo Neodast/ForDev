@@ -1,34 +1,37 @@
 import api from '../http';
 import { AxiosResponse } from 'axios';
-import IUser from '../types/models/IUser';
-import ILoginInput from '../types/user/ILoginInput';
-import IRegisterInput from '../types/user/IRegisterInput';
-import ILoginOutput from '../types/user/ILoginOutput';
+import User from '../types/models/User';
+import LoginInput from '../types/user/LoginInput';
+import RegisterInput from '../types/user/RegisterInput';
+import LoginOutput from '@/types/user/LoginOutput';
 
-interface IAuth extends ITokenDto, IUser {}
-
-interface ITokenDto {
+type Auth = {
   accessToken: string;
-  refreshToken: string;
-}
+  user: User;
+};
 
 class AuthService {
-  static async login(loginData: ILoginInput): Promise<AxiosResponse<IAuth>> {
-    return await api.post<IAuth>('/auth/login', { ...loginData });
-  }
+  static login = async (
+    loginData: LoginInput,
+  ): Promise<LoginOutput> => {
+    const {data} = await api.post<Auth>('/auth/login', { ...loginData });
+    return data;
+  };
 
-  static async logout(): Promise<void> {
-    return api.post(`auth/logout`);
-  }
+  static logout = async (): Promise<void> => {
+    return await api.post(`auth/logout`);
+  };
 
-  static async registration(
-    registerData: IRegisterInput,
-  ): Promise<AxiosResponse<IAuth>> {
-    return api.post<IAuth>('/auth/registration', { ...registerData });
-  }
+  static registration = async (
+    registerData: RegisterInput,
+  ): Promise<AxiosResponse<Auth>> => {
+    return await api.post<Auth>('/auth/registration', { ...registerData });
+  };
 
-  static async refresh() {
-    return api.get<ILoginOutput>(`/auth/refresh`);
-  }
+  static refresh = async (): Promise<Auth> => {
+    const {data} = await api.get<LoginOutput>(`/auth/refresh`);
+    return data;
+  };
 }
+
 export default AuthService;

@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import sectionService from '../../core/services/sectionService';
+import sectionService from '../../core/services/SectionService';
 
 class SectionController {
   public async createSection(req: Request, res: Response, next: NextFunction) {
-    try{
-      const {title} = req.body;
+    try {
+      const { title } = req.body;
       const section = await sectionService.createSection(title);
       res.json(section);
-    }catch(e){
+    } catch (e) {
       next(e);
     }
   }

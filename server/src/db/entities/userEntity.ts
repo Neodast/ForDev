@@ -5,12 +5,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Token } from './tokenEntity';
+import { Token } from './TokenEntity';
 import Role from '../../utils/enums/roles.enum';
-import { Post } from './postEntity';
-import { Comment } from './commentEntity';
-import { Thread } from './threadEntity';
-import { Quiz } from './quizEntity';
+import { Post } from './PostEntity';
+import { Comment } from './CommentEntity';
+import { Thread } from './ThreadEntity';
+import { Quiz } from './QuizEntity';
 
 @Entity()
 export class User {

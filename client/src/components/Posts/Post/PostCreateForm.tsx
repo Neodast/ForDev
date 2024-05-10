@@ -1,21 +1,17 @@
 import InputField from '@/components/Base/Inputs/InputField';
 import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
-import PostService from '@/services/PostService';
+import useCreatePost from '@/hooks/posts/useCreatePost';
 import { useUserStore } from '@/stores/UserStore';
 import IPostInput from '@/types/board/posts/IPostInput';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 export default function PostCreateForm() {
   const author = useUserStore((state) => state.user);
-  const queryClient = useQueryClient();
-
   if (!author) {
     throw new Error('User is unauthorize');
   }
-  Object.assign({ author }, { isVerify: true });
 
   const {
     register,
@@ -24,20 +20,19 @@ export default function PostCreateForm() {
     control,
     formState: { errors },
   } = useForm<IPostInput>({
-    defaultValues: { sectionTitle: 't1' },
+    defaultValues: { sectionTitle: 'Posts' },
   });
 
-  const mutation = useMutation({
-    mutationKey: ['posts'],
-    mutationFn: PostService.createPost, 
-    onSuccess: async () => {
-      reset();
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-    },
-  });
+  const {mutateAsync} = useCreatePost(reset);
 
   const submit: SubmitHandler<IPostInput> = async (data) => {
-    await mutation.mutateAsync({ author: author, comments: [], ...data });
+    await mutateAsync({
+      author: author,
+      comments: [],
+      text: data.createText,
+      title: data.createTitle,
+      sectionTitle: data.sectionTitle
+    });
   };
   return (
     <div className="flex-1 items-center justify-center m-8">
@@ -49,19 +44,25 @@ export default function PostCreateForm() {
           label=""
           placeholder="Title"
           type="text"
-          {...register('title')}
+          {...register('createTitle')}
         ></InputField>
         <FormValidationError
-          message={errors.title?.message}
+          message={errors.createTitle?.message}
         ></FormValidationError>
         <Controller
           control={control}
-          {...register('text')}
+          {...register('createText')}
           defaultValue=""
-          render={({ field }) => <TextArea {...field} placeholder="Text" autoSize={{minRows: 4, maxRows: 16}}/>}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              placeholder="Text"
+              autoSize={{ minRows: 4, maxRows: 16 }}
+            />
+          )}
         />
         <FormValidationError
-          message={errors.text?.message}
+          message={errors.createText?.message}
         ></FormValidationError>
         <Button
           size="large"

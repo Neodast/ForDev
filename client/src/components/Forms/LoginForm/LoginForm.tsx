@@ -1,44 +1,33 @@
 import InputField from '../../Base/Inputs/InputField';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import ILoginInput from '../../../types/user/ILoginInput';
-import { useMutation } from '@tanstack/react-query';
-import AuthService from '../../../services/AuthService';
-import { useUserStore } from '../../../stores/UserStore';
+import LoginInput from '../../../types/user/LoginInput';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
 import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import useUserLogin from '@/hooks/user/useUserLogin';
 
 export default function LoginForm() {
-  const login = useUserStore((state) => state.login);
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ILoginInput>({
+  } = useForm<LoginInput>({
     defaultValues: {},
     mode: 'onChange',
   });
 
-  const mutation = useMutation({
-    mutationKey: ['login'],
-    mutationFn: AuthService.login,
-    onSuccess: ({ data }) => {
-      login(data);
-      reset();
-      navigate('/');
-    },
-  });
+  const { mutateAsync } = useUserLogin(reset);
 
-  const submit: SubmitHandler<ILoginInput> = async (data) => {
-    await mutation.mutateAsync(data);
+  const submit: SubmitHandler<LoginInput> = async (data) => {
+    await mutateAsync(data);
   };
 
   return (
     <div className="flex-1 items-center justify-center m-8 my-[7%]">
-      <form className="w-96 mx-auto font-roboto" onSubmit={handleSubmit(submit)}>
+      <form
+        className="w-96 mx-auto font-roboto"
+        onSubmit={handleSubmit(submit)}
+      >
         <InputField
           label="Email"
           placeholder="email@gmail.com"
@@ -57,7 +46,14 @@ export default function LoginForm() {
         <FormValidationError
           message={errors.password?.message}
         ></FormValidationError>
-        <Button size='large' shape='default' type='primary' htmlType='submit' formAction='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]">
+        <Button
+          size="large"
+          shape="default"
+          type="primary"
+          htmlType="submit"
+          formAction="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]"
+        >
           Login
         </Button>
       </form>

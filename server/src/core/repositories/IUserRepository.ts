@@ -1,6 +1,6 @@
-import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
-import UserCreateDto from '../../utils/dtos/users/userCreate.dto';
-import UserModel from '../models/userModel';
+import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import UserCreateDto from '../../utils/dtos/users/CserCreate.dto';
+import UserModel from '../models/UserModel';
 
 interface IUserRepository {
   getById(id: string): Promise<UserModel>;

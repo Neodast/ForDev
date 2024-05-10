@@ -3,10 +3,10 @@ import {
   RequestWithBody,
   RequestWithQuery,
 } from '../../utils/types/request.type';
-import UserCreateDto from '../../utils/dtos/users/userCreate.dto';
-import userService from '../../core/services/userService';
-import UserLoginDto from '../../utils/dtos/auth/userLoginInput.dto';
-import VerifyIdDto from '../../utils/dtos/auth/verifyId.dto';
+import UserCreateDto from '../../utils/dtos/users/CserCreate.dto';
+import userService from '../../core/services/UserService';
+import UserLoginDto from '../../utils/dtos/auth/UserLoginInput.dto';
+import VerifyIdDto from '../../utils/dtos/auth/VerifyId.dto';
 import CookieHelper from '../helpers/cookieHelper';
 
 class UserController {
@@ -53,8 +53,22 @@ class UserController {
     try {
       const { email, password } = req.body;
       const userData = await userService.login({ email, password });
-      CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
-      res.json(userData);
+      await CookieHelper.saveRefreshTokenCookie(
+        res,
+        userData.tokens.refreshToken,
+      );
+      res.send(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {refreshToken} = req.cookies;
+      await userService.logout(refreshToken);
+      await CookieHelper.removeRefreshTokenCookie(res);
+      res.send(200);
     } catch (e) {
       next(e);
     }
@@ -64,8 +78,11 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const userData = await userService.refresh(refreshToken);
-      CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
-      res.json({
+      await CookieHelper.saveRefreshTokenCookie(
+        res,
+        userData.tokens.refreshToken,
+      );
+      res.send({
         ...userData.user,
         accessToken: userData.tokens.accessToken,
       });

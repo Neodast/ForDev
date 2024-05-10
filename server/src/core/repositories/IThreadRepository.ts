@@ -1,5 +1,5 @@
-import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
-import ThreadModel from '../models/threadModel';
+import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import ThreadModel from '../models/ThreadModel';
 
 interface IThreadRepository {
   getById(id: number): Promise<ThreadModel>;

@@ -1,13 +1,13 @@
-import IUser from './IUser';
+import User from './User';
 
-interface IPost {
+type Post = {
   id: number;
   title: string;
   likes: number;
   text: string;
-  author: IUser;
+  author: User;
   // comments: CommentModel[];
   // section: Section;
-}
+};
 
-export default IPost;
+export default Post;

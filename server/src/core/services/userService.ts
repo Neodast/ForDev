@@ -1,18 +1,18 @@
-import emailService from './emailService';
-import tokenService from './tokenService';
-import UserCreateDto from '../../utils/dtos/users/userCreate.dto';
-import UserLoginDto from '../../utils/dtos/auth/userLoginInput.dto';
-import TokenPayloadDto from '../../utils/dtos/tokens/tokenPayload.dto';
+import emailService from './EmailService';
+import tokenService from './TokenService';
+import UserCreateDto from '../../utils/dtos/users/CserCreate.dto';
+import UserLoginDto from '../../utils/dtos/auth/UserLoginInput.dto';
+import TokenPayloadDto from '../../utils/dtos/tokens/TokenPayload.dto';
 import bcrypt from 'bcrypt';
-import LoginOutputDto from '../../utils/dtos/auth/loginOutput.dto';
-import ApiError from '../../utils/exeptions/apiError';
-import userPgRepository from '../../db/dbRepositories/postgreSQL/pgUserRepository';
-import UserRegisterDto from '../../utils/dtos/auth/userRegisterOutput.dto';
+import LoginOutputDto from '../../utils/dtos/auth/LoginOutput.dto';
+import ApiError from '../../utils/exceptions/ApiError';
+import userPgRepository from '../../db/dbRepositories/postgreSQL/PgUserRepository';
+import UserRegisterDto from '../../utils/dtos/auth/UserRegisterOutput.dto';
 import IUserRepository from '../repositories/IUserRepository';
-import tokenPgRepository from '../../db/dbRepositories/postgreSQL/pgTokenRepository';
+import tokenPgRepository from '../../db/dbRepositories/postgreSQL/PgTokenRepository';
 import ITokenRepository from '../repositories/ITokenRepository';
-import UserSafeDto from '../../utils/dtos/users/userSafe.dto';
-import UserMapper from '../mappers/userMappers';
+import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import UserMapper from '../mappers/UserMappers';
 
 class UserService {
   constructor(

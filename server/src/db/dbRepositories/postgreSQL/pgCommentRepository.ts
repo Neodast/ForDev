@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
-import { Comment } from '../../entities/commentEntity';
+import { Comment } from '../../entities/CommentEntity';
 import appDataSource from '../../appDataSourse';
-import CommentModel from '../../../core/models/commentModel';
+import CommentModel from '../../../core/models/CommentModel';
 import ICommentRepository from '../../../core/repositories/ICommentRepository';
-import PgCommentMapper from '../../dbMappers/postgreSQL/pgCommentMapper';
-import ApiError from '../../../utils/exeptions/apiError';
-import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
+import PgCommentMapper from '../../dbMappers/postgreSQL/PgCommentMapper';
+import ApiError from '../../../utils/exceptions/ApiError';
+import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 
 class PgCommentRepository implements ICommentRepository {
   private readonly commentRepository: Repository<Comment>;

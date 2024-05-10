@@ -1,4 +1,4 @@
-interface IRegisterInput {
+type RegisterInput = {
   name?: string;
   surname?: string;
   nickname: string;
@@ -7,4 +7,4 @@ interface IRegisterInput {
   passwordConfirm: string;
 }
 
-export default IRegisterInput;
+export default RegisterInput;

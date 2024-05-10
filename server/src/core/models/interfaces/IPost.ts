@@ -1,6 +1,6 @@
-import { Section } from '../../../db/entities/sectionEntity';
-import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
-import CommentModel from '../commentModel';
+import { Section } from '../../../db/entities/SectionEntity';
+import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
+import CommentModel from '../CommentModel';
 
 interface IPost {
   id: number;

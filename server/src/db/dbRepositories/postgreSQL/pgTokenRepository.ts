@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
 import ITokenRepository from '../../../core/repositories/ITokenRepository';
-import { Token } from '../../entities/tokenEntity';
+import { Token } from '../../entities/TokenEntity';
 import appDataSource from '../../appDataSourse';
-import TokenModel from '../../../core/models/tokenModel';
-import PgTokenMapper from '../../dbMappers/postgreSQL/pgTokenMappers';
+import TokenModel from '../../../core/models/TokenModel';
+import PgTokenMapper from '../../dbMappers/postgreSQL/PgTokenMappers';
 
 class PgTokenRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;
@@ -43,8 +43,10 @@ class PgTokenRepository implements ITokenRepository {
     );
   }
 
-  async deleteRefreshToken(tokenId: number): Promise<void> {
-    const token = await this.tokenRepository.findOneBy({ id: tokenId });
+  async deleteRefreshToken(refreshToken: string): Promise<void> {
+    const token = await this.tokenRepository.findOneBy({
+      refreshToken: refreshToken,
+    });
     if (!token) {
       throw new Error('Token is not found!');
     }
@@ -64,7 +66,9 @@ class PgTokenRepository implements ITokenRepository {
   }
 
   async getByRefreshToken(refreshToken: string): Promise<TokenModel> {
-    const token = await this.tokenRepository.findOneBy( {refreshToken: refreshToken});
+    const token = await this.tokenRepository.findOneBy({
+      refreshToken: refreshToken,
+    });
     if (!token) {
       throw new Error('Token is not found');
     }

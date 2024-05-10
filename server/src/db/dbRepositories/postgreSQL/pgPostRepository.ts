@@ -1,12 +1,12 @@
 import { Repository } from 'typeorm';
-import { Post } from '../../entities/postEntity';
+import { Post } from '../../entities/PostEntity';
 import appDataSource from '../../appDataSourse';
-import PostModel from '../../../core/models/postModel';
+import PostModel from '../../../core/models/PostModel';
 import IPostRepository from '../../../core/repositories/IPostRepository';
-import PgPostMapper from '../../dbMappers/postgreSQL/pgPostMapper';
-import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
-import ApiError from '../../../utils/exeptions/apiError';
-import PostCreateDto from '../../../utils/dtos/posts/postCreate.dto';
+import PgPostMapper from '../../dbMappers/postgreSQL/PgPostMapper';
+import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
+import ApiError from '../../../utils/exceptions/ApiError';
+import PostCreateDto from '../../../utils/dtos/posts/PostCreate.dto';
 
 class PgPostRepository implements IPostRepository {
   private readonly postRepository: Repository<Post>;
@@ -67,12 +67,12 @@ class PgPostRepository implements IPostRepository {
     newPostData: PostModel,
   ): Promise<PostModel> {
     const dbPost = await this.getById(id);
-    Object.assign(dbPost, newPostData);
+    Object.assign(dbPost, {...newPostData});
     return PgPostMapper.mapToPostModel(await this.postRepository.save(dbPost));
   }
 
   public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.findPost({ post });
+    const dbPost = await this.findPost({ ...post });
     await this.postRepository.remove(dbPost);
   }
 }

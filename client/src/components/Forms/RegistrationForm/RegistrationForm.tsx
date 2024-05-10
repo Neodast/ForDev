@@ -1,7 +1,7 @@
 import InputField from '../../Base/Inputs/InputField';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import IRegisterInput from '../../../types/user/IRegisterInput';
+import RegisterInput from '../../../types/user/RegisterInput';
 import AuthService from '../../../services/AuthService';
 import FormValidationError from './Errors/FormValidationError';
 import { Button } from 'antd';
@@ -16,7 +16,7 @@ export default function RegistrationForm() {
     reset,
     watch,
     formState: { errors },
-  } = useForm<IRegisterInput>({
+  } = useForm<RegisterInput>({
     defaultValues: {},
     mode: 'onChange',
   });
@@ -30,13 +30,16 @@ export default function RegistrationForm() {
     },
   });
 
-  const submit: SubmitHandler<IRegisterInput> = async (data) => {
+  const submit: SubmitHandler<RegisterInput> = async (data) => {
     await mutation.mutateAsync(data);
   };
 
   return (
     <div className="flex-1 items-center justify-center m-8 my-[7%]">
-      <form className="w-96 mx-auto font-roboto" onSubmit={handleSubmit(submit)}>
+      <form
+        className="w-96 mx-auto font-roboto"
+        onSubmit={handleSubmit(submit)}
+      >
         <InputField
           label="Name"
           type="text"
@@ -122,7 +125,13 @@ export default function RegistrationForm() {
         <FormValidationError
           message={errors.passwordConfirm?.message}
         ></FormValidationError>
-        <Button size='large' shape='default' type='primary' htmlType='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]">
+        <Button
+          size="large"
+          shape="default"
+          type="primary"
+          htmlType="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]"
+        >
           Register
         </Button>
       </form>

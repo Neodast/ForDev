@@ -5,15 +5,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Comment } from './commentEntity';
-import { User } from './userEntity';
-import { Section } from './sectionEntity';
+import { Comment } from './CommentEntity';
+import { User } from './UserEntity';
+import { Section } from './SectionEntity';
 
-@Entity({
-  orderBy: {
-    title: 'DESC',
-  },
-})
+@Entity()
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;

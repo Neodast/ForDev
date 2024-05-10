@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
-import { Quiz } from '../../entities/quizEntity';
+import { Quiz } from '../../entities/QuizEntity';
 import appDataSource from '../../appDataSourse';
-import QuizMapper from '../../dbMappers/postgreSQL/pgQuizMapper';
-import UserSafeDto from '../../../utils/dtos/users/userSafe.dto';
-import ApiError from '../../../utils/exeptions/apiError';
-import QuizModel from '../../../core/models/quizModel';
+import QuizMapper from '../../dbMappers/postgreSQL/PgQuizMapper';
+import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
+import ApiError from '../../../utils/exceptions/ApiError';
+import QuizModel from '../../../core/models/QuizModel';
 import IQuizRepository from '../../../core/repositories/IQuizRepository';
 
 class PgQuizRepository implements IQuizRepository {

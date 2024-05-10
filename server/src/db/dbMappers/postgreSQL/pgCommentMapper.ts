@@ -1,7 +1,7 @@
-import CommentMaper from '../../../core/mappers/commentMapper';
-import CommentModel from '../../../core/models/commentModel';
-import { Comment } from '../../entities/commentEntity';
-import PgUserMapper from './pgUserMappers';
+import CommentMaper from '../../../core/mappers/CommentMapper';
+import CommentModel from '../../../core/models/CommentModel';
+import { Comment } from '../../entities/CommentEntity';
+import PgUserMapper from './PgUserMappers';
 
 class PgCommentMapper extends CommentMaper {
   public static mapToCommentModel(comment: Comment): CommentModel {

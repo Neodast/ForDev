@@ -1,6 +1,6 @@
-import UserMapper from '../../../core/mappers/userMappers';
-import UserModel from '../../../core/models/userModel';
-import { User } from '../../entities/userEntity';
+import UserMapper from '../../../core/mappers/UserMappers';
+import UserModel from '../../../core/models/UserModel';
+import { User } from '../../entities/UserEntity';
 
 class PgUserMapper extends UserMapper {
   public static mapToUserModel(user: User): UserModel {

@@ -1,8 +1,8 @@
-import QuizMapper from '../../../core/mappers/quizMapper';
-import UserMapper from '../../../core/mappers/userMappers';
-import QuizModel from '../../../core/models/quizModel';
-import { Quiz } from '../../entities/quizEntity';
-import PgCommentMapper from './pgCommentMapper';
+import QuizMapper from '../../../core/mappers/QuizMapper';
+import UserMapper from '../../../core/mappers/UserMappers';
+import QuizModel from '../../../core/models/QuizModel';
+import { Quiz } from '../../entities/QuizEntity';
+import PgCommentMapper from './PgCommentMapper';
 
 class PgQuizMapper extends QuizMapper {
   public static mapToQuizModel(quiz: Quiz): QuizModel {

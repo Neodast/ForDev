@@ -1,15 +1,14 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Thread } from './threadEntity';
-import { Post } from './postEntity';
-import { Quiz } from './quizEntity';
+import { Thread } from './ThreadEntity';
+import { Post } from './PostEntity';
+import { Quiz } from './QuizEntity';
 
 @Entity()
 export class Section {
-
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, nullable: false})
+  @Column({ unique: true, nullable: false })
   title: string;
 
   @OneToMany(() => Thread, (thread) => thread.section, {
@@ -29,5 +28,4 @@ export class Section {
     cascade: true,
   })
   quizzes: Quiz[];
-
 }

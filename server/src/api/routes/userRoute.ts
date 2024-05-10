@@ -14,6 +14,7 @@ userRouter.post(
 );
 userRouter.get('/users', authMiddleware, userController.getAllUsers);
 userRouter.post('/login', accountLoginValidation, userController.login);
+userRouter.post('/logout', userController.logout)
 userRouter.get('/refresh', userController.refresh);
 
 export default userRouter;
