@@ -15,6 +15,8 @@ interface PostProps {
   children: React.ReactNode;
 }
 
+//TODO Add markdown support and realize(HOW???!!!) this in backend side.
+
 export default function Post(props: PostProps) {
   const user = useUserStore((state) => state.user);
   const isAuthor =
@@ -25,7 +27,7 @@ export default function Post(props: PostProps) {
       <Container>
         <div className="max-w-32 float-end space-x-2">
           {isAuthor && (
-            <PostTopActions postId={props.options.id}></PostTopActions>
+            <PostTopActions postId={props.options.id} postTitle={props.options.title} postText={props.options.text}></PostTopActions>
           )}
         </div>
         <Link to="/" className="hover:text-black">

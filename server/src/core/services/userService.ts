@@ -1,6 +1,6 @@
 import emailService from './EmailService';
 import tokenService from './TokenService';
-import UserCreateDto from '../../utils/dtos/users/CserCreate.dto';
+import UserCreateDto from '../../utils/dtos/users/UserCreate.dto';
 import UserLoginDto from '../../utils/dtos/auth/UserLoginInput.dto';
 import TokenPayloadDto from '../../utils/dtos/tokens/TokenPayload.dto';
 import bcrypt from 'bcrypt';

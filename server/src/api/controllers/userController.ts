@@ -3,11 +3,12 @@ import {
   RequestWithBody,
   RequestWithQuery,
 } from '../../utils/types/request.type';
-import UserCreateDto from '../../utils/dtos/users/CserCreate.dto';
+import UserCreateDto from '../../utils/dtos/users/UserCreate.dto';
 import userService from '../../core/services/UserService';
 import UserLoginDto from '../../utils/dtos/auth/UserLoginInput.dto';
 import VerifyIdDto from '../../utils/dtos/auth/VerifyId.dto';
 import CookieHelper from '../helpers/cookieHelper';
+import LoginOutputDto from '../../utils/dtos/auth/LoginOutput.dto';
 
 class UserController {
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
@@ -26,7 +27,10 @@ class UserController {
   ) {
     try {
       const userData = await userService.register(req.body);
-      CookieHelper.saveRefreshTokenCookie(res, userData.tokens.refreshToken);
+      await CookieHelper.saveRefreshTokenCookie(
+        res,
+        userData.tokens.refreshToken,
+      );
       res.send(userData);
     } catch (e) {
       next(e);
@@ -46,8 +50,8 @@ class UserController {
   }
 
   async login(
-    req: RequestWithBody<UserLoginDto>,
-    res: Response,
+    req: Request<UserLoginDto>,
+    res: Response<LoginOutputDto>,
     next: NextFunction,
   ) {
     try {
@@ -57,7 +61,10 @@ class UserController {
         res,
         userData.tokens.refreshToken,
       );
-      res.send(userData);
+      res.send({
+        user: userData.user,
+        tokens: userData.tokens,
+      });
     } catch (e) {
       next(e);
     }
@@ -65,7 +72,7 @@ class UserController {
 
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
-      const {refreshToken} = req.cookies;
+      const { refreshToken } = req.cookies;
       await userService.logout(refreshToken);
       await CookieHelper.removeRefreshTokenCookie(res);
       res.send(200);
@@ -74,7 +81,11 @@ class UserController {
     }
   }
 
-  async refresh(req: Request, res: Response, next: NextFunction) {
+  async refresh(
+    req: Request,
+    res: Response<LoginOutputDto>,
+    next: NextFunction,
+  ) {
     try {
       const { refreshToken } = req.cookies;
       const userData = await userService.refresh(refreshToken);
@@ -83,8 +94,8 @@ class UserController {
         userData.tokens.refreshToken,
       );
       res.send({
-        ...userData.user,
-        accessToken: userData.tokens.accessToken,
+        user: userData.user,
+        tokens: userData.tokens,
       });
     } catch (error) {
       next(error);

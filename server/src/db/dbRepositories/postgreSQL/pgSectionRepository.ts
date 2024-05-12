@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import ISectionRepository from '../../../core/repositories/ISectionRepository';
-import { Section } from '../../entities/SectionEntity';
-import appDataSource from '../../appDataSourse';
+import { Section } from '../../entities/postgreSQL/SectionEntity';
+import { pgDataSource } from '../../appDataSourse';
 import SectionModel from '../../../core/models/SectionModel';
 import PgSectionMapper from '../../dbMappers/postgreSQL/PgSectionMapper';
 import ApiError from '../../../utils/exceptions/ApiError';
@@ -10,7 +10,7 @@ class PgSectionRepository implements ISectionRepository {
   private readonly sectionRepository: Repository<Section>;
 
   constructor() {
-    this.sectionRepository = appDataSource.getRepository(Section);
+    this.sectionRepository = pgDataSource.getRepository(Section);
   }
 
   private async findSection(

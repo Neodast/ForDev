@@ -1,5 +1,5 @@
 import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
-import UserCreateDto from '../../utils/dtos/users/CserCreate.dto';
+import UserCreateDto from '../../utils/dtos/users/UserCreate.dto';
 import UserModel from '../models/UserModel';
 
 interface IUserRepository {

@@ -1,6 +1,6 @@
 import CommentMaper from '../../../core/mappers/CommentMapper';
 import CommentModel from '../../../core/models/CommentModel';
-import { Comment } from '../../entities/CommentEntity';
+import { Comment } from '../../entities/postgreSQL/CommentEntity';
 import PgUserMapper from './PgUserMappers';
 
 class PgCommentMapper extends CommentMaper {

@@ -1,7 +1,7 @@
 import PostMapper from '../../../core/mappers/PostMapper';
 import UserMapper from '../../../core/mappers/UserMappers';
 import PostModel from '../../../core/models/PostModel';
-import { Post } from '../../entities/PostEntity';
+import { Post } from '../../entities/postgreSQL/PostEntity';
 import PgCommentMapper from './PgCommentMapper';
 
 class PgPostMapper extends PostMapper {

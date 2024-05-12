@@ -5,7 +5,7 @@ import { Button, Dropdown } from 'antd';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import useUserLogout from '@/hooks/user/useUserLogout';
+import useUserLogout from '@/hooks/auth/useUserLogout';
 
 export default function HeaderRightPanel() {
   const isAuth = useUserStore((state) => state.isAuth);

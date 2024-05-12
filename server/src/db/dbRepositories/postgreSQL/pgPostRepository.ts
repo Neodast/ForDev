@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { Post } from '../../entities/PostEntity';
-import appDataSource from '../../appDataSourse';
+import { Post } from '../../entities/postgreSQL/PostEntity';
+import { pgDataSource } from '../../appDataSourse';
 import PostModel from '../../../core/models/PostModel';
 import IPostRepository from '../../../core/repositories/IPostRepository';
 import PgPostMapper from '../../dbMappers/postgreSQL/PgPostMapper';
@@ -12,7 +12,7 @@ class PgPostRepository implements IPostRepository {
   private readonly postRepository: Repository<Post>;
 
   constructor() {
-    this.postRepository = appDataSource.getRepository(Post);
+    this.postRepository = pgDataSource.getRepository(Post);
   }
 
   private async findPost(criteria: Record<string, unknown>): Promise<Post> {
@@ -31,9 +31,6 @@ class PgPostRepository implements IPostRepository {
       where: criteria,
       relations: ['author', 'comments', 'comments.author'],
     });
-    if (!dbPosts.length) {
-      throw new Error('Posts are not found!');
-    }
     return dbPosts;
   }
 
@@ -67,7 +64,7 @@ class PgPostRepository implements IPostRepository {
     newPostData: PostModel,
   ): Promise<PostModel> {
     const dbPost = await this.getById(id);
-    Object.assign(dbPost, {...newPostData});
+    Object.assign(dbPost, { ...newPostData });
     return PgPostMapper.mapToPostModel(await this.postRepository.save(dbPost));
   }
 

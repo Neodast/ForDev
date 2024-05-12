@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import LoginInput from '../../../types/user/LoginInput';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
 import { Button } from 'antd';
-import useUserLogin from '@/hooks/user/useUserLogin';
+import useUserLogin from '@/hooks/auth/useUserLogin';
 
 export default function LoginForm() {
   const {

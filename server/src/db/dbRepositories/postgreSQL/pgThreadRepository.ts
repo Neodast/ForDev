@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import IThreadRepository from '../../../core/repositories/IThreadRepository';
-import { Thread } from '../../entities/ThreadEntity';
-import appDataSource from '../../appDataSourse';
+import { Thread } from '../../entities/postgreSQL/ThreadEntity';
+import { pgDataSource } from '../../appDataSourse';
 import PgThreadMapper from '../../dbMappers/postgreSQL/PgThreadMapper';
 import ThreadModel from '../../../core/models/ThreadModel';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
@@ -11,7 +11,7 @@ class PgThreadRepository implements IThreadRepository {
   private readonly threadRepository: Repository<Thread>;
 
   constructor() {
-    this.threadRepository = appDataSource.getRepository(Thread);
+    this.threadRepository = pgDataSource.getRepository(Thread);
   }
 
   private async findThread(criteria: Record<string, unknown>): Promise<Thread> {

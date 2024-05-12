@@ -14,7 +14,7 @@ class AuthService {
   static login = async (
     loginData: LoginInput,
   ): Promise<LoginOutput> => {
-    const {data} = await api.post<Auth>('/auth/login', { ...loginData });
+    const {data} = await api.post<LoginOutput>('/auth/login', { ...loginData });
     return data;
   };
 
@@ -28,7 +28,7 @@ class AuthService {
     return await api.post<Auth>('/auth/registration', { ...registerData });
   };
 
-  static refresh = async (): Promise<Auth> => {
+  static refresh = async (): Promise<LoginOutput> => {
     const {data} = await api.get<LoginOutput>(`/auth/refresh`);
     return data;
   };

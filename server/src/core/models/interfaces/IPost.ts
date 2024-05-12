@@ -1,4 +1,4 @@
-import { Section } from '../../../db/entities/SectionEntity';
+import { Section } from '../../../db/entities/postgreSQL/SectionEntity';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import CommentModel from '../CommentModel';
 

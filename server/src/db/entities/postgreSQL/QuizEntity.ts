@@ -9,7 +9,7 @@ import { Comment } from './CommentEntity';
 import { User } from './UserEntity';
 import { Section } from './SectionEntity';
 
-@Entity()
+@Entity({ name: 'Quizzes'})
 export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;

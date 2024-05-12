@@ -1,7 +1,7 @@
 import QuizMapper from '../../../core/mappers/QuizMapper';
 import UserMapper from '../../../core/mappers/UserMappers';
 import QuizModel from '../../../core/models/QuizModel';
-import { Quiz } from '../../entities/QuizEntity';
+import { Quiz } from '../../entities/postgreSQL/QuizEntity';
 import PgCommentMapper from './PgCommentMapper';
 
 class PgQuizMapper extends QuizMapper {

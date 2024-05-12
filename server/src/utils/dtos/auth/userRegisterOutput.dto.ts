@@ -1,5 +1,5 @@
 import RefreshStringDto from '../tokens/RefreshString.dto';
-import UserCreateDto from '../users/CserCreate.dto';
+import UserCreateDto from '../users/UserCreate.dto';
 
 interface UserRegisterDto {
   tokens: RefreshStringDto;

@@ -3,7 +3,7 @@ import { Thread } from './ThreadEntity';
 import { Post } from './PostEntity';
 import { Quiz } from './QuizEntity';
 
-@Entity()
+@Entity({ name: 'Sections' })
 export class Section {
   @PrimaryGeneratedColumn()
   id: number;

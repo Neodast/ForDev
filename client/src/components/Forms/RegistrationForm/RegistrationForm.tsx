@@ -1,15 +1,11 @@
 import InputField from '../../Base/Inputs/InputField';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 import RegisterInput from '../../../types/user/RegisterInput';
-import AuthService from '../../../services/AuthService';
 import FormValidationError from './Errors/FormValidationError';
 import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import useUserRegister from '@/hooks/auth/useUserRegister';
 
 export default function RegistrationForm() {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -21,17 +17,10 @@ export default function RegistrationForm() {
     mode: 'onChange',
   });
 
-  const mutation = useMutation({
-    mutationKey: ['register'],
-    mutationFn: AuthService.registration,
-    onSuccess: () => {
-      reset();
-      navigate('/');
-    },
-  });
+  const { mutateAsync } = useUserRegister(reset);
 
   const submit: SubmitHandler<RegisterInput> = async (data) => {
-    await mutation.mutateAsync(data);
+    await mutateAsync(data);
   };
 
   return (

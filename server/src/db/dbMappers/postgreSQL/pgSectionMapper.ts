@@ -1,6 +1,6 @@
 import SectionMapper from '../../../core/mappers/SectionMapper';
 import SectionModel from '../../../core/models/SectionModel';
-import { Section } from '../../entities/SectionEntity';
+import { Section } from '../../entities/postgreSQL/SectionEntity';
 import PgPostMapper from './PgPostMapper';
 import PgQuizMapper from './PgQuizMapper';
 import PgThreadMapper from './PgThreadMapper';

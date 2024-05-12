@@ -4,6 +4,7 @@ import postRouter from './postRouter';
 import sectionRouter from './sectionRoute';
 import quizRouter from './quizRouter';
 import threadRouter from './threadRouter';
+import likedRouter from './likedRoute';
 
 const router: Router = express.Router();
 
@@ -12,5 +13,6 @@ router.use('/board', postRouter);
 router.use('/section', sectionRouter);
 router.use('/board', quizRouter);
 router.use('/board', threadRouter);
+router.use('/liked', likedRouter);
 
 export default router;

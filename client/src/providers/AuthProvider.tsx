@@ -12,9 +12,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(true);
       AuthService.refresh()
         .then((data) => {
-          setUser({...data});
+          const {user, tokens} = data;
+          setUser({...user});
           setIsAuth(true);
-          localStorage.setItem('accessToken', data.accessToken);
+          localStorage.setItem('accessToken', tokens.accessToken);
         })
         .catch((e) => {
           setUser(null);

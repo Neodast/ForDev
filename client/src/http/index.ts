@@ -23,7 +23,7 @@ api.interceptors.response.use(
     if (err.response?.status === 401 && err.config) {
       try {
         const response = await AuthService.refresh();
-        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('accessToken', response.tokens.accessToken);
         return api.request(originalRequest);
       } catch (e) {
         console.log(e);

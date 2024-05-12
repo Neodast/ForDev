@@ -1,7 +1,7 @@
 import ThreadMapper from '../../../core/mappers/ThreadMapper';
 import UserMapper from '../../../core/mappers/UserMappers';
 import ThreadModel from '../../../core/models/ThreadModel';
-import { Thread } from '../../entities/ThreadEntity';
+import { Thread } from '../../entities/postgreSQL/ThreadEntity';
 import PgCommentMapper from './PgCommentMapper';
 
 class PgThreadMapper extends ThreadMapper {

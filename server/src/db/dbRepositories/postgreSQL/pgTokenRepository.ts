@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import ITokenRepository from '../../../core/repositories/ITokenRepository';
-import { Token } from '../../entities/TokenEntity';
-import appDataSource from '../../appDataSourse';
+import { Token } from '../../entities/postgreSQL/TokenEntity';
+import {pgDataSource} from '../../appDataSourse';
 import TokenModel from '../../../core/models/TokenModel';
 import PgTokenMapper from '../../dbMappers/postgreSQL/PgTokenMappers';
 
@@ -9,7 +9,7 @@ class PgTokenRepository implements ITokenRepository {
   private readonly tokenRepository: Repository<Token>;
 
   constructor() {
-    this.tokenRepository = appDataSource.getRepository(Token);
+    this.tokenRepository = pgDataSource.getRepository(Token);
   }
 
   async createRefreshToken(

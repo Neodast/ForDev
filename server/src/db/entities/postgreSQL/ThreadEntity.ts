@@ -4,12 +4,13 @@ import {
   OneToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { Comment } from './CommentEntity';
 import { User } from './UserEntity';
 import { Section } from './SectionEntity';
 
-@Entity()
+@Entity({ name: 'Threads' })
 export class Thread {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,6 +27,12 @@ export class Thread {
 
   @Column()
   likes: number;
+
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  creationDate: Date;
 
   @OneToMany(() => Comment, (comment) => comment.post, {
     onDelete: 'CASCADE',

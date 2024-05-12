@@ -4,7 +4,7 @@ import { User } from './UserEntity';
 import { Thread } from './ThreadEntity';
 import { Quiz } from './QuizEntity';
 
-@Entity()
+@Entity({ name: 'Comments' })
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;

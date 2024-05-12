@@ -1,6 +1,6 @@
 import UserMapper from '../../../core/mappers/UserMappers';
 import UserModel from '../../../core/models/UserModel';
-import { User } from '../../entities/UserEntity';
+import { User } from '../../entities/postgreSQL/UserEntity';
 
 class PgUserMapper extends UserMapper {
   public static mapToUserModel(user: User): UserModel {

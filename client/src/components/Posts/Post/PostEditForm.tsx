@@ -10,25 +10,32 @@ import { useNavigate } from 'react-router-dom';
 
 type PropsPostEditForm = {
   postId: number;
+  handleCancel: () => void;
+  postTitle?: string;
+  postText?: string;
 };
 
 export default function PostEditForm(props: PropsPostEditForm) {
   const author = useUserStore((state) => state.user);
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   if (!author) {
-    navigator('/')
+    navigate('/');
   }
 
   const {
     register,
     handleSubmit,
-    reset,
     control,
     formState: { errors },
-  } = useForm<IPostUpdate>({});
+  } = useForm<IPostUpdate>({
+    defaultValues: {
+      title: props.postTitle,
+      text: props.postText,
+    },
+  });
 
-  const { mutateAsync } = useEditPost(reset);
+  const { mutateAsync } = useEditPost();
 
   const submit: SubmitHandler<IPostUpdate> = async (data) => {
     await mutateAsync({
@@ -37,6 +44,7 @@ export default function PostEditForm(props: PropsPostEditForm) {
       text: data.text,
       title: data.title,
     });
+    props.handleCancel();
   };
   return (
     <div className="flex-1 items-center justify-center m-8">

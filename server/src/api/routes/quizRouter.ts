@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import quizController from '../controllers/quizController';
+import quizController from '../controllers/QuizController';
 const quizRouter: Router = express.Router();
 
 quizRouter.get('/quizzes', quizController.getAllQuizzes);

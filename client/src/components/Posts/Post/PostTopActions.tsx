@@ -8,6 +8,8 @@ import useDeletePost from '@/hooks/posts/useDeletePost';
 
 interface PostTopActionsProps {
   postId: number;
+  postTitle?: string;
+  postText?: string;
 }
 
 export default function PostTopActions(props: PostTopActionsProps) {
@@ -48,7 +50,7 @@ export default function PostTopActions(props: PostTopActionsProps) {
           }
           footer={null}
         >
-          <PostEditForm postId={props.postId}></PostEditForm>
+          <PostEditForm handleCancel={handleCancel} {...props}></PostEditForm>
         </Modal>
       </Action>
       <Action

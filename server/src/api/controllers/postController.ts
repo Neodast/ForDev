@@ -2,11 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import postService from '../../core/services/PostService';
 import PostModel from '../../core/models/PostModel';
 import PostInputDto from '../../utils/dtos/posts/PostInput.dto';
+import { RequestWithBody } from '../../utils/types/request.type';
 
 class PostController {
-  public async createPost(req: Request, res: Response, next: NextFunction) {
+  public async createPost(req: RequestWithBody<PostInputDto>, res: Response, next: NextFunction) {
     try {
-      const post: PostInputDto = req.body;
+      const post = req.body;
       const createdPost: PostModel = await postService.createPost(post);
       res.json(createdPost);
     } catch (e) {

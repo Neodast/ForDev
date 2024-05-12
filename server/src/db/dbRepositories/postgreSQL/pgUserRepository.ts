@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
-import { User } from '../../entities/UserEntity';
-import appDataSource from '../../appDataSourse';
+import { User } from '../../entities/postgreSQL/UserEntity';
+import { pgDataSource } from '../../appDataSourse';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import IUserRepository from '../../../core/repositories/IUserRepository';
-import UserCreateDto from '../../../utils/dtos/users/CserCreate.dto';
+import UserCreateDto from '../../../utils/dtos/users/UserCreate.dto';
 import UserModel from '../../../core/models/UserModel';
 import PgUserMapper from '../../dbMappers/postgreSQL/PgUserMappers';
 
@@ -11,7 +11,7 @@ class PgUserRepository implements IUserRepository {
   private readonly userRepository: Repository<User>;
 
   constructor() {
-    this.userRepository = appDataSource.getRepository(User);
+    this.userRepository = pgDataSource.getRepository(User);
   }
 
   private async findUser(criteria: Record<string, unknown>): Promise<User> {

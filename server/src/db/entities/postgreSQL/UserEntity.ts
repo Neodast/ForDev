@@ -6,18 +6,20 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Token } from './TokenEntity';
-import Role from '../../utils/enums/roles.enum';
+import Role from '../../../utils/enums/roles.enum';
 import { Post } from './PostEntity';
 import { Comment } from './CommentEntity';
 import { Thread } from './ThreadEntity';
 import { Quiz } from './QuizEntity';
 
-@Entity()
+@Entity({
+  name: 'Users',
+})
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, type: 'text' })
   email: string;
 
   @Column()

@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { Quiz } from '../../entities/QuizEntity';
-import appDataSource from '../../appDataSourse';
+import { Quiz } from '../../entities/postgreSQL/QuizEntity';
+import { pgDataSource } from '../../appDataSourse';
 import QuizMapper from '../../dbMappers/postgreSQL/PgQuizMapper';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import ApiError from '../../../utils/exceptions/ApiError';
@@ -11,7 +11,7 @@ class PgQuizRepository implements IQuizRepository {
   private readonly quizRepository: Repository<Quiz>;
 
   constructor() {
-    this.quizRepository = appDataSource.getRepository(Quiz);
+    this.quizRepository = pgDataSource.getRepository(Quiz);
   }
 
   private async findQuiz(criteria: Record<string, unknown>): Promise<Quiz> {
