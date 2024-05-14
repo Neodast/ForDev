@@ -1,9 +1,9 @@
 import pgQuizRepository from '../../db/dbRepositories/postgreSQL/PgQuizRepository';
 import QuizModel from '../models/QuizModel';
-import IQuizRepository from '../repositories/IQuizRepository';
+import QuizRepository from '../repositories/QuizRepository';
 
 class QuizService {
-  constructor(readonly quizRepository: IQuizRepository) {}
+  constructor(readonly quizRepository: QuizRepository) {}
 
   public async createQuiz(quizData: QuizModel): Promise<QuizModel> {
     return this.quizRepository.createQuiz(quizData);

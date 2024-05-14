@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
-import ITokenRepository from '../../../core/repositories/ITokenRepository';
+import TokenRepository from '../../../core/repositories/TokenRepository';
 import { Token } from '../../entities/postgreSQL/TokenEntity';
-import {pgDataSource} from '../../appDataSourse';
+import { pgDataSource } from '../../appDataSourse';
 import TokenModel from '../../../core/models/TokenModel';
 import PgTokenMapper from '../../dbMappers/postgreSQL/PgTokenMappers';
 
-class PgTokenRepository implements ITokenRepository {
+class PgTokenRepository implements TokenRepository {
   private readonly tokenRepository: Repository<Token>;
 
   constructor() {

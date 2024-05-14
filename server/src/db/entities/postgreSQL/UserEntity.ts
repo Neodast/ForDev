@@ -11,6 +11,7 @@ import { Post } from './PostEntity';
 import { Comment } from './CommentEntity';
 import { Thread } from './ThreadEntity';
 import { Quiz } from './QuizEntity';
+import { Like } from './LikeEntity';
 
 @Entity({
   name: 'Users',
@@ -70,4 +71,10 @@ export class User {
     cascade: true,
   })
   comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.user, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  likes: Like[];
 }

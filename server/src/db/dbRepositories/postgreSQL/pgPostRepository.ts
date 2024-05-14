@@ -2,13 +2,13 @@ import { Repository } from 'typeorm';
 import { Post } from '../../entities/postgreSQL/PostEntity';
 import { pgDataSource } from '../../appDataSourse';
 import PostModel from '../../../core/models/PostModel';
-import IPostRepository from '../../../core/repositories/IPostRepository';
+import PostRepository from '../../../core/repositories/PostRepository';
 import PgPostMapper from '../../dbMappers/postgreSQL/PgPostMapper';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import ApiError from '../../../utils/exceptions/ApiError';
 import PostCreateDto from '../../../utils/dtos/posts/PostCreate.dto';
 
-class PgPostRepository implements IPostRepository {
+class PgPostRepository implements PostRepository {
   private readonly postRepository: Repository<Post>;
 
   constructor() {
@@ -54,7 +54,6 @@ class PgPostRepository implements IPostRepository {
     if (!postData) {
       throw ApiError.BadRequest('Post is undefined!');
     }
-    Object.assign(postData, { likes: 0 });
     const post = this.postRepository.create(postData);
     return PgPostMapper.mapToPostModel(await this.postRepository.save(post));
   }

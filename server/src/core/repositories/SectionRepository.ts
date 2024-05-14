@@ -1,6 +1,6 @@
 import SectionModel from '../models/SectionModel';
 
-interface ISectionRepository {
+type SectionRepository = {
   getById(id: number): Promise<SectionModel>;
   getByTitle(title: string): Promise<SectionModel>;
   getAll(): Promise<SectionModel[]>;
@@ -10,6 +10,6 @@ interface ISectionRepository {
     newSectionData: SectionModel,
   ): Promise<SectionModel>;
   deleteSection(section: SectionModel): Promise<void>;
-}
+};
 
-export default ISectionRepository;
+export default SectionRepository;

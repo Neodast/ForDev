@@ -1,6 +1,6 @@
 import Role from '../../utils/enums/roles.enum';
 
-interface UserModel {
+type UserModel = {
   id: string;
   email: string;
   name: string;

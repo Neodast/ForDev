@@ -5,9 +5,9 @@ import QuizMapper from '../../dbMappers/postgreSQL/PgQuizMapper';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import ApiError from '../../../utils/exceptions/ApiError';
 import QuizModel from '../../../core/models/QuizModel';
-import IQuizRepository from '../../../core/repositories/IQuizRepository';
+import QuizRepository from '../../../core/repositories/QuizRepository';
 
-class PgQuizRepository implements IQuizRepository {
+class PgQuizRepository implements QuizRepository {
   private readonly quizRepository: Repository<Quiz>;
 
   constructor() {

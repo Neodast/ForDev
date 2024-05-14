@@ -1,6 +1,6 @@
 import IPost from './interfaces/IPost';
 
-interface QuizModel extends IPost {
+type QuizModel = IPost & {
   question: string;
   answers: string[];
   rightAnswer?: string;

@@ -9,6 +9,7 @@ import {
 import { Comment } from './CommentEntity';
 import { User } from './UserEntity';
 import { Section } from './SectionEntity';
+import { Like } from './LikeEntity';
 
 @Entity({ name: 'Threads' })
 export class Thread {
@@ -25,9 +26,6 @@ export class Thread {
   })
   text: string;
 
-  @Column()
-  likes: number;
-
   @CreateDateColumn({
     type: 'timestamp with time zone',
     default: () => 'CURRENT_TIMESTAMP',
@@ -39,6 +37,12 @@ export class Thread {
     cascade: true,
   })
   comments: Comment[];
+
+  @OneToMany(() => Like, (likes) => likes.thread, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  likes: Like[];
 
   @ManyToOne(() => User, (user) => user.posts, { nullable: false })
   author: User;

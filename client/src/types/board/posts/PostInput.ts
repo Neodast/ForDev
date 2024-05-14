@@ -1,7 +1,7 @@
-interface IPostInput {
+type PostInput = {
   createTitle: string;
   createText: string;
   sectionTitle: string;
 }
 
-export default IPostInput;
+export default PostInput;

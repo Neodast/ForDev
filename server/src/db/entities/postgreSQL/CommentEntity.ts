@@ -1,8 +1,15 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Post } from './PostEntity';
 import { User } from './UserEntity';
 import { Thread } from './ThreadEntity';
 import { Quiz } from './QuizEntity';
+import { Like } from './LikeEntity';
 
 @Entity({ name: 'Comments' })
 export class Comment {
@@ -12,8 +19,12 @@ export class Comment {
   @Column()
   text: string;
 
-  @Column()
-  likes: number;
+  @OneToMany(() => Like, (like) => like.comment, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  likes: Like[];
 
   @ManyToOne(() => Post, (post) => post.comments)
   post: Post;

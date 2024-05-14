@@ -1,10 +1,11 @@
 import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
+import LikeModel from './LikeModel';
 
-interface CommentModel {
+type CommentModel = {
   id: number;
   author: UserSafeDto;
   text: string;
-  likes: number;
+  likes: LikeModel[];
 }
 
 export default CommentModel;

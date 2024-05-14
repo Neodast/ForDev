@@ -1,6 +1,6 @@
 import LikedItemType from '../../utils/enums/likedItem.enum';
 
-interface LikedModel {
+type LikedModel = {
   id: string;
   authorId: string;
   likedItemId: number;

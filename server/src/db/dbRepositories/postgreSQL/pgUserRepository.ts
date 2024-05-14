@@ -2,12 +2,12 @@ import { Repository } from 'typeorm';
 import { User } from '../../entities/postgreSQL/UserEntity';
 import { pgDataSource } from '../../appDataSourse';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
-import IUserRepository from '../../../core/repositories/IUserRepository';
+import UserRepository from '../../../core/repositories/UserRepository';
 import UserCreateDto from '../../../utils/dtos/users/UserCreate.dto';
 import UserModel from '../../../core/models/UserModel';
 import PgUserMapper from '../../dbMappers/postgreSQL/PgUserMappers';
 
-class PgUserRepository implements IUserRepository {
+class PgUserRepository implements UserRepository {
   private readonly userRepository: Repository<User>;
 
   constructor() {

@@ -1,9 +1,9 @@
 import pgThreadRepository from '../../db/dbRepositories/postgreSQL/PgThreadRepository';
 import ThreadModel from '../models/ThreadModel';
-import IThreadRepository from '../repositories/IThreadRepository';
+import ThreadRepository from '../repositories/ThreadRepository';
 
 class ThreadService {
-  constructor(readonly threadRepository: IThreadRepository) {}
+  constructor(readonly threadRepository: ThreadRepository) {}
 
   public async createThread(threadData: ThreadModel): Promise<ThreadModel> {
     return this.threadRepository.createThread(threadData);

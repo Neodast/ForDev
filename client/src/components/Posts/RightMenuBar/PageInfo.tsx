@@ -1,10 +1,10 @@
-import IPostStat from '@/types/board/posts/IPostsStat';
+import PostStat from '@/types/board/posts/PostsStat';
 import { Card } from 'antd';
 
 interface PageInfoProps {
   title: string;
   text: string;
-  stats: IPostStat[];
+  stats: PostStat[];
 }
 
 export default function PageInfo(props: PageInfoProps) {

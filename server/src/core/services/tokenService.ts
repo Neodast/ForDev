@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
 import TokenPayloadDto from '../../utils/dtos/tokens/TokenPayload.dto';
 import ApiError from '../../utils/exceptions/ApiError';
-import ITokenRepository from '../repositories/ITokenRepository';
+import TokenRepository from '../repositories/TokenRepository';
 import tokenPgRepository from '../../db/dbRepositories/postgreSQL/PgTokenRepository';
 import TokensOutputDto from '../../utils/dtos/tokens/TokensOutput.dto';
 import UserModel from '../models/UserModel';
 
 class TokenService {
-  constructor(readonly tokenRepository: ITokenRepository) {}
+  constructor(readonly tokenRepository: TokenRepository) {}
 
   async generateTokens(payload: TokenPayloadDto): Promise<TokensOutputDto> {
     const accessToken = jwt.sign(

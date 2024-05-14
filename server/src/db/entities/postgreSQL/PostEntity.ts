@@ -9,11 +9,12 @@ import {
 import { Comment } from './CommentEntity';
 import { User } from './UserEntity';
 import { Section } from './SectionEntity';
+import { Like } from './LikeEntity';
 
 @Entity({ name: 'Posts' })
 export class Post {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number;//TODO make id 'uuid' and refactore all code with id in backend
 
   @Column()
   title: string;
@@ -25,8 +26,8 @@ export class Post {
   })
   text: string;
 
-  @Column()
-  likes: number;
+  @Column({nullable: true})
+  imageLink: string;
 
   @CreateDateColumn({
     type: 'timestamp with time zone',
@@ -45,4 +46,10 @@ export class Post {
 
   @ManyToOne(() => Section, (section) => section.posts, { nullable: false })
   section: Section;
+
+  @OneToMany(() => Like, (like) => like.post, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  likes: Like[];
 }

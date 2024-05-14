@@ -1,6 +1,6 @@
 import IPost from './interfaces/IPost';
 
-interface PostModel extends IPost {
+type PostModel = IPost & {
   // image?;
   text: string;
 }

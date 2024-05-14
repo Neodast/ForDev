@@ -2,7 +2,7 @@ import InputField from '@/components/Base/Inputs/InputField';
 import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
 import useEditPost from '@/hooks/posts/useEditPost';
 import { useUserStore } from '@/stores/UserStore';
-import IPostUpdate from '@/types/board/posts/IPostUpdate';
+import PostUpdate from '@/types/board/posts/PostUpdate';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -28,7 +28,7 @@ export default function PostEditForm(props: PropsPostEditForm) {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<IPostUpdate>({
+  } = useForm<PostUpdate>({
     defaultValues: {
       title: props.postTitle,
       text: props.postText,
@@ -37,7 +37,7 @@ export default function PostEditForm(props: PropsPostEditForm) {
 
   const { mutateAsync } = useEditPost();
 
-  const submit: SubmitHandler<IPostUpdate> = async (data) => {
+  const submit: SubmitHandler<PostUpdate> = async (data) => {
     await mutateAsync({
       id: props.postId,
       likes: data.likes,

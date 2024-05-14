@@ -2,7 +2,7 @@ import React from 'react';
 import Container from '../Reusable/Container';
 import UserInfo from '../Reusable/UserInfo';
 import PostBottomActions from './PostBottomActions';
-import IPostUpdate from '@/types/board/posts/IPostUpdate';
+import PostUpdate from '@/types/board/posts/PostUpdate';
 import { Link } from 'react-router-dom';
 import PostTopActions from './PostTopActions';
 import { useUserStore } from '@/stores/UserStore';
@@ -11,7 +11,7 @@ import Role from '@/types/user/roles.enum';
 interface PostProps {
   title: string;
   nickname: string;
-  options: IPostUpdate;
+  options: PostUpdate;
   children: React.ReactNode;
 }
 
@@ -27,7 +27,11 @@ export default function Post(props: PostProps) {
       <Container>
         <div className="max-w-32 float-end space-x-2">
           {isAuthor && (
-            <PostTopActions postId={props.options.id} postTitle={props.options.title} postText={props.options.text}></PostTopActions>
+            <PostTopActions
+              postId={props.options.id}
+              postTitle={props.options.title}
+              postText={props.options.text}
+            ></PostTopActions>
           )}
         </div>
         <Link to="/" className="hover:text-black">

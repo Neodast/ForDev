@@ -2,7 +2,7 @@ import InputField from '@/components/Base/Inputs/InputField';
 import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
 import useCreatePost from '@/hooks/posts/useCreatePost';
 import { useUserStore } from '@/stores/UserStore';
-import IPostInput from '@/types/board/posts/IPostInput';
+import PostInput from '@/types/board/posts/PostInput';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -19,19 +19,19 @@ export default function PostCreateForm() {
     reset,
     control,
     formState: { errors },
-  } = useForm<IPostInput>({
+  } = useForm<PostInput>({
     defaultValues: { sectionTitle: 'Posts' },
   });
 
-  const {mutateAsync} = useCreatePost(reset);
+  const { mutateAsync } = useCreatePost(reset);
 
-  const submit: SubmitHandler<IPostInput> = async (data) => {
+  const submit: SubmitHandler<PostInput> = async (data) => {
     await mutateAsync({
       author: author,
       comments: [],
       text: data.createText,
       title: data.createTitle,
-      sectionTitle: data.sectionTitle
+      sectionTitle: data.sectionTitle,
     });
   };
   return (

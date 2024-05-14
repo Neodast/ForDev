@@ -8,16 +8,16 @@ import LoginOutputDto from '../../utils/dtos/auth/LoginOutput.dto';
 import ApiError from '../../utils/exceptions/ApiError';
 import userPgRepository from '../../db/dbRepositories/postgreSQL/PgUserRepository';
 import UserRegisterDto from '../../utils/dtos/auth/UserRegisterOutput.dto';
-import IUserRepository from '../repositories/IUserRepository';
+import UserRepository from '../repositories/UserRepository';
 import tokenPgRepository from '../../db/dbRepositories/postgreSQL/PgTokenRepository';
-import ITokenRepository from '../repositories/ITokenRepository';
+import TokenRepository from '../repositories/TokenRepository';
 import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
 import UserMapper from '../mappers/UserMappers';
 
 class UserService {
   constructor(
-    readonly userRepository: IUserRepository,
-    readonly tokenRepository: ITokenRepository,
+    readonly userRepository: UserRepository,
+    readonly tokenRepository: TokenRepository,
   ) {}
 
   async register(user: UserCreateDto): Promise<UserRegisterDto> {

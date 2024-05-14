@@ -1,12 +1,12 @@
 import { MongoRepository } from 'typeorm';
-import ILikedRepository from '../../../core/repositories/ILikedRepository';
+import LikedRepository from '../../../core/repositories/LikedRepository';
 import { mongoDataSource } from '../../appDataSourse';
 import LikedModel from '../../../core/models/LikedModel';
 import MongoLikedMapper from '../../dbMappers/mongoDB/MongoLikedMapper';
 import LikedItem from '../../entities/mongoDB/LikedEntity';
-import LikedAddItemDto from '../../../utils/dtos/posts/liked/LikedAddItem.dto';
+import LikedAddItemDto from '../../../utils/dtos/posts/likes/LikedAddItem.dto';
 
-class MongoLikedRepository implements ILikedRepository {
+class MongoLikedRepository implements LikedRepository {
   private readonly likedRepository: MongoRepository<LikedItem>;
 
   constructor() {

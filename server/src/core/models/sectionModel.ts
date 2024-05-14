@@ -2,7 +2,7 @@ import PostModel from './PostModel';
 import QuizModel from './QuizModel';
 import ThreadModel from './ThreadModel';
 
-interface SectionModel {
+type SectionModel = {
   id: number;
   title: string;
   posts: PostModel[];

@@ -1,12 +1,12 @@
 import User from '@/types/models/User';
 import Comment from '../../models/Comment';
 
-interface IPostCreate {
+type PostCreate = {
   title: string;
   text: string;
   author: User;
   comments: Comment[] | [];
   sectionTitle: string;
-}
+};
 
-export default IPostCreate;
+export default PostCreate;

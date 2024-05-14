@@ -2,12 +2,12 @@ import { Repository } from 'typeorm';
 import { Comment } from '../../entities/postgreSQL/CommentEntity';
 import { pgDataSource } from '../../appDataSourse';
 import CommentModel from '../../../core/models/CommentModel';
-import ICommentRepository from '../../../core/repositories/ICommentRepository';
+import CommentRepository from '../../../core/repositories/CommentRepository';
 import PgCommentMapper from '../../dbMappers/postgreSQL/PgCommentMapper';
 import ApiError from '../../../utils/exceptions/ApiError';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 
-class PgCommentRepository implements ICommentRepository {
+class PgCommentRepository implements CommentRepository {
   private readonly commentRepository: Repository<Comment>;
 
   constructor() {

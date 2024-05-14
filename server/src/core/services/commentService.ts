@@ -1,9 +1,9 @@
 import pgCommentRepository from '../../db/dbRepositories/postgreSQL/PgCommentRepository';
 import CommentModel from '../models/CommentModel';
-import ICommentRepository from '../repositories/ICommentRepository';
+import CommentRepository from '../repositories/CommentRepository';
 
 class CommentService {
-  constructor(readonly commentRepository: ICommentRepository) {}
+  constructor(readonly commentRepository: CommentRepository) {}
 
   public async createComment(commentData: CommentModel): Promise<CommentModel> {
     return this.commentRepository.createComment(commentData);

@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import LikedAddItemDto from '../../utils/dtos/posts/liked/LikedAddItem.dto';
+import LikedAddItemDto from '../../utils/dtos/posts/likes/LikedAddItem.dto';
 import LikedService from '../../core/services/LikedService';
 import { RequestWithBody } from '../../utils/types/request.type';
 

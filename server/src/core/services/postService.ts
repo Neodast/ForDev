@@ -2,17 +2,16 @@ import pgPostRepository from '../../db/dbRepositories/postgreSQL/PgPostRepositor
 import PostCreateDto from '../../utils/dtos/posts/PostCreate.dto';
 import PostInputDto from '../../utils/dtos/posts/PostInput.dto';
 import PostModel from '../models/PostModel';
-import IPostRepository from '../repositories/IPostRepository';
+import PostRepository from '../repositories/PostRepository';
 import sectionService from './SectionService';
 
 class PostService {
-  constructor(readonly postRepository: IPostRepository) {}
+  constructor(readonly postRepository: PostRepository) {}
 
   public async createPost(postData: PostInputDto): Promise<PostModel> {
     const section = await sectionService.getSection(postData.sectionTitle);
     const postCreateData: PostCreateDto = {
       section: section,
-      likes: 0,
       ...postData,
     };
     return this.postRepository.createPost(postCreateData);
@@ -29,6 +28,10 @@ class PostService {
 
   public async getAllPosts(): Promise<PostModel[]> {
     return this.postRepository.getAll();
+  }
+
+  public async getPostById(postId: number) : Promise<PostModel> {
+    return this.postRepository.getById(postId);
   }
 }
 

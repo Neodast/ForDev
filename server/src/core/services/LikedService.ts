@@ -1,10 +1,10 @@
 import MongoLikedRepository from '../../db/dbRepositories/mongoDB/MongoLikedRepository';
-import LikedAddItemDto from '../../utils/dtos/posts/liked/LikedAddItem.dto';
+import LikedAddItemDto from '../../utils/dtos/posts/likes/LikedAddItem.dto';
 import LikedModel from '../models/LikedModel';
-import ILikedRepository from '../repositories/ILikedRepository';
+import LikedRepository from '../repositories/LikedRepository';
 
 class LikedService {
-  constructor(readonly likedRepository: ILikedRepository) {}
+  constructor(readonly likedRepository: LikedRepository) {}
 
   public async getAll(authorId: string): Promise<LikedModel[]> {
     return this.likedRepository.getAll(authorId);

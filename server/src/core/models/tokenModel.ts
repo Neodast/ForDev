@@ -1,4 +1,4 @@
-interface TokenModel {
+type TokenModel = {
   id: number;
   refreshToken: string;
 }

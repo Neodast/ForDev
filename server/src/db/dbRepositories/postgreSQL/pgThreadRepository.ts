@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import IThreadRepository from '../../../core/repositories/IThreadRepository';
+import ThreadRepository from '../../../core/repositories/ThreadRepository';
 import { Thread } from '../../entities/postgreSQL/ThreadEntity';
 import { pgDataSource } from '../../appDataSourse';
 import PgThreadMapper from '../../dbMappers/postgreSQL/PgThreadMapper';
@@ -7,7 +7,7 @@ import ThreadModel from '../../../core/models/ThreadModel';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import ApiError from '../../../utils/exceptions/ApiError';
 
-class PgThreadRepository implements IThreadRepository {
+class PgThreadRepository implements ThreadRepository {
   private readonly threadRepository: Repository<Thread>;
 
   constructor() {

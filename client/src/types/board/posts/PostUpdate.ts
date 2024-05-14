@@ -1,10 +1,10 @@
-interface IPostUpdate {
+type PostUpdate = {
   id: number;
   title?: string;
   likes?: number;
   text?: string;
   // comments: CommentModel[];
   // section: Section;
-}
+};
 
-export default IPostUpdate;
+export default PostUpdate;

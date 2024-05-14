@@ -5,8 +5,6 @@ interface PostCreateDto {
   title: string;
   text: string;
   author: UserSafeDto;
-  likes: number;
-
   section: SectionModel;
 }
 

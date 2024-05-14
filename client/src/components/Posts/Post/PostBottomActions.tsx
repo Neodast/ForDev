@@ -1,17 +1,14 @@
 import { BiComment, BiHeart } from 'react-icons/bi';
 import Action from '../Reusable/Action';
-import { useState } from 'react';
-import IPostUpdate from '@/types/board/posts/IPostUpdate';
-import useEditPost from '@/hooks/posts/useEditPost';
+import PostUpdate from '@/types/board/posts/PostUpdate';
+import useGetPostLikes from '@/hooks/likes/useGetPostLikes';
 
 interface PostBottomActionsProps {
-  options: IPostUpdate;
+  options: PostUpdate;
 }
 
 export default function PostBottomActions(props: PostBottomActionsProps) {
-  const [likesCount, setLikesCount] = useState(props.options.likes || 0);
-
-  const {mutateAsync} = useEditPost();
+  const { data: likesCount = 0 } = useGetPostLikes(props.options.id);
 
   return (
     <div className="flex items-cente space-x-2">
@@ -22,9 +19,8 @@ export default function PostBottomActions(props: PostBottomActionsProps) {
         inner={likesCount}
         icon={<BiHeart className="size-6 mx-[-0.25rem]"></BiHeart>}
         className="h-10 text-black border-t-1 border-slate-200 flex items-center mb-2"
-        onClick={ async() => {
-          setLikesCount((prev) => prev + 1);
-          await mutateAsync({ id: props.options.id, likes: likesCount + 1 });
+        onClick={async () => {
+          
         }}
       ></Action>
       <Action

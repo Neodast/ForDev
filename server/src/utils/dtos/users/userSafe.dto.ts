@@ -1,6 +1,6 @@
 import Role from '../../enums/roles.enum';
 
-interface UserSafeDto {
+type UserSafeDto = {
   id: string;
   email: string;
   name: string;

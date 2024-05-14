@@ -1,7 +1,7 @@
 import IPost from './interfaces/IPost';
 
-interface ThreadModel extends IPost {
+type ThreadModel = IPost & {
   text: string;
-}
+};
 
 export default ThreadModel;

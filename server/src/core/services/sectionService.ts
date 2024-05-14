@@ -1,9 +1,9 @@
 import pgSectionRepository from '../../db/dbRepositories/postgreSQL/PgSectionRepository';
 import SectionModel from '../models/SectionModel';
-import ISectionRepository from '../repositories/ISectionRepository';
+import SectionRepository from '../repositories/SectionRepository';
 
 class SectionService {
-  constructor(readonly sectionRepository: ISectionRepository) {}
+  constructor(readonly sectionRepository: SectionRepository) {}
 
   public async getSection(title: string): Promise<SectionModel> {
     return this.sectionRepository.getByTitle(title);
