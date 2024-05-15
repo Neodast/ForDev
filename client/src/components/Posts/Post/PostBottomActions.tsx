@@ -1,17 +1,19 @@
 import { BiComment, BiHeart } from 'react-icons/bi';
 import Action from '../Reusable/Action';
 import PostUpdate from '@/types/board/posts/PostUpdate';
-import useGetPostLikes from '@/hooks/likes/useGetPostLikes';
+import usePostGetLikes from '@/hooks/likes/usePostGetLikes';
 import useLikePost from '@/hooks/likes/usePostLike';
 import { useUserStore } from '@/stores/UserStore';
+import useCommentAddToPost from '@/hooks/comments/useCommentAddToPost';
 
 interface PostBottomActionsProps {
   options: PostUpdate;
 }
 
 export default function PostBottomActions(props: PostBottomActionsProps) {
-  const { data: likesCount = 0 } = useGetPostLikes(props.options.id);
-  const {mutateAsync} = useLikePost();
+  const { data: likesCount = 0 } = usePostGetLikes(props.options.id);
+  const { mutateAsync: likePost } = useLikePost();
+  const { mutateAsync: commentPost} = useCommentAddToPost();
 
   const user = useUserStore((state) => state.user);
 
@@ -25,7 +27,7 @@ export default function PostBottomActions(props: PostBottomActionsProps) {
         icon={<BiHeart className="size-6 mx-[-0.25rem]"></BiHeart>}
         className="h-10 text-black border-t-1 border-slate-200 flex items-center mb-2"
         onClick={async () => {
-          await mutateAsync({postId: props.options.id, user: user});
+          await likePost({ postId: props.options.id, user: user });
         }}
       ></Action>
       <Action
@@ -34,7 +36,9 @@ export default function PostBottomActions(props: PostBottomActionsProps) {
         size="small"
         className="h-10 text-black border-t-1 border-slate-200 flex items-center mb-2"
         icon={<BiComment className="w-6 h-6"></BiComment>}
-        onClick={() => null}
+        onClick={async () => {
+          await commentPost({text: 'dwdwd', author: user, postId: props.options.id});
+        }}
       ></Action>
     </div>
   );

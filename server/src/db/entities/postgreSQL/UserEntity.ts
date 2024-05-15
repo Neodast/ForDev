@@ -10,7 +10,6 @@ import Role from '../../../utils/enums/roles.enum';
 import { Post } from './PostEntity';
 import { Comment } from './CommentEntity';
 import { Thread } from './ThreadEntity';
-import { Quiz } from './QuizEntity';
 import { Like } from './LikeEntity';
 
 @Entity({
@@ -59,12 +58,6 @@ export class User {
     cascade: true,
   })
   threads: Thread[];
-
-  @OneToMany(() => Quiz, (quiz) => quiz.author, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
-  quizzes: Quiz[];
 
   @OneToMany(() => Comment, (comment) => comment.author, {
     onDelete: 'CASCADE',

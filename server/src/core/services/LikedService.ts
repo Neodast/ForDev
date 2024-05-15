@@ -1,5 +1,5 @@
 import MongoLikedRepository from '../../db/dbRepositories/mongoDB/MongoLikedRepository';
-import LikedAddItemDto from '../../utils/dtos/posts/likes/LikedAddItem.dto';
+import LikedAddItemDto from '../../utils/dtos/likes/LikedAddItem.dto';
 import LikedModel from '../models/LikedModel';
 import LikedRepository from '../repositories/LikedRepository';
 

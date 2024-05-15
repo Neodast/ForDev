@@ -1,10 +1,11 @@
 import InputField from '@/components/Base/Inputs/InputField';
 import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
-import useEditPost from '@/hooks/posts/useEditPost';
+import usePostEdit from '@/hooks/posts/usePostEdit';
 import { useUserStore } from '@/stores/UserStore';
 import PostUpdate from '@/types/board/posts/PostUpdate';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { forwardRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ type PropsPostEditForm = {
   postText?: string;
 };
 
-export default function PostEditForm(props: PropsPostEditForm) {
+const PostEditForm = forwardRef((props: PropsPostEditForm, ref) => {
   const author = useUserStore((state) => state.user);
   const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ export default function PostEditForm(props: PropsPostEditForm) {
     },
   });
 
-  const { mutateAsync } = useEditPost();
+  const { mutateAsync } = usePostEdit();
 
   const submit: SubmitHandler<PostUpdate> = async (data) => {
     await mutateAsync({
@@ -51,6 +52,7 @@ export default function PostEditForm(props: PropsPostEditForm) {
       <form
         className="w-96 mx-auto font-roboto"
         onSubmit={handleSubmit(submit)}
+        {...ref}
       >
         <InputField
           label=""
@@ -89,4 +91,6 @@ export default function PostEditForm(props: PropsPostEditForm) {
       </form>
     </div>
   );
-}
+});
+
+export default PostEditForm;

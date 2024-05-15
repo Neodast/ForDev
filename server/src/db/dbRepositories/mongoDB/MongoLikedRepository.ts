@@ -4,7 +4,7 @@ import { mongoDataSource } from '../../appDataSourse';
 import LikedModel from '../../../core/models/LikedModel';
 import MongoLikedMapper from '../../dbMappers/mongoDB/MongoLikedMapper';
 import LikedItem from '../../entities/mongoDB/LikedEntity';
-import LikedAddItemDto from '../../../utils/dtos/posts/likes/LikedAddItem.dto';
+import LikedAddItemDto from '../../../utils/dtos/likes/LikedAddItem.dto';
 
 class MongoLikedRepository implements LikedRepository {
   private readonly likedRepository: MongoRepository<LikedItem>;

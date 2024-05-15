@@ -1,4 +1,4 @@
-import LikedModel from '../../../../core/models/LikedModel';
+import LikedModel from '../../../core/models/LikedModel';
 
 type LikedAddItemDto = Omit<LikedModel, '_id'>;
 

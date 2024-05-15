@@ -3,10 +3,10 @@ import Layout from '../components/Layouts/Layout';
 import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
 import { useMemo } from 'react';
 import PostCreateForm from '@/components/Posts/Post/PostCreateForm';
-import useGetAllPosts from '@/hooks/posts/useGetAllPosts';
+import usePostsGetAll from '@/hooks/posts/usePostsGetAll';
 
 export default function PostsPage() {
-  const { data: posts = [] } = useGetAllPosts();
+  const { data: posts = [] } = usePostsGetAll();
 
   const memoMain = useMemo(
     () => (

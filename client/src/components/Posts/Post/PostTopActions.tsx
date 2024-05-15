@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useState } from 'react';
 import PostEditForm from './PostEditForm';
-import useDeletePost from '@/hooks/posts/useDeletePost';
+import usePostDelete from '@/hooks/posts/usePostDelete';
 
 interface PostTopActionsProps {
   postId: number;
@@ -23,7 +23,7 @@ export default function PostTopActions(props: PostTopActionsProps) {
     setOpen(false);
   };
 
-  const {mutateAsync} = useDeletePost();
+  const { mutateAsync } = usePostDelete();
 
   return (
     <div className="flex items-cente space-x-2">
@@ -58,7 +58,7 @@ export default function PostTopActions(props: PostTopActionsProps) {
         danger={true}
         className="flex"
         onClick={() => {
-          mutateAsync({id: props.postId})
+          mutateAsync({ id: props.postId });
         }}
       ></Action>
     </div>

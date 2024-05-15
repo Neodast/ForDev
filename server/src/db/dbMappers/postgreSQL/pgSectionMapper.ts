@@ -2,7 +2,6 @@ import SectionMapper from '../../../core/mappers/SectionMapper';
 import SectionModel from '../../../core/models/SectionModel';
 import { Section } from '../../entities/postgreSQL/SectionEntity';
 import PgPostMapper from './PgPostMapper';
-import PgQuizMapper from './PgQuizMapper';
 import PgThreadMapper from './PgThreadMapper';
 
 class PgSectionMapper extends SectionMapper {
@@ -12,9 +11,6 @@ class PgSectionMapper extends SectionMapper {
       title: section.title,
       posts: section.posts
         ? section.posts.map((post) => PgPostMapper.mapToPostModel(post))
-        : [],
-      quizzes: section.quizzes
-        ? section.quizzes.map((quiz) => PgQuizMapper.mapToQuizModel(quiz))
         : [],
       threads: section.threads
         ? section.threads.map((thread) =>

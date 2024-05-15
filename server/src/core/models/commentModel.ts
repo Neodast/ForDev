@@ -5,7 +5,7 @@ type CommentModel = {
   id: number;
   author: UserSafeDto;
   text: string;
-  likes: LikeModel[];
+  likes?: LikeModel[];
 }
 
 export default CommentModel;

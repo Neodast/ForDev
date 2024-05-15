@@ -6,6 +6,8 @@ import CommentRepository from '../../../core/repositories/CommentRepository';
 import PgCommentMapper from '../../dbMappers/postgreSQL/PgCommentMapper';
 import ApiError from '../../../utils/exceptions/ApiError';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
+import CommentCreateDto from '../../../utils/dtos/comment/CommentCreate.dto';
+import PostModel from '../../../core/models/PostModel';
 
 class PgCommentRepository implements CommentRepository {
   private readonly commentRepository: Repository<Comment>;
@@ -56,7 +58,15 @@ class PgCommentRepository implements CommentRepository {
     );
   }
 
-  public async createComment(commentData: CommentModel): Promise<CommentModel> {
+  public async getCommentsByPost(post: PostModel) : Promise<CommentModel[]> {
+    return (await this.findComments({post})).map((dbPost) =>
+      PgCommentMapper.mapToCommentModel(dbPost),
+    );
+  }
+
+  public async createComment(
+    commentData: CommentCreateDto,
+  ): Promise<CommentModel> {
     if (!commentData) {
       throw ApiError.BadRequest('Comment is undefined!');
     }

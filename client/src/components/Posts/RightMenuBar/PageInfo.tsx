@@ -16,7 +16,7 @@ export default function PageInfo(props: PageInfoProps) {
       </span>
       <div className="flex mt-4 text-nowrap justify-between">
         {props.stats.map((stat) => (
-          <span className="text-sm font-semibold flex space-x-1">
+          <span key={stat.statName} className="text-sm font-semibold flex space-x-1">
             <div>{stat.statMetric}</div>
             <div>{stat.statName}</div>
           </span>

@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Thread } from './ThreadEntity';
 import { Post } from './PostEntity';
-import { Quiz } from './QuizEntity';
 
 @Entity({ name: 'Sections' })
 export class Section {
@@ -23,9 +22,4 @@ export class Section {
   })
   posts: Post[];
 
-  @OneToMany(() => Quiz, (quiz) => quiz.section, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
-  quizzes: Quiz[];
 }

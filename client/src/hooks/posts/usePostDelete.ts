@@ -1,7 +1,7 @@
 import PostService from '@/services/PostService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useDeletePost = () => {
+const usePostDelete = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -11,6 +11,6 @@ const useDeletePost = () => {
       await queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
-}
+};
 
-export default useDeletePost;
+export default usePostDelete;

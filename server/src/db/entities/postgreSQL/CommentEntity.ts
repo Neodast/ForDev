@@ -8,7 +8,6 @@ import {
 import { Post } from './PostEntity';
 import { User } from './UserEntity';
 import { Thread } from './ThreadEntity';
-import { Quiz } from './QuizEntity';
 import { Like } from './LikeEntity';
 
 @Entity({ name: 'Comments' })
@@ -20,7 +19,6 @@ export class Comment {
   text: string;
 
   @OneToMany(() => Like, (like) => like.comment, {
-    nullable: false,
     onDelete: 'CASCADE',
     cascade: true,
   })
@@ -31,9 +29,6 @@ export class Comment {
 
   @ManyToOne(() => Thread, (thread) => thread.comments)
   thread: Thread;
-
-  @ManyToOne(() => Quiz, (quiz) => quiz.comments)
-  quiz: Quiz;
 
   @ManyToOne(() => User, (user) => user.comments)
   author: User;

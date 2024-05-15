@@ -1,4 +1,4 @@
-import LikedAddItemDto from '../../utils/dtos/posts/likes/LikedAddItem.dto';
+import LikedAddItemDto from '../../utils/dtos/likes/LikedAddItem.dto';
 import LikedModel from '../models/LikedModel';
 
 type LikedRepository = {

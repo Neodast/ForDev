@@ -3,7 +3,6 @@ import { Post } from './PostEntity';
 import { Comment } from './CommentEntity';
 import { Thread } from './ThreadEntity';
 import { User } from './UserEntity';
-import { Quiz } from './QuizEntity';
 
 @Entity({ name: 'Likes' })
 export class Like {
@@ -22,6 +21,4 @@ export class Like {
   @ManyToOne(() => Thread, (thread) => thread.likes)
   thread: Thread;
 
-  @ManyToOne(() => Quiz, (quiz) => quiz.likes)
-  quiz: Quiz;
 }

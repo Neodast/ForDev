@@ -1,6 +1,6 @@
 import InputField from '@/components/Base/Inputs/InputField';
 import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
-import useCreatePost from '@/hooks/posts/useCreatePost';
+import usePostCreate from '@/hooks/posts/usePostCreate';
 import { useUserStore } from '@/stores/UserStore';
 import PostInput from '@/types/board/posts/PostInput';
 import { Button } from 'antd';
@@ -23,7 +23,7 @@ export default function PostCreateForm() {
     defaultValues: { sectionTitle: 'Posts' },
   });
 
-  const { mutateAsync } = useCreatePost(reset);
+  const { mutateAsync } = usePostCreate(reset);
 
   const submit: SubmitHandler<PostInput> = async (data) => {
     await mutateAsync({

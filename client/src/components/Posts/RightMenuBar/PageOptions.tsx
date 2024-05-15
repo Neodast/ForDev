@@ -25,7 +25,7 @@ export default function PageOptions(props: PageOptionsprops) {
       <div className="flex-1 space-y-2">
       <h4 className="font-semibold text-lg flex">Filters</h4>
       {props.filters.map((filter) => (
-            <div className="flex items-center space-x-2">
+            <div key={filter} className="flex items-center space-x-2">
               <Checkbox id={filter} />
               <label
                 htmlFor={filter}

@@ -1,7 +1,7 @@
 import PostService from '@/services/PostService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useCreatePost = (resetForm: () => void) => {
+const usePostCreate = (resetForm: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -14,4 +14,4 @@ const useCreatePost = (resetForm: () => void) => {
   });
 };
 
-export default useCreatePost;
+export default usePostCreate;

@@ -1,7 +1,7 @@
 import PostService from '@/services/PostService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useEditPost = () => {
+const usePostEdit = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -13,4 +13,4 @@ const useEditPost = () => {
   });
 };
 
-export default useEditPost;
+export default usePostEdit;

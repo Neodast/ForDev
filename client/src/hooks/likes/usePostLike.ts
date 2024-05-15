@@ -8,7 +8,7 @@ const useLikePost = () => {
     mutationKey: ['likePost'],
     mutationFn: LikeService.likePost,
     onSuccess: async () => {
-      await queryClient.invalidateQueries();
+      await queryClient.invalidateQueries({queryKey: ["likes"]});
     },
   });
 };
