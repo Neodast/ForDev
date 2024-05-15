@@ -1,7 +1,7 @@
 import User from './User';
 
 type Like = {
-  id: string,
+  postId: number,
   user: User,
 }
 

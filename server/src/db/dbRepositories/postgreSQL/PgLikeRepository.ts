@@ -14,11 +14,28 @@ class PgLikeRepository implements LikeRepository {
     this.likeRepository = pgDataSource.getRepository(Like);
   }
 
+  public async getLikeByUser(postId: number, userId: string) : Promise<LikeModel | null> {
+    const dbLike = await this.likeRepository.findOne({
+      where: {
+        user: {id: userId},
+        post: {id: postId},
+      },
+      relations: ['user']
+    })
+
+    if(!dbLike) {
+      return null;
+    }
+
+    return PgLikeMapper.mapToLikeModel(dbLike);
+  }
+
   public async getLikesByPost(post: PostModel): Promise<LikeModel[]> {
-    return this.likeRepository.find({
+    const dbLikes = await  this.likeRepository.find({
       where: { post: post },
       relations: ['user'],
     });
+    return dbLikes.map((like) => PgLikeMapper.mapToLikeModel(like));
   }
 
   public async addPostLike(
@@ -30,6 +47,10 @@ class PgLikeRepository implements LikeRepository {
       user: userData,
     });
     return PgLikeMapper.mapToLikeModel(await this.likeRepository.save(dbLike));
+  }
+
+  public async deletePostLike(like: LikeModel): Promise<void> {
+    await this.likeRepository.delete(like);
   }
 }
 
