@@ -10,6 +10,8 @@ const usePostCreate = (resetForm: () => void) => {
     onSuccess: async () => {
       resetForm();
       await queryClient.invalidateQueries({ queryKey: ['posts'] });
+      await queryClient.invalidateQueries({ queryKey: ['post'] });
+
     },
   });
 };

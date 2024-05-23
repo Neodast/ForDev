@@ -20,14 +20,12 @@ class PgSectionRepository implements SectionRepository {
       where: criteria,
       relations: [
         'posts',
-        'quizzes',
         'threads',
         'posts.author',
-        'quizzes.author',
         'threads.author',
         'posts.comments',
-        'quizzes.comments',
         'threads.comments',
+        'posts.comments.author',
       ],
     });
     if (!dbsection) {
@@ -43,14 +41,12 @@ class PgSectionRepository implements SectionRepository {
       where: criteria,
       relations: [
         'posts',
-        'quizzes',
         'threads',
         'posts.author',
-        'quizzes.author',
         'threads.author',
         'posts.comments',
-        'quizzes.comments',
         'threads.comments',
+        'posts.comments.author',
       ],
     });
     if (!dbsections.length) {

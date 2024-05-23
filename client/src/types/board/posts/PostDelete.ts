@@ -1,5 +1,5 @@
 type PostDelete = {
-  id: number;
+  postId: number;
 };
 
 export default PostDelete;

@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Token } from './TokenEntity';
-import Role from '../../../utils/enums/roles.enum';
+import Role from '../../../utils/enums/Roles.enum';
 import { Post } from './PostEntity';
 import { Comment } from './CommentEntity';
 import { Thread } from './ThreadEntity';
@@ -47,27 +47,15 @@ export class User {
   @OneToOne(() => Token, (token) => token.user)
   token: Token;
 
-  @OneToMany(() => Post, (post) => post.author, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 
-  @OneToMany(() => Thread, (thread) => thread.author, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Thread, (thread) => thread.author)
   threads: Thread[];
 
-  @OneToMany(() => Comment, (comment) => comment.author, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];
 
-  @OneToMany(() => Like, (like) => like.user, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Like, (like) => like.user)
   likes: Like[];
 }

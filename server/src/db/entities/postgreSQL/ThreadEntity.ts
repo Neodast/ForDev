@@ -32,21 +32,25 @@ export class Thread {
   })
   creationDate: Date;
 
-  @OneToMany(() => Comment, (comment) => comment.post, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 
-  @OneToMany(() => Like, (likes) => likes.thread, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Like, (likes) => likes.thread )
   likes: Like[];
 
-  @ManyToOne(() => User, (user) => user.posts, { nullable: false })
+  @ManyToOne(() => User, (user) => user.posts, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    cascade: true,
+    nullable: false,
+  })
   author: User;
 
-  @ManyToOne(() => Section, (section) => section.posts, { nullable: false })
+  @ManyToOne(() => Section, (section) => section.posts, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    cascade: true,
+  })
   section: Section;
 }

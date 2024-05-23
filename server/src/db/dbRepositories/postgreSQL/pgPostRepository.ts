@@ -68,7 +68,7 @@ class PgPostRepository implements PostRepository {
   }
 
   public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.findPost({ ...post });
+    const dbPost = await this.findPost({ id: post.id });
     await this.postRepository.remove(dbPost);
   }
 }

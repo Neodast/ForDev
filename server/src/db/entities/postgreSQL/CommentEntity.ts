@@ -18,18 +18,27 @@ export class Comment {
   @Column()
   text: string;
 
-  @OneToMany(() => Like, (like) => like.comment, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Like, (like) => like.comment)
   likes: Like[];
 
-  @ManyToOne(() => Post, (post) => post.comments)
+  @ManyToOne(() => Post, (post) => post.comments, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    cascade: true,
+  })
   post: Post;
 
-  @ManyToOne(() => Thread, (thread) => thread.comments)
+  @ManyToOne(() => Thread, (thread) => thread.comments, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    cascade: true,
+  })
   thread: Thread;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    cascade: true,
+  })
   author: User;
 }

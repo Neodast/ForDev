@@ -21,8 +21,8 @@ class PostService {
     return this.postRepository.updatePost(post.id, post);
   }
 
-  public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.postRepository.getById(post.id);
+  public async deletePost(postId: number): Promise<void> {
+    const dbPost = await this.postRepository.getById(postId);
     return this.postRepository.deletePost(dbPost);
   }
 

@@ -18,7 +18,6 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        nimbus: ['Nimbus Sans', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif']
       },
       colors: {

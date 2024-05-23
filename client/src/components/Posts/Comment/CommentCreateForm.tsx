@@ -1,67 +1,40 @@
-import InputField from '@/components/Base/Inputs/InputField';
 import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
-import usePostEdit from '@/hooks/posts/usePostEdit';
+import useCommentAddToPost from '@/hooks/comments/useCommentAddToPost';
 import { useUserStore } from '@/stores/UserStore';
-import PostUpdate from '@/types/board/posts/PostUpdate';
+import CommentPostInput from '@/types/comment/CommentPostInput';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { forwardRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
-type PropsPostEditForm = {
+interface CommentCreateProps {
   postId: number;
-  handleCancel: () => void;
-  postTitle?: string;
-  postText?: string;
-};
+}
 
-const PostEditForm = forwardRef((props: PropsPostEditForm, ref) => {
-  const author = useUserStore((state) => state.user);
-  const navigate = useNavigate();
-
-  if (!author) {
-    navigate('/');
-  }
+export default function CommentCreateForm(props: CommentCreateProps) {
+  const user = useUserStore((state) => state.user);
 
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
-  } = useForm<PostUpdate>({
-    defaultValues: {
-      title: props.postTitle,
-      text: props.postText,
-    },
+  } = useForm<CommentPostInput>({
+    defaultValues: { author: user, postId: props.postId },
   });
 
-  const { mutateAsync } = usePostEdit();
+  const { mutateAsync } = useCommentAddToPost(props.postId);
 
-  const submit: SubmitHandler<PostUpdate> = async (data) => {
-    await mutateAsync({
-      id: props.postId,
-      text: data.text,
-      title: data.title,
-    });
-    props.handleCancel();
+  const submit: SubmitHandler<CommentPostInput> = async (data) => {
+    await mutateAsync(data);
+    reset();
   };
   return (
     <div className="flex-1 items-center justify-center m-8">
       <form
-        className="w-96 mx-auto font-roboto"
+        className="w-[50rem] ml-32 font-roboto"
         onSubmit={handleSubmit(submit)}
-        {...ref}
       >
-        <InputField
-          label=""
-          placeholder="Title"
-          type="text"
-          {...register('title')}
-        ></InputField>
-        <FormValidationError
-          message={errors.title?.message}
-        ></FormValidationError>
         <Controller
           control={control}
           {...register('text')}
@@ -85,11 +58,9 @@ const PostEditForm = forwardRef((props: PropsPostEditForm, ref) => {
           formAction="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-blue w-[100%]"
         >
-          Edit
+          Create
         </Button>
       </form>
     </div>
   );
-});
-
-export default PostEditForm;
+}

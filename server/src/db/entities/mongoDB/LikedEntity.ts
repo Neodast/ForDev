@@ -1,5 +1,5 @@
 import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
-import LikedItemTypes from '../../../utils/enums/likedItem.enum';
+import LikedItemTypes from '../../../utils/enums/LikedItem.enum';
 
 @Entity({ name: 'liked_items' })
 class LikedItem {

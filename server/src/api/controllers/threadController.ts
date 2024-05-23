@@ -1,14 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
-import threadService from '../../core/services/ThreadService';
+import ThreadService from '../../core/services/ThreadService';
 import threadModel from '../../core/models/ThreadModel';
+import StatusCodes from '../../utils/enums/HttpStatusCodes';
 
 class ThreadController {
   public async createThread(req: Request, res: Response, next: NextFunction) {
     try {
       const thread: threadModel = req.body;
       const createdThread: threadModel =
-        await threadService.createThread(thread);
-      res.json(createdThread);
+        await ThreadService.createThread(thread);
+      res.json(createdThread).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);
     }
@@ -17,7 +18,8 @@ class ThreadController {
   public async deleteThread(req: Request, res: Response, next: NextFunction) {
     try {
       const thread: threadModel = req.body;
-      res.send(threadService.deleteThread(thread));
+      await ThreadService.deleteThread(thread);
+      res.sendStatus(StatusCodes.DELETED);
     } catch (e) {
       next(e);
     }
@@ -25,8 +27,8 @@ class ThreadController {
 
   async getAllThreads(req: Request, res: Response, next: NextFunction) {
     try {
-      const threads = await threadService.getAllThreads();
-      res.json(threads);
+      const threads = await ThreadService.getAllThreads();
+      res.json(threads).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }

@@ -9,6 +9,7 @@ const usePostEdit = () => {
     mutationFn: PostService.editPost,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['posts'] });
+      await queryClient.invalidateQueries({ queryKey: ['post'] });
     },
   });
 };

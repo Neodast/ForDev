@@ -4,17 +4,17 @@ import {
   RequestWithQuery,
 } from '../../utils/types/request.type';
 import UserCreateDto from '../../utils/dtos/users/UserCreate.dto';
-import userService from '../../core/services/UserService';
+import UserService from '../../core/services/UserService';
 import UserLoginDto from '../../utils/dtos/auth/UserLoginInput.dto';
 import VerifyIdDto from '../../utils/dtos/auth/VerifyId.dto';
 import CookieHelper from '../helpers/cookieHelper';
-import LoginOutputDto from '../../utils/dtos/auth/LoginOutput.dto';
+import StatusCodes from '../../utils/enums/HttpStatusCodes';
 
 class UserController {
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await userService.getAllUsers();
-      res.json(users);
+      const users = await UserService.getAllUsers();
+      res.json(users).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }
@@ -26,12 +26,12 @@ class UserController {
     next: NextFunction,
   ) {
     try {
-      const userData = await userService.register(req.body);
+      const userData = await UserService.register(req.body);
       await CookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
       );
-      res.send(userData);
+      res.json(userData).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }
@@ -43,7 +43,8 @@ class UserController {
     next: NextFunction,
   ) {
     try {
-      userService.verify(req.query.id);
+      await UserService.verify(req.query.id);
+      res.sendStatus(StatusCodes.CREATED);
     } catch (e) {
       next(e);
     }
@@ -51,20 +52,17 @@ class UserController {
 
   async login(
     req: Request<UserLoginDto>,
-    res: Response<LoginOutputDto>,
+    res: Response,
     next: NextFunction,
   ) {
     try {
       const { email, password } = req.body;
-      const userData = await userService.login({ email, password });
+      const userData = await UserService.login({ email, password });
       await CookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
       );
-      res.send({
-        user: userData.user,
-        tokens: userData.tokens,
-      });
+      res.json(userData).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }
@@ -73,9 +71,9 @@ class UserController {
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
-      await userService.logout(refreshToken);
+      await UserService.logout(refreshToken);
       await CookieHelper.removeRefreshTokenCookie(res);
-      res.send(200);
+      res.sendStatus(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }
@@ -83,22 +81,19 @@ class UserController {
 
   async refresh(
     req: Request,
-    res: Response<LoginOutputDto>,
+    res: Response,
     next: NextFunction,
   ) {
     try {
       const { refreshToken } = req.cookies;
-      const userData = await userService.refresh(refreshToken);
+      const userData = await UserService.refresh(refreshToken);
       await CookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
       );
-      res.send({
-        user: userData.user,
-        tokens: userData.tokens,
-      });
-    } catch (error) {
-      next(error);
+      res.json(userData).status(StatusCodes.SUCCESS);
+    } catch (e) {
+      next(e);
     }
   }
 }

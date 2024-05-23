@@ -14,7 +14,7 @@ import { Like } from './LikeEntity';
 @Entity({ name: 'Posts' })
 export class Post {
   @PrimaryGeneratedColumn()
-  id: number;//TODO make id 'uuid' and refactore all code with id in backend
+  id: number; //TODO make id 'uuid' and refactore all code with id in backend
 
   @Column()
   title: string;
@@ -26,7 +26,7 @@ export class Post {
   })
   text: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   imageLink: string;
 
   @CreateDateColumn({
@@ -35,21 +35,25 @@ export class Post {
   })
   creationDate: Date;
 
-  @OneToMany(() => Comment, (comment) => comment.post, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Comment, (comment) => comment.post )
   comments: Comment[];
 
-  @ManyToOne(() => User, (user) => user.posts, { nullable: false })
-  author: User;
-
-  @ManyToOne(() => Section, (section) => section.posts, { nullable: false })
-  section: Section;
-
-  @OneToMany(() => Like, (like) => like.post, {
+  @ManyToOne(() => User, (user) => user.posts, {
+    nullable: false,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
     cascade: true,
   })
+  author: User;
+
+  @ManyToOne(() => Section, (section) => section.posts, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    cascade: true,
+  })
+  section: Section;
+
+  @OneToMany(() => Like, (like) => like.post)
   likes: Like[];
 }

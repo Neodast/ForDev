@@ -1,12 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from '../../Pages/ErrorPage';
-import RegistrationPage from '../../Pages/RegistrationPage';
-import LoginPage from '../../Pages/LoginPage';
-import PostsPage from '../../Pages/PostsPage';
+import RegistrationPage from '../../Pages/Auth/RegistrationPage';
+import LoginPage from '../../Pages/Auth/LoginPage';
+import PostsPage from '../../Pages/Posts/PostsPage';
 import QueryProvider from '../../providers/QueryProvider';
 import AuthProvider from '../../providers/AuthProvider';
 import MainPage from '@/Pages/MainPage';
 import { ConfigProvider } from 'antd';
+import PostPage from '@/Pages/Posts/PostPage';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/posts',
         element: <PostsPage></PostsPage>,
+      },
+      {
+        path: '/posts/:postId',
+        element: <PostPage></PostPage>,
       },
       // {
       //   path: "/quizzes",
@@ -55,8 +60,8 @@ export default function App() {
               cssVar: true,
               hashed: false,
               token: {
-                fontFamily: "Roboto"  ,
-              }
+                fontFamily: 'Roboto',
+              },
             }}
           >
             <RouterProvider router={router}></RouterProvider>

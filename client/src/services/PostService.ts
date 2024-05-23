@@ -10,6 +10,11 @@ class PostService {
     return data;
   };
 
+  static getPostById = async (postId: number): Promise<Post> => {
+    const {data} = await api.get('/board/post',{params: {postId: postId}})
+    return data;
+  }
+
   static editPost = async (postData: PostUpdate) => {
     const { data } = await api.put<Post>('/board/updatePost', { ...postData });
     return data;

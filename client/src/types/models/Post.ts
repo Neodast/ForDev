@@ -1,3 +1,4 @@
+import Comment from './Comment';
 import Like from './Like';
 import User from './User';
 
@@ -7,7 +8,7 @@ type Post = {
   likes: Like[];
   text: string;
   author: User;
-  // comments: CommentModel[];
+  comments: Comment[];
   // section: Section;
 };
 

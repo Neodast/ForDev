@@ -10,16 +10,10 @@ export class Section {
   @Column({ unique: true, nullable: false })
   title: string;
 
-  @OneToMany(() => Thread, (thread) => thread.section, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Thread, (thread) => thread.section)
   threads: Thread[];
 
-  @OneToMany(() => Post, (post) => post.section, {
-    onDelete: 'CASCADE',
-    cascade: true,
-  })
+  @OneToMany(() => Post, (post) => post.section)
   posts: Post[];
 
 }

@@ -1,4 +1,4 @@
-import Role from '../../enums/roles.enum';
+import Role from '../../enums/Roles.enum';
 
 type UserSafeDto = {
   id: string;
@@ -8,6 +8,6 @@ type UserSafeDto = {
   nickname: string;
   role: Role;
   isVerified: boolean;
-}
+};
 
 export default UserSafeDto;

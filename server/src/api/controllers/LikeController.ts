@@ -1,7 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import { RequestWithBody } from '../../utils/types/request.type';
+import { NextFunction, Response } from 'express';
+import {
+  RequestWithBody,
+  RequestWithQuery,
+} from '../../utils/types/request.type';
 import LikeService from '../../core/services/LikeService';
 import LikeInputDto from '../../utils/dtos/likes/LikeInput.dto';
+import StatusCodes from '../../utils/enums/HttpStatusCodes';
 
 class LikeController {
   public async likePost(
@@ -12,21 +16,21 @@ class LikeController {
     try {
       const { user, postId } = req.body;
       const like = await LikeService.likePost(user, postId);
-      res.send(like);
+      res.json(like).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);
     }
   }
 
   public async getPostLikesCount(
-    req: Request,
-    res: Response<number>,
+    req: RequestWithQuery<{ postId: number }>,
+    res: Response,
     next: NextFunction,
   ) {
     try {
-      const postId = req.query.postId;
+      const { postId } = req.query;
       const likesCount = await LikeService.getPostLikesCount(Number(postId));
-      res.json(likesCount);
+      res.json(likesCount).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }

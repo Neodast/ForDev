@@ -1,4 +1,4 @@
-import Role from '../../enums/roles.enum';
+import Role from '../../enums/Roles.enum';
 
 interface TokenPayloadDto {
   id: string;

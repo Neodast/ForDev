@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import sectionService from '../../core/services/SectionService';
+import SectionService from '../../core/services/SectionService';
+import StatusCodes from '../../utils/enums/HttpStatusCodes';
 
 class SectionController {
   public async createSection(req: Request, res: Response, next: NextFunction) {
     try {
       const { title } = req.body;
-      const section = await sectionService.createSection(title);
-      res.json(section);
+      const section = await SectionService.createSection(title);
+      res.json(section).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);
     }
@@ -14,8 +15,8 @@ class SectionController {
 
   public async getAllSections(req: Request, res: Response, next: NextFunction) {
     try {
-      const sections = await sectionService.getAllSections();
-      res.send(sections);
+      const sections = await SectionService.getAllSections();
+      res.json(sections).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }

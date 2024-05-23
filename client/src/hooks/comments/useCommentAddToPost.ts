@@ -1,14 +1,15 @@
 import CommentService from '@/services/CommentService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useCommentAddToPost = () => {
+const useCommentAddToPost = (postId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['commentAddToPost'],
     mutationFn: CommentService.addPostComment,
     onSuccess: async() => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({queryKey: ["postComments",  postId]});
+      queryClient.invalidateQueries({queryKey: ["post",  postId]});
     }
   })
 }

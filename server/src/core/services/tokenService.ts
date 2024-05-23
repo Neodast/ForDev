@@ -48,8 +48,8 @@ class TokenService {
     return tokens;
   }
 
-  async deleteToken(userId: string): Promise<void> {
-    const token = await this.tokenRepository.getByUserId(userId);
+  async deleteToken(refreshToken: string): Promise<void> {
+    const token = await this.tokenRepository.getByRefreshToken(refreshToken);
 
     await this.tokenRepository.deleteRefreshToken(token.refreshToken);
   }

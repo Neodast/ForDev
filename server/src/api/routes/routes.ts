@@ -12,7 +12,6 @@ const router: Router = express.Router();
 router.use('/auth', userRouter);
 router.use('/board', postRouter);
 router.use('/section', sectionRouter);
-router.use('/board', threadRouter);
 router.use('/liked', likedRouter);
 router.use('/like', likeRouter);
 router.use('/comment', commentRouter);

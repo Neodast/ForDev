@@ -1,4 +1,4 @@
-import Role from '../../utils/enums/roles.enum';
+import Role from '../../utils/enums/Roles.enum';
 
 type UserModel = {
   id: string;
@@ -9,6 +9,6 @@ type UserModel = {
   password: string;
   role: Role;
   isVerified: boolean;
-}
+};
 
 export default UserModel;
