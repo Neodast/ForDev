@@ -7,7 +7,9 @@ import PgPostMapper from '../../dbMappers/postgreSQL/PgPostMapper';
 import UserSafeDto from '../../../utils/dtos/users/UserSafe.dto';
 import ApiError from '../../../utils/exceptions/ApiError';
 import PostCreateDto from '../../../utils/dtos/posts/PostCreate.dto';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgPostRepository implements PostRepository {
   private readonly postRepository: Repository<Post>;
 
@@ -73,4 +75,4 @@ class PgPostRepository implements PostRepository {
   }
 }
 
-export default new PgPostRepository();
+export default PgPostRepository;

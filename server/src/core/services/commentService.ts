@@ -1,4 +1,4 @@
-import pgCommentRepository from '../../db/dbRepositories/postgreSQL/PgCommentRepository';
+import pgCommentRepository from '../../db/dbRepositories/postgreSQL/comment.repository';
 import CommentInputDto from '../../utils/dtos/comment/CommentInput.dto';
 import CommentModel from '../models/CommentModel';
 import CommentRepository from '../repositories/CommentRepository';

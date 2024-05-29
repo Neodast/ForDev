@@ -1,4 +1,4 @@
-import pgThreadRepository from '../../db/dbRepositories/postgreSQL/PgThreadRepository';
+import pgThreadRepository from '../../db/dbRepositories/postgreSQL/thread.repository';
 import ThreadModel from '../models/ThreadModel';
 import ThreadRepository from '../repositories/ThreadRepository';
 

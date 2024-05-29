@@ -1,14 +1,14 @@
-import { injectable } from 'inversify';
-import pgPostRepository from '../../db/dbRepositories/postgreSQL/PgPostRepository';
+import { inject, injectable } from 'inversify';
 import PostCreateDto from '../../utils/dtos/posts/PostCreate.dto';
 import PostInputDto from '../../utils/dtos/posts/PostInput.dto';
 import PostModel from '../models/PostModel';
 import PostRepository from '../repositories/PostRepository';
 import sectionService from './SectionService';
+import { TYPES } from '../types/posts.types';
 
 @injectable()
 class PostService {
-  constructor(readonly postRepository: PostRepository) {}
+  constructor(@inject(TYPES.PostRepository) readonly postRepository: PostRepository) {}
 
   public async createPost(postData: PostInputDto): Promise<PostModel> {
     const section = await sectionService.getSection(postData.sectionTitle);
@@ -37,4 +37,4 @@ class PostService {
   }
 }
 
-export default new PostService(pgPostRepository);
+export default PostService;

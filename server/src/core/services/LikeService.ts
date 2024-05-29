@@ -1,4 +1,4 @@
-import PgLikeRepository from '../../db/dbRepositories/postgreSQL/PgLikeRepository';
+import PgLikeRepository from '../../db/dbRepositories/postgreSQL/like.repository';
 import UserSafeDto from '../../utils/dtos/users/UserSafe.dto';
 import LikeRepository from '../repositories/LikeRepository';
 import PostService from './PostService';

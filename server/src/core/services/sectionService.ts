@@ -1,4 +1,4 @@
-import pgSectionRepository from '../../db/dbRepositories/postgreSQL/PgSectionRepository';
+import pgSectionRepository from '../../db/dbRepositories/postgreSQL/section.repository';
 import SectionModel from '../models/SectionModel';
 import SectionRepository from '../repositories/SectionRepository';
 

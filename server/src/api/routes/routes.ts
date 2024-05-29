@@ -2,7 +2,6 @@ import express, { Router } from 'express';
 import userRouter from './userRoute';
 import postRouter from './postRouter';
 import sectionRouter from './sectionRoute';
-import threadRouter from './threadRouter';
 import likedRouter from './likedRoute';
 import likeRouter from './likeRouter';
 import commentRouter from './commentRoute';

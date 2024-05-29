@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import TokenPayloadDto from '../../utils/dtos/tokens/TokenPayload.dto';
 import ApiError from '../../utils/exceptions/ApiError';
 import TokenRepository from '../repositories/TokenRepository';
-import tokenPgRepository from '../../db/dbRepositories/postgreSQL/PgTokenRepository';
+import tokenPgRepository from '../../db/dbRepositories/postgreSQL/token.repository';
 import TokensOutputDto from '../../utils/dtos/tokens/TokensOutput.dto';
 import UserModel from '../models/UserModel';
 
