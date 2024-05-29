@@ -1,9 +1,9 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import router from './routes/routes';
+import router from './routes/router';
 import errorMiddleware from './middlewares/error.middleware';
-import { dataSource } from '../utils/types/dataSource.type';
+import { dataSource } from '../utils/types/data-source.type';
 
 export class App {
   private app: express.Application;

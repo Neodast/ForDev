@@ -1,5 +1,5 @@
 import 'express-serve-static-core';
-import TokenPayloadDto from './src/utils/dtos/tokens/TokenPayload.dto';
+import TokenPayloadDto from './src/utils/dtos/tokens/token-payload.dto';
 
 declare module 'express-serve-static-core' {
   interface Request {
