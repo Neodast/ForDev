@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import pgPostRepository from '../../db/dbRepositories/postgreSQL/PgPostRepository';
 import PostCreateDto from '../../utils/dtos/posts/PostCreate.dto';
 import PostInputDto from '../../utils/dtos/posts/PostInput.dto';
@@ -5,6 +6,7 @@ import PostModel from '../models/PostModel';
 import PostRepository from '../repositories/PostRepository';
 import sectionService from './SectionService';
 
+@injectable()
 class PostService {
   constructor(readonly postRepository: PostRepository) {}
 
