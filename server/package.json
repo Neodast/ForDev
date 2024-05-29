@@ -1,13 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
     "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "format": "eslint src/**/*.ts --fix",
     "build": "rimraf dist && npx tsc",
-    "start": "node dist/app.js",
-    "server": "nodemon dist/app.js ",
+    "start": "node dist/main.js",
+    "server": "nodemon dist/main.js ",
     "compile": "tsc -w"
   },
   "keywords": [],
@@ -36,6 +36,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "inversify": "^6.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^5.9.2",
     "nodemailer": "^6.9.8",
