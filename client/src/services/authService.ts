@@ -14,22 +14,22 @@ class AuthService {
   static login = async (
     loginData: LoginInput,
   ): Promise<LoginOutput> => {
-    const {data} = await api.post<LoginOutput>('/auth/login', { ...loginData });
+    const {data} = await api.post<LoginOutput>('/user/auth/login', { ...loginData });
     return data;
   };
 
   static logout = async (): Promise<void> => {
-    return await api.post(`auth/logout`);
+    return await api.get(`/user/auth/logout`);
   };
 
   static registration = async (
     registerData: RegisterInput,
   ): Promise<AxiosResponse<Auth>> => {
-    return await api.post<Auth>('/auth/registration', { ...registerData });
+    return await api.post<Auth>('/user/auth/register', { ...registerData });
   };
 
   static refresh = async (): Promise<LoginOutput> => {
-    const {data} = await api.get<LoginOutput>(`/auth/refresh`);
+    const {data} = await api.get<LoginOutput>(`/user/auth/refresh`);
     return data;
   };
 }

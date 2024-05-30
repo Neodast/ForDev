@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import ApiError from '../../utils/exceptions/api-error';
-const errorMiddleware = (err: Error, req: Request, res: Response) => {
+const errorMiddleware = (err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(err);
   if (err instanceof ApiError) {
     return res

@@ -6,15 +6,17 @@ import {
 import LikeService from '../../core/services/like.service';
 import LikeInputDto from '../../utils/dtos/likes/like-input.dto';
 import StatusCodes from '../../utils/enums/http-status-codes';
-import { inject, injectable } from 'inversify';
+import { inject } from 'inversify';
 import { LikeTypes } from '../../core/types/like.types';
+import { controller, httpGet, httpPost } from 'inversify-express-utils';
 
-@injectable()
+@controller('/like')
 class LikeController {
   constructor(
     @inject(LikeTypes.LikeService) private likeService: LikeService,
   ){}
 
+  @httpPost('/addLikeToPost')
   public async likePost(
     req: RequestWithBody<LikeInputDto>,
     res: Response,
@@ -29,6 +31,7 @@ class LikeController {
     }
   }
 
+  @httpGet('/getPostLikesCount')
   public async getPostLikesCount(
     req: RequestWithQuery<{ postId: number }>,
     res: Response,

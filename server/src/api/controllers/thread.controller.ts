@@ -2,15 +2,17 @@ import { NextFunction, Request, Response } from 'express';
 import ThreadService from '../../core/services/thread.service';
 import threadModel from '../../core/models/thread.model';
 import StatusCodes from '../../utils/enums/http-status-codes';
-import { inject, injectable } from 'inversify';
+import { inject } from 'inversify';
 import { ThreadTypes } from '../../core/types/thread.types';
+import { controller, httpDelete, httpGet, httpPost } from 'inversify-express-utils';
 
-@injectable()
+@controller('/thread')
 class ThreadController {
   constructor(
     @inject(ThreadTypes.ThreadService) private threadService: ThreadService,
   ) {}
 
+  @httpPost('/create')
   public async createThread(req: Request, res: Response, next: NextFunction) {
     try {
       const thread: threadModel = req.body;
@@ -22,6 +24,7 @@ class ThreadController {
     }
   }
 
+  @httpDelete('/delete')
   public async deleteThread(req: Request, res: Response, next: NextFunction) {
     try {
       const thread: threadModel = req.body;
@@ -32,6 +35,7 @@ class ThreadController {
     }
   }
 
+  @httpGet('/all')
   async getAllThreads(req: Request, res: Response, next: NextFunction) {
     try {
       const threads = await this.threadService.getAllThreads();

@@ -50,9 +50,6 @@ export class App {
   public async listen(port: number) {
     try {
       this.app = this.server.build();
-      this.app.use('/', () => {
-        console.log(5);
-      });
       this.app.listen(port, async () => {
         console.log(`Example app listening on port ${port}!`);
       });

@@ -6,16 +6,18 @@ import {
   RequestWithQuery,
 } from '../../utils/types/request.type';
 import StatusCodes from '../../utils/enums/http-status-codes';
-import { inject, injectable } from 'inversify';
+import { inject } from 'inversify';
 import { PostTypes } from '../../core/types/post.types';
 import PostService from '../../core/services/post.service';
+import { controller, httpDelete, httpGet, httpPost, httpPut } from 'inversify-express-utils';
 
-@injectable()
+@controller('/post')
 class PostController {
   constructor(
     @inject(PostTypes.PostService) private postService: PostService,
   ) {}
 
+  @httpPost('/create')
   public async createPost(
     req: RequestWithBody<PostInputDto>,
     res: Response,
@@ -30,6 +32,7 @@ class PostController {
     }
   }
 
+  @httpPut('/update')
   public async updatePost(req: Request, res: Response, next: NextFunction) {
     try {
       const post: PostModel = req.body;
@@ -40,6 +43,7 @@ class PostController {
     }
   }
 
+  @httpDelete('/delete')
   public async deletePost(
     req: RequestWithBody<{ postId: number }>,
     res: Response,
@@ -54,6 +58,7 @@ class PostController {
     }
   }
 
+  @httpGet('/all')
   public async getAllPosts(req: Request, res: Response, next: NextFunction) {
     try {
       const posts = await this.postService.getAllPosts();
@@ -63,6 +68,7 @@ class PostController {
     }
   }
 
+  @httpGet('/')
   public async getPostById(
     req: RequestWithQuery<{ postId: number }>,
     res: Response,

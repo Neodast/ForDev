@@ -9,15 +9,18 @@ import UserLoginDto from '../../utils/dtos/auth/user-login-input.dto';
 import VerifyIdDto from '../../utils/dtos/auth/verify-id.dto';
 import CookieHelper from '../helpers/cookie.helper';
 import StatusCodes from '../../utils/enums/http-status-codes';
-import { inject, injectable } from 'inversify';
+import { inject } from 'inversify';
 import { UserTypes } from '../../core/types/user.types';
+import { controller, httpGet, httpPost } from 'inversify-express-utils';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
-@injectable()
+@controller('/user')
 class UserController {
   constructor(
     @inject(UserTypes.UserService) private userService: UserService,
   ) {}
 
+  @httpGet('/all')
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await this.userService.getAllUsers();
@@ -27,6 +30,7 @@ class UserController {
     }
   }
 
+  @httpPost('/auth/register')
   async registration(
     req: RequestWithBody<UserCreateDto>,
     res: Response,
@@ -44,6 +48,7 @@ class UserController {
     }
   }
 
+  @httpPost('/auth/verify')
   async verify(
     req: RequestWithQuery<VerifyIdDto>,
     res: Response,
@@ -57,6 +62,7 @@ class UserController {
     }
   }
 
+  @httpPost('/auth/login')
   async login(req: Request<UserLoginDto>, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
@@ -71,6 +77,7 @@ class UserController {
     }
   }
 
+  @httpGet('/auth/logout', authMiddleware)
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
@@ -82,6 +89,7 @@ class UserController {
     }
   }
 
+  @httpPost('/auth/refresh')
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;

@@ -18,14 +18,4 @@ const pgDataSource = new DataSource({
   subscribers: [],
 });
 
-const mongoDataSource = new DataSource({
-  type: 'mongodb',
-  host: 'localhost',
-  port: Number(process.env.MONGO_PORT) || 27017,
-  database: 'fordev',
-  synchronize: true,
-  logging: true,
-  entities: [__dirname + '/**/entities/mongoDB/*Entity.{js,ts}'],
-});
-
-export { pgDataSource, mongoDataSource };
+export { pgDataSource };

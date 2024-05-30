@@ -6,27 +6,27 @@ import PostDelete from '@/types/board/posts/PostDelete';
 
 class PostService {
   static getAllPosts = async (): Promise<Post[]> => {
-    const { data } = await api.get<Post[]>('/board/posts');
+    const { data } = await api.get<Post[]>('/post/all');
     return data;
   };
 
   static getPostById = async (postId: number): Promise<Post> => {
-    const {data} = await api.get('/board/post',{params: {postId: postId}})
+    const {data} = await api.get('/post',{params: {postId: postId}})
     return data;
   }
 
   static editPost = async (postData: PostUpdate) => {
-    const { data } = await api.put<Post>('/board/updatePost', { ...postData });
+    const { data } = await api.put<Post>('/post/update', { ...postData });
     return data;
   };
 
   static createPost = async (postData: PostCreate): Promise<Post> => {
-    const { data } = await api.post<Post>('/board/newPost', { ...postData });
+    const { data } = await api.post<Post>('/post/create', { ...postData });
     return data;
   };
 
   static deletePost = async (postData: PostDelete) => {
-    return await api.delete<Post>('/board/deletePost', {
+    return await api.delete<Post>('/post/delete', {
       data: { ...postData },
     });
   };
