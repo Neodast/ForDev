@@ -1,4 +1,7 @@
+import { injectable } from 'inversify';
 import nodemailer from 'nodemailer';
+
+@injectable()
 class EmailService {
   private transporter;
 
@@ -27,4 +30,4 @@ class EmailService {
   }
 }
 
-export default new EmailService();
+export default EmailService;

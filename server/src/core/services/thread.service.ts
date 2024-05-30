@@ -1,9 +1,11 @@
-import pgThreadRepository from '../../db/dbRepositories/thread.repository';
+import { inject, injectable } from 'inversify';
 import ThreadModel from '../models/thread.model';
 import ThreadRepository from '../repositories/thread.repository.type';
+import { ThreadTypes } from '../types/thread.types';
 
+@injectable()
 class ThreadService {
-  constructor(readonly threadRepository: ThreadRepository) {}
+  constructor(@inject(ThreadTypes.ThreadRepository) private threadRepository: ThreadRepository) {}
 
   public async createThread(threadData: ThreadModel): Promise<ThreadModel> {
     return this.threadRepository.createThread(threadData);
@@ -19,4 +21,4 @@ class ThreadService {
   }
 }
 
-export default new ThreadService(pgThreadRepository);
+export default ThreadService;

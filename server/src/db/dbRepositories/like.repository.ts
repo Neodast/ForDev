@@ -6,7 +6,9 @@ import LikeModel from '../../core/models/like.model';
 import PostModel from '../../core/models/post.model';
 import PgLikeMapper from '../dbMappers/like.db-mapper';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgLikeRepository implements LikeRepository {
   private readonly likeRepository: Repository<Like>;
 
@@ -57,4 +59,4 @@ class PgLikeRepository implements LikeRepository {
   }
 }
 
-export default new PgLikeRepository();
+export default PgLikeRepository;

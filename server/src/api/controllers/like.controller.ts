@@ -6,8 +6,15 @@ import {
 import LikeService from '../../core/services/like.service';
 import LikeInputDto from '../../utils/dtos/likes/like-input.dto';
 import StatusCodes from '../../utils/enums/http-status-codes';
+import { inject, injectable } from 'inversify';
+import { LikeTypes } from '../../core/types/like.types';
 
+@injectable()
 class LikeController {
+  constructor(
+    @inject(LikeTypes.LikeService) private likeService: LikeService,
+  ){}
+
   public async likePost(
     req: RequestWithBody<LikeInputDto>,
     res: Response,
@@ -15,7 +22,7 @@ class LikeController {
   ) {
     try {
       const { user, postId } = req.body;
-      const like = await LikeService.likePost(user, postId);
+      const like = await this.likeService.likePost(user, postId);
       res.json(like).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);
@@ -29,7 +36,7 @@ class LikeController {
   ) {
     try {
       const { postId } = req.query;
-      const likesCount = await LikeService.getPostLikesCount(Number(postId));
+      const likesCount = await this.likeService.getPostLikesCount(Number(postId));
       res.json(likesCount).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
@@ -37,4 +44,4 @@ class LikeController {
   }
 }
 
-export default new LikeController();
+export default LikeController;

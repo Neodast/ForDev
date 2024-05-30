@@ -1,9 +1,11 @@
-import pgSectionRepository from '../../db/dbRepositories/section.repository';
+import { inject, injectable } from 'inversify';
 import SectionModel from '../models/section.model';
 import SectionRepository from '../repositories/section.repository.type';
+import { SectionTypes } from '../types/section.types';
 
+@injectable()
 class SectionService {
-  constructor(readonly sectionRepository: SectionRepository) {}
+  constructor(@inject(SectionTypes.SectionRepository) private sectionRepository: SectionRepository) {}
 
   public async getSection(title: string): Promise<SectionModel> {
     return this.sectionRepository.getByTitle(title);
@@ -23,4 +25,4 @@ class SectionService {
   }
 }
 
-export default new SectionService(pgSectionRepository);
+export default SectionService;

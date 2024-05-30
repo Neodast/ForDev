@@ -9,11 +9,18 @@ import UserLoginDto from '../../utils/dtos/auth/user-login-input.dto';
 import VerifyIdDto from '../../utils/dtos/auth/verify-id.dto';
 import CookieHelper from '../helpers/cookie.helper';
 import StatusCodes from '../../utils/enums/http-status-codes';
+import { inject, injectable } from 'inversify';
+import { UserTypes } from '../../core/types/user.types';
 
+@injectable()
 class UserController {
+  constructor(
+    @inject(UserTypes.UserService) private userService: UserService,
+  ) {}
+
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await UserService.getAllUsers();
+      const users = await this.userService.getAllUsers();
       res.json(users).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
@@ -26,7 +33,7 @@ class UserController {
     next: NextFunction,
   ) {
     try {
-      const userData = await UserService.register(req.body);
+      const userData = await this.userService.register(req.body);
       await CookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
@@ -43,7 +50,7 @@ class UserController {
     next: NextFunction,
   ) {
     try {
-      await UserService.verify(req.query.id);
+      await this.userService.verify(req.query.id);
       res.sendStatus(StatusCodes.CREATED);
     } catch (e) {
       next(e);
@@ -53,7 +60,7 @@ class UserController {
   async login(req: Request<UserLoginDto>, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
-      const userData = await UserService.login({ email, password });
+      const userData = await this.userService.login({ email, password });
       await CookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
@@ -67,7 +74,7 @@ class UserController {
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
-      await UserService.logout(refreshToken);
+      await this.userService.logout(refreshToken);
       await CookieHelper.removeRefreshTokenCookie(res);
       res.sendStatus(StatusCodes.SUCCESS);
     } catch (e) {
@@ -78,7 +85,7 @@ class UserController {
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;
-      const userData = await UserService.refresh(refreshToken);
+      const userData = await this.userService.refresh(refreshToken);
       await CookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
@@ -90,4 +97,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default UserController;

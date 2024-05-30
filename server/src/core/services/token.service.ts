@@ -2,12 +2,18 @@ import jwt from 'jsonwebtoken';
 import TokenPayloadDto from '../../utils/dtos/tokens/token-payload.dto';
 import ApiError from '../../utils/exceptions/api-error';
 import TokenRepository from '../repositories/token.repository.type';
-import tokenPgRepository from '../../db/dbRepositories/token.repository';
 import TokensOutputDto from '../../utils/dtos/tokens/token-output.dto';
 import UserModel from '../models/user.model';
+import { inject, injectable } from 'inversify';
+import { TokenTypes } from '../types/token.types';
+import TokenModel from '../models/token.model';
 
+@injectable()
 class TokenService {
-  constructor(readonly tokenRepository: TokenRepository) {}
+  constructor(
+    @inject(TokenTypes.TokenRepository)
+    private tokenRepository: TokenRepository,
+  ) {}
 
   async generateTokens(payload: TokenPayloadDto): Promise<TokensOutputDto> {
     const accessToken = jwt.sign(
@@ -48,6 +54,10 @@ class TokenService {
     return tokens;
   }
 
+  async getByRefreshToken(refreshToken: string): Promise<TokenModel> {
+    return await this.tokenRepository.getByRefreshToken(refreshToken);
+  }
+
   async deleteToken(refreshToken: string): Promise<void> {
     const token = await this.tokenRepository.getByRefreshToken(refreshToken);
 
@@ -79,4 +89,4 @@ class TokenService {
   }
 }
 
-export default new TokenService(tokenPgRepository);
+export default TokenService;

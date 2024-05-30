@@ -6,7 +6,9 @@ import UserRepository from '../../core/repositories/user.repository.type';
 import UserCreateDto from '../../utils/dtos/users/user-create.dto';
 import UserModel from '../../core/models/user.model';
 import PgUserMapper from '../dbMappers/user.db-mapper';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgUserRepository implements UserRepository {
   private readonly userRepository: Repository<User>;
 
@@ -72,4 +74,4 @@ class PgUserRepository implements UserRepository {
   }
 }
 
-export default new PgUserRepository();
+export default PgUserRepository;

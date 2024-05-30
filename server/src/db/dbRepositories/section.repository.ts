@@ -5,7 +5,9 @@ import { pgDataSource } from '../appDataSourse';
 import SectionModel from '../../core/models/section.model';
 import PgSectionMapper from '../dbMappers/section.db-mapper';
 import ApiError from '../../utils/exceptions/api-error';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgSectionRepository implements SectionRepository {
   private readonly sectionRepository: Repository<Section>;
 
@@ -96,4 +98,4 @@ class PgSectionRepository implements SectionRepository {
   }
 }
 
-export default new PgSectionRepository();
+export default PgSectionRepository;

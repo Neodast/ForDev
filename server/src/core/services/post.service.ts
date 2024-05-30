@@ -3,17 +3,19 @@ import PostCreateDto from '../../utils/dtos/posts/post-create.dto';
 import PostInputDto from '../../utils/dtos/posts/post-input.dto';
 import PostModel from '../models/post.model';
 import PostRepository from '../repositories/post.repository.type';
-import sectionService from './section.service';
-import { TYPES } from '../types/posts.types';
+import { PostTypes } from '../types/post.types';
+import { SectionTypes } from '../types/section.types';
+import SectionService from './section.service';
 
 @injectable()
 class PostService {
   constructor(
-    @inject(TYPES.PostRepository) readonly postRepository: PostRepository,
+    @inject(PostTypes.PostRepository) private postRepository: PostRepository,
+    @inject(SectionTypes.SectionService) private sectionService: SectionService,
   ) {}
 
   public async createPost(postData: PostInputDto): Promise<PostModel> {
-    const section = await sectionService.getSection(postData.sectionTitle);
+    const section = await this.sectionService.getSection(postData.sectionTitle);
     const postCreateData: PostCreateDto = {
       section: section,
       ...postData,

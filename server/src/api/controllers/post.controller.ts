@@ -7,12 +7,14 @@ import {
 } from '../../utils/types/request.type';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject, injectable } from 'inversify';
-import { TYPES } from '../../core/types/posts.types';
-import PostService from '../../core/services/posts.service';
+import { PostTypes } from '../../core/types/post.types';
+import PostService from '../../core/services/post.service';
 
 @injectable()
 class PostController {
-  constructor(@inject(TYPES.PostService) private postService: PostService) {}
+  constructor(
+    @inject(PostTypes.PostService) private postService: PostService,
+  ) {}
 
   public async createPost(
     req: RequestWithBody<PostInputDto>,

@@ -8,7 +8,9 @@ import ApiError from '../../utils/exceptions/api-error';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import CommentCreateDto from '../../utils/dtos/comment/comment-create.dto';
 import PostModel from '../../core/models/post.model';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgCommentRepository implements CommentRepository {
   private readonly commentRepository: Repository<Comment>;
 
@@ -93,4 +95,4 @@ class PgCommentRepository implements CommentRepository {
   }
 }
 
-export default new PgCommentRepository();
+export default PgCommentRepository;

@@ -4,7 +4,9 @@ import { Token } from '../entities/token.entity';
 import { pgDataSource } from '../appDataSourse';
 import TokenModel from '../../core/models/token.model';
 import PgTokenMapper from '../dbMappers/token.db-mapper';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgTokenRepository implements TokenRepository {
   private readonly tokenRepository: Repository<Token>;
 
@@ -76,4 +78,4 @@ class PgTokenRepository implements TokenRepository {
   }
 }
 
-export default new PgTokenRepository();
+export default PgTokenRepository;

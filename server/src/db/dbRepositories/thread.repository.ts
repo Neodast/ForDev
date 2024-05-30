@@ -6,7 +6,9 @@ import PgThreadMapper from '../dbMappers/thread.db-mapper';
 import ThreadModel from '../../core/models/thread.model';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import ApiError from '../../utils/exceptions/api-error';
+import { injectable } from 'inversify';
 
+@injectable()
 class PgThreadRepository implements ThreadRepository {
   private readonly threadRepository: Repository<Thread>;
 
@@ -81,4 +83,4 @@ class PgThreadRepository implements ThreadRepository {
   }
 }
 
-export default new PgThreadRepository();
+export default PgThreadRepository;

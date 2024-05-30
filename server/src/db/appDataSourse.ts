@@ -13,7 +13,7 @@ const pgDataSource = new DataSource({
   database: process.env.POSTGRES_DB || 'fordev',
   synchronize: true,
   logging: false,
-  entities: [__dirname + '/**/entities/postgreSQL/*Entity.{js,ts}'],
+  entities: [__dirname + '/**/entities/*entity.{js,ts}'],
   migrations: [],
   subscribers: [],
 });
