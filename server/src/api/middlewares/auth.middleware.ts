@@ -1,5 +1,7 @@
-import tokenService from '../../core/services/TokenService';
-import ApiError from '../../utils/exceptions/ApiError';
+import { tokenContainer } from '../../core/containers/token.container';
+import TokenService from '../../core/services/token.service';
+import { TokenTypes } from '../../core/types/token.types';
+import ApiError from '../../utils/exceptions/api-error';
 import { NextFunction, Request, Response } from 'express';
 
 export const authMiddleware = async (
@@ -8,6 +10,8 @@ export const authMiddleware = async (
   next: NextFunction,
 ) => {
   try {
+    const tokenService = tokenContainer.get<TokenService>(TokenTypes.TokenService);
+
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
       return next(ApiError.UnauthorizedError('header'));

@@ -145,4 +145,4 @@ node_modules
 .vs
 >>>>>>> CW_2024/main
 .env
-.env
+package-lock.json

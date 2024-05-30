@@ -1,41 +1,46 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import router from './routes/routes';
 import errorMiddleware from './middlewares/error.middleware';
-import { dataSource } from '../utils/types/dataSource.type';
+import { dataSource } from '../utils/types/data-source.type';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import { appContainer } from './app.container';
 
 export class App {
   private app: express.Application;
+  private server: InversifyExpressServer;
 
   constructor(dataSource?: dataSource) {
+    this.createServer();
     this.initializeMiddlewares();
-    this.initializeRoutes();
     this.initializeErrorHandling();
     if (dataSource) {
       this.initializeDB(dataSource);
     }
   }
 
-  private initializeMiddlewares() {
-    this.app = express();
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(cookieParser());
-    this.app.use(
-      cors({
-        credentials: true,
-        origin: String(process.env.CLIENT_URL) || 'http://localhost:5173',
-      }),
-    );
+  private createServer() {
+    this.server = new InversifyExpressServer(appContainer);
   }
 
-  private initializeRoutes() {
-    this.app.use('/', router);
+  private initializeMiddlewares() {
+    this.server.setConfig((app) => {
+      app.use(express.json());
+      app.use(express.urlencoded({ extended: true }));
+      app.use(cookieParser());
+      app.use(
+        cors({
+          credentials: true,
+          origin: String(process.env.CLIENT_URL) || 'http://localhost:5173',
+        }),
+      );
+    });
   }
 
   private initializeErrorHandling() {
-    this.app.use(errorMiddleware);
+    this.server.setErrorConfig((app) => {
+      app.use(errorMiddleware);
+    });
   }
 
   private async initializeDB(dataSource: dataSource) {
@@ -44,6 +49,7 @@ export class App {
 
   public async listen(port: number) {
     try {
+      this.app = this.server.build();
       this.app.listen(port, async () => {
         console.log(`Example app listening on port ${port}!`);
       });

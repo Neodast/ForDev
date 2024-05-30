@@ -13,19 +13,9 @@ const pgDataSource = new DataSource({
   database: process.env.POSTGRES_DB || 'fordev',
   synchronize: true,
   logging: false,
-  entities: [__dirname + '/**/entities/postgreSQL/*Entity.{js,ts}'],
+  entities: [__dirname + '/**/entities/*entity.{js,ts}'],
   migrations: [],
   subscribers: [],
 });
 
-const mongoDataSource = new DataSource({
-  type: 'mongodb',
-  host: 'localhost',
-  port: Number(process.env.MONGO_PORT) || 27017,
-  database: 'fordev',
-  synchronize: true,
-  logging: true,
-  entities: [__dirname + '/**/entities/mongoDB/*Entity.{js,ts}'],
-});
-
-export { pgDataSource, mongoDataSource };
+export { pgDataSource };
