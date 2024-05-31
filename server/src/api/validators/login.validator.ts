@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-export const accountLoginValidation = [
+export const loginValidator = [
   body('email')
     .trim()
     .notEmpty()
@@ -9,12 +9,6 @@ export const accountLoginValidation = [
   body('password')
     .trim()
     .notEmpty()
-    .isLength({max: 50})
-    .isStrongPassword({
-      minLength: 6,
-      minLowercase: 1,
-      minUppercase: 1,
-      minNumbers: 1,
-    })
+    .isLength({ max: 50 })
     .withMessage('Not a valid password'),
 ];

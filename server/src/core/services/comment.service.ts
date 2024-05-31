@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 import CommentInputDto from '../../utils/dtos/comment/comment-input.dto';
 import CommentModel from '../models/comment.model';
 import CommentRepository from '../repositories/comment.repository.type';
-import { CommentTypes } from '../types/comment.types';
-import { PostTypes } from '../types/post.types';
+import { CommentTypes } from '../../utils/types/containers/comment.types';
+import { PostTypes } from '../../utils/types/containers/post.types';
 import PostService from './post.service';
 
 @injectable()

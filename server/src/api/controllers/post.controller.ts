@@ -7,9 +7,15 @@ import {
 } from '../../utils/types/request.type';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
-import { PostTypes } from '../../core/types/post.types';
+import { PostTypes } from '../../utils/types/containers/post.types';
 import PostService from '../../core/services/post.service';
-import { controller, httpDelete, httpGet, httpPost, httpPut } from 'inversify-express-utils';
+import {
+  controller,
+  httpDelete,
+  httpGet,
+  httpPost,
+  httpPut,
+} from 'inversify-express-utils';
 
 @controller('/post')
 class PostController {

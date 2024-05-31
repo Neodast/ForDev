@@ -7,14 +7,14 @@ import LikeService from '../../core/services/like.service';
 import LikeInputDto from '../../utils/dtos/likes/like-input.dto';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
-import { LikeTypes } from '../../core/types/like.types';
+import { LikeTypes } from '../../utils/types/containers/like.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 
 @controller('/like')
 class LikeController {
   constructor(
     @inject(LikeTypes.LikeService) private likeService: LikeService,
-  ){}
+  ) {}
 
   @httpPost('/addLikeToPost')
   public async likePost(
@@ -39,7 +39,9 @@ class LikeController {
   ) {
     try {
       const { postId } = req.query;
-      const likesCount = await this.likeService.getPostLikesCount(Number(postId));
+      const likesCount = await this.likeService.getPostLikesCount(
+        Number(postId),
+      );
       res.json(likesCount).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);

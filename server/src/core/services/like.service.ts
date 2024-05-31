@@ -2,14 +2,14 @@ import { inject, injectable } from 'inversify';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import LikeRepository from '../repositories/like.repository.type';
 import PostService from './post.service';
-import { LikeTypes } from '../types/like.types';
-import { PostTypes } from '../types/post.types';
+import { LikeTypes } from '../../utils/types/containers/like.types';
+import { PostTypes } from '../../utils/types/containers/post.types';
 
 @injectable()
 class LikeService {
   constructor(
     @inject(LikeTypes.LikeRepository) private likeRepository: LikeRepository,
-    @inject(PostTypes.PostService) private postService: PostService
+    @inject(PostTypes.PostService) private postService: PostService,
   ) {}
 
   public async likePost(user: UserSafeDto, postId: number) {

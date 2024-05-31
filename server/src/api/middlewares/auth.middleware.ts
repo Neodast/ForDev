@@ -1,8 +1,8 @@
-import { tokenContainer } from '../../core/containers/token.container';
 import TokenService from '../../core/services/token.service';
-import { TokenTypes } from '../../core/types/token.types';
+import { TokenTypes } from '../../utils/types/containers/token.types';
 import ApiError from '../../utils/exceptions/api-error';
 import { NextFunction, Request, Response } from 'express';
+import { appContainer } from '../../app.container';
 
 export const authMiddleware = async (
   req: Request,
@@ -10,7 +10,9 @@ export const authMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    const tokenService = tokenContainer.get<TokenService>(TokenTypes.TokenService);
+    const tokenService = appContainer.get<TokenService>(
+      TokenTypes.TokenService,
+    );
 
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {

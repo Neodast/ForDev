@@ -1,9 +1,9 @@
-import { dataSource } from './utils/types/data-source.type';
 import { App } from './api/app';
+import { interfaces } from 'inversify';
 
 export class AppFactory {
-  public static create(dataSource?: dataSource) {
-    const app = new App(dataSource);
+  public static create(appContainer: interfaces.Container) {
+    const app = new App(appContainer);
     return app;
   }
 }

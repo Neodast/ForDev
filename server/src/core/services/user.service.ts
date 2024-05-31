@@ -9,10 +9,10 @@ import UserRepository from '../repositories/user.repository.type';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import UserMapper from '../mappers/user.mapper';
 import { inject, injectable } from 'inversify';
-import { UserTypes } from '../types/user.types';
-import { TokenTypes } from '../types/token.types';
+import { UserTypes } from '../../utils/types/containers/user.types';
+import { TokenTypes } from '../../utils/types/containers/token.types';
 import TokenService from './token.service';
-import { EmailTypes } from '../types/email.types';
+import { EmailTypes } from '../../utils/types/containers/email.types';
 import EmailService from './email.service';
 
 @injectable()

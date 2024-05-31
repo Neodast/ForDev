@@ -3,8 +3,13 @@ import ThreadService from '../../core/services/thread.service';
 import threadModel from '../../core/models/thread.model';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
-import { ThreadTypes } from '../../core/types/thread.types';
-import { controller, httpDelete, httpGet, httpPost } from 'inversify-express-utils';
+import { ThreadTypes } from '../../utils/types/containers/thread.types';
+import {
+  controller,
+  httpDelete,
+  httpGet,
+  httpPost,
+} from 'inversify-express-utils';
 
 @controller('/thread')
 class ThreadController {

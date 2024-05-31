@@ -11,10 +11,10 @@ type Auth = {
 };
 
 class AuthService {
-  static login = async (
-    loginData: LoginInput,
-  ): Promise<LoginOutput> => {
-    const {data} = await api.post<LoginOutput>('/user/auth/login', { ...loginData });
+  static login = async (loginData: LoginInput): Promise<LoginOutput> => {
+    const { data } = await api.post<LoginOutput>('/user/auth/login', {
+      ...loginData,
+    });
     return data;
   };
 
@@ -29,7 +29,7 @@ class AuthService {
   };
 
   static refresh = async (): Promise<LoginOutput> => {
-    const {data} = await api.get<LoginOutput>(`/user/auth/refresh`);
+    const { data } = await api.get<LoginOutput>(`/user/auth/refresh`);
     return data;
   };
 }

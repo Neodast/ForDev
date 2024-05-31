@@ -5,7 +5,7 @@ import TokenRepository from '../repositories/token.repository.type';
 import TokensOutputDto from '../../utils/dtos/tokens/token-output.dto';
 import UserModel from '../models/user.model';
 import { inject, injectable } from 'inversify';
-import { TokenTypes } from '../types/token.types';
+import { TokenTypes } from '../../utils/types/containers/token.types';
 import TokenModel from '../models/token.model';
 
 @injectable()

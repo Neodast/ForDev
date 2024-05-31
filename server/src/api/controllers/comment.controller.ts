@@ -7,7 +7,7 @@ import {
 import CommentInputDto from '../../utils/dtos/comment/comment-input.dto';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
-import { CommentTypes } from '../../core/types/comment.types';
+import { CommentTypes } from '../../utils/types/containers/comment.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 
 @controller('/comment')

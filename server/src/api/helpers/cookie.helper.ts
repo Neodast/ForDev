@@ -1,7 +1,9 @@
 import { Response } from 'express';
+import { injectable } from 'inversify';
 
-class CookieHelper {
-  public static async saveRefreshTokenCookie(
+@injectable()
+export class CookieHelper {
+  public async saveRefreshTokenCookie(
     res: Response,
     refreshToken: string
   ): Promise<void> {
@@ -19,9 +21,7 @@ class CookieHelper {
     });
   }
 
-  public static async removeRefreshTokenCookie(res: Response): Promise<void> {
+  public async removeRefreshTokenCookie(res: Response): Promise<void> {
     res.clearCookie('refreshToken');
   }
 }
-
-export default CookieHelper;

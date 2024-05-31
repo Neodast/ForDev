@@ -7,17 +7,22 @@ import UserCreateDto from '../../utils/dtos/users/user-create.dto';
 import UserService from '../../core/services/user.service';
 import UserLoginDto from '../../utils/dtos/auth/user-login-input.dto';
 import VerifyIdDto from '../../utils/dtos/auth/verify-id.dto';
-import CookieHelper from '../helpers/cookie.helper';
+import { CookieHelper } from '../helpers/cookie.helper';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
-import { UserTypes } from '../../core/types/user.types';
+import { UserTypes } from '../../utils/types/containers/user.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import { authMiddleware } from '../middlewares/auth.middleware';
+import { loginValidator } from '../validators/login.validator';
+import { validateMiddleware } from '../middlewares/validation.middleware';
+import { registerValidator } from '../validators/register.validator';
+import { HelperTypes } from '../../utils/types/containers/helper.types';
 
 @controller('/user')
 class UserController {
   constructor(
     @inject(UserTypes.UserService) private userService: UserService,
+    @inject(HelperTypes.CookieHelper) private cookieHelper: CookieHelper,
   ) {}
 
   @httpGet('/all')
@@ -30,7 +35,7 @@ class UserController {
     }
   }
 
-  @httpPost('/auth/register')
+  @httpPost('/auth/register', validateMiddleware(registerValidator))
   async registration(
     req: RequestWithBody<UserCreateDto>,
     res: Response,
@@ -38,7 +43,7 @@ class UserController {
   ) {
     try {
       const userData = await this.userService.register(req.body);
-      await CookieHelper.saveRefreshTokenCookie(
+      await this.cookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
       );
@@ -62,12 +67,12 @@ class UserController {
     }
   }
 
-  @httpPost('/auth/login')
+  @httpPost('/auth/login', validateMiddleware(loginValidator))
   async login(req: Request<UserLoginDto>, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
       const userData = await this.userService.login({ email, password });
-      await CookieHelper.saveRefreshTokenCookie(
+      await this.cookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
       );
@@ -82,7 +87,7 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       await this.userService.logout(refreshToken);
-      await CookieHelper.removeRefreshTokenCookie(res);
+      await this.cookieHelper.removeRefreshTokenCookie(res);
       res.sendStatus(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
@@ -94,7 +99,7 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const userData = await this.userService.refresh(refreshToken);
-      await CookieHelper.saveRefreshTokenCookie(
+      await this.cookieHelper.saveRefreshTokenCookie(
         res,
         userData.tokens.refreshToken,
       );

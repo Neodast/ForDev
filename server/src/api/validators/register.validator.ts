@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-export const accountRegisterValidation = [
+export const registerValidator = [
   body('email')
     .trim()
     .notEmpty()

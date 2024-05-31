@@ -3,8 +3,8 @@ import PostCreateDto from '../../utils/dtos/posts/post-create.dto';
 import PostInputDto from '../../utils/dtos/posts/post-input.dto';
 import PostModel from '../models/post.model';
 import PostRepository from '../repositories/post.repository.type';
-import { PostTypes } from '../types/post.types';
-import { SectionTypes } from '../types/section.types';
+import { PostTypes } from '../../utils/types/containers/post.types';
+import { SectionTypes } from '../../utils/types/containers/section.types';
 import SectionService from './section.service';
 
 @injectable()
