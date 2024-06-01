@@ -7,6 +7,7 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import 'reflect-metadata';
 import { interfaces } from 'inversify';
 import { DataTypes } from '../utils/types/containers/database.types';
+import { env } from '../utils/env.scheme';
 
 export class App {
   private app: express.Application;
@@ -34,7 +35,7 @@ export class App {
       app.use(
         cors({
           credentials: true,
-          origin: String(process.env.CLIENT_URL) || 'http://localhost:5173',
+          origin: env.CLIENT_URL || 'http://localhost:5173',
         }),
       );
     });

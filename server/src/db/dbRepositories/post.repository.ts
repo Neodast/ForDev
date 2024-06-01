@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Post } from '../entities/post.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import PostModel from '../../core/models/post.model';
 import PostRepository from '../../core/repositories/post.repository.type';
 import PgPostMapper from '../dbMappers/post.db-mapper';

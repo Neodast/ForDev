@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import LikeRepository from '../../core/repositories/like.repository.type';
 import { Like } from '../entities/like.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import LikeModel from '../../core/models/like.model';
 import PostModel from '../../core/models/post.model';
 import PgLikeMapper from '../dbMappers/like.db-mapper';

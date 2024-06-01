@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
 import nodemailer from 'nodemailer';
+import { env } from '../../utils/env.scheme';
 
 @injectable()
 class EmailService {
@@ -8,18 +9,18 @@ class EmailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
-      host: String(process.env.SMTP_HOST),
-      port: Number(process.env.SMTP_PORT),
+      host: env.SMTP_HOST,
+      port: env.SMTP_PORT,
       secure: true,
       auth: {
-        user: String(process.env.SMTP_USER),
-        pass: String(process.env.SMTP_PASSWORD),
+        user: env.SMTP_USER,
+        pass: env.SMTP_PASSWORD,
       },
     });
   }
   async sendActivateEmail(email: string, link: string): Promise<void> {
     await this.transporter.sendMail({
-      from: String(process.env.SMTP_USER),
+      from: env.SMTP_USER,
       to: email,
       subject: 'Account activate',
       text: '',

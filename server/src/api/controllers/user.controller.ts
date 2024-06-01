@@ -14,7 +14,7 @@ import { UserTypes } from '../../utils/types/containers/user.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { loginValidator } from '../validators/login.validator';
-import { validateMiddleware } from '../middlewares/validation.middleware';
+import { validationMiddleware } from '../middlewares/validation.middleware';
 import { registerValidator } from '../validators/register.validator';
 import { HelperTypes } from '../../utils/types/containers/helper.types';
 
@@ -35,7 +35,7 @@ class UserController {
     }
   }
 
-  @httpPost('/auth/register', validateMiddleware(registerValidator))
+  @httpPost('/auth/register', validationMiddleware(registerValidator))
   async registration(
     req: RequestWithBody<UserCreateDto>,
     res: Response,
@@ -67,7 +67,7 @@ class UserController {
     }
   }
 
-  @httpPost('/auth/login', validateMiddleware(loginValidator))
+  @httpPost('/auth/login', validationMiddleware(loginValidator))
   async login(req: Request<UserLoginDto>, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
