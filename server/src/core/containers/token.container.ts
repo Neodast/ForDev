@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { TokenTypes } from '../../utils/types/containers/token.types';
-import TokenService from '../services/token.service';
+import { TokenService } from '../services/token.service';
 import PgTokenRepository from '../../db/dbRepositories/token.repository';
 import TokenRepository from '../repositories/token.repository.type';
 

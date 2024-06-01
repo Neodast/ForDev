@@ -4,6 +4,7 @@ import UserSafeDto from '../users/user-safe.dto';
 interface PostCreateDto {
   title: string;
   text: string;
+  imageLink: string;
   author: UserSafeDto;
   section: SectionModel;
 }

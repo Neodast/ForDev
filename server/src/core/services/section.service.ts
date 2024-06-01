@@ -4,7 +4,7 @@ import SectionRepository from '../repositories/section.repository.type';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 
 @injectable()
-class SectionService {
+export class SectionService {
   constructor(
     @inject(SectionTypes.SectionRepository)
     private sectionRepository: SectionRepository,
@@ -27,5 +27,3 @@ class SectionService {
     return this.sectionRepository.getAll();
   }
 }
-
-export default SectionService;

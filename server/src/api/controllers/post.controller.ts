@@ -8,7 +8,7 @@ import {
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
 import { PostTypes } from '../../utils/types/containers/post.types';
-import PostService from '../../core/services/post.service';
+import { PostService } from '../../core/services/post.service';
 import {
   controller,
   httpDelete,
@@ -16,6 +16,7 @@ import {
   httpPost,
   httpPut,
 } from 'inversify-express-utils';
+import { imageUploadMiddleware } from '../middlewares/image-upload.middleware';
 
 @controller('/post')
 class PostController {
@@ -23,7 +24,7 @@ class PostController {
     @inject(PostTypes.PostService) private postService: PostService,
   ) {}
 
-  @httpPost('/create')
+  @httpPost('/create', imageUploadMiddleware)
   public async createPost(
     req: RequestWithBody<PostInputDto>,
     res: Response,

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import SectionService from '../../core/services/section.service';
+import { SectionService } from '../../core/services/section.service';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
 import { SectionTypes } from '../../utils/types/containers/section.types';

@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { ThreadTypes } from '../../utils/types/containers/thread.types';
-import ThreadService from '../services/thread.service';
+import { ThreadService } from '../services/thread.service';
 import PgThreadRepository from '../../db/dbRepositories/thread.repository';
 import ThreadRepository from '../repositories/thread.repository.type';
 

@@ -11,13 +11,13 @@ import UserMapper from '../mappers/user.mapper';
 import { inject, injectable } from 'inversify';
 import { UserTypes } from '../../utils/types/containers/user.types';
 import { TokenTypes } from '../../utils/types/containers/token.types';
-import TokenService from './token.service';
+import { TokenService } from './token.service';
 import { EmailTypes } from '../../utils/types/containers/email.types';
-import EmailService from './email.service';
+import { EmailService } from './email.service';
 import { env } from '../../utils/env.scheme';
 
 @injectable()
-class UserService {
+export class UserService {
   constructor(
     @inject(UserTypes.UserRepository) private userRepository: UserRepository,
     @inject(TokenTypes.TokenService) private tokenService: TokenService,
@@ -115,5 +115,3 @@ class UserService {
     return this.userRepository.getAll();
   }
 }
-
-export default UserService;

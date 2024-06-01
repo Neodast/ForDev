@@ -4,7 +4,7 @@ import {
   RequestWithQuery,
 } from '../../utils/types/request.type';
 import UserCreateDto from '../../utils/dtos/users/user-create.dto';
-import UserService from '../../core/services/user.service';
+import { UserService } from '../../core/services/user.service';
 import UserLoginDto from '../../utils/dtos/auth/user-login-input.dto';
 import VerifyIdDto from '../../utils/dtos/auth/verify-id.dto';
 import { CookieHelper } from '../helpers/cookie.helper';

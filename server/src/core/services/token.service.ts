@@ -10,7 +10,7 @@ import TokenModel from '../models/token.model';
 import { env } from '../../utils/env.scheme';
 
 @injectable()
-class TokenService {
+export class TokenService {
   constructor(
     @inject(TokenTypes.TokenRepository)
     private tokenRepository: TokenRepository,
@@ -89,5 +89,3 @@ class TokenService {
     }
   }
 }
-
-export default TokenService;

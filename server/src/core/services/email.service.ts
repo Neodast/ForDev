@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import { env } from '../../utils/env.scheme';
 
 @injectable()
-class EmailService {
+export class EmailService {
   private transporter;
 
   constructor() {
@@ -30,5 +30,3 @@ class EmailService {
     });
   }
 }
-
-export default EmailService;
