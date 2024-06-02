@@ -1,5 +1,5 @@
 import InputField from '@/components/Base/Inputs/InputField';
-import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
+import FormValidationError from '@/components/Auth/RegistrationForm/Errors/FormValidationError';
 import usePostEdit from '@/hooks/posts/usePostEdit';
 import { useUserStore } from '@/stores/UserStore';
 import PostUpdate from '@/types/board/posts/PostUpdate';

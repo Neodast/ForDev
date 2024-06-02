@@ -56,8 +56,17 @@ class PgPostRepository implements PostRepository {
     if (!postData) {
       throw ApiError.BadRequest('Post is undefined!');
     }
-    const post = this.postRepository.create(postData);
-    return PgPostMapper.mapToPostModel(await this.postRepository.save(post));
+
+    const post = this.postRepository.create({
+      author: {id: postData.authorId},
+      ...postData,
+    });
+
+    await this.postRepository.insert(post);
+
+    const dbPost = await this.getById(post.id);
+
+    return dbPost;
   }
 
   public async updatePost(

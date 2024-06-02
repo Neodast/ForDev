@@ -1,5 +1,5 @@
 import InputField from '@/components/Base/Inputs/InputField';
-import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
+import FormValidationError from '@/components/Auth/RegistrationForm/Errors/FormValidationError';
 import usePostCreate from '@/hooks/posts/usePostCreate';
 import { useUserStore } from '@/stores/UserStore';
 import PostInput from '@/types/board/posts/PostInput';
@@ -30,6 +30,7 @@ export default function PostCreateForm() {
       author: author,
       comments: [],
       text: data.createText,
+      image: data.image,
       title: data.createTitle,
       sectionTitle: data.sectionTitle,
     });
@@ -46,6 +47,7 @@ export default function PostCreateForm() {
           type="text"
           {...register('createTitle')}
         ></InputField>
+        <input type="file" {...register('image')}></input>
         <FormValidationError
           message={errors.createTitle?.message}
         ></FormValidationError>

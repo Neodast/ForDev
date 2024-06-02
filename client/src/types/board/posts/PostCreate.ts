@@ -5,6 +5,7 @@ type PostCreate = {
   title: string;
   text: string;
   author: User;
+  image: FileList;
   comments: Comment[] | [];
   sectionTitle: string;
 };

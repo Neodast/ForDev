@@ -94,7 +94,7 @@ class UserController {
     }
   }
 
-  @httpPost('/auth/refresh')
+  @httpGet('/auth/refresh')
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
       const { refreshToken } = req.cookies;

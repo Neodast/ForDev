@@ -1,4 +1,4 @@
-import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
+import FormValidationError from '@/components/Auth/RegistrationForm/Errors/FormValidationError';
 import useCommentAddToPost from '@/hooks/comments/useCommentAddToPost';
 import { useUserStore } from '@/stores/UserStore';
 import CommentPostInput from '@/types/comment/CommentPostInput';

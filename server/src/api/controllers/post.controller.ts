@@ -16,7 +16,7 @@ import {
   httpPost,
   httpPut,
 } from 'inversify-express-utils';
-import { imageUploadMiddleware } from '../middlewares/image-upload.middleware';
+import multer from 'multer';
 
 @controller('/post')
 class PostController {
@@ -24,15 +24,25 @@ class PostController {
     @inject(PostTypes.PostService) private postService: PostService,
   ) {}
 
-  @httpPost('/create', imageUploadMiddleware)
+  @httpPost(
+    '/create',
+    multer({ storage: multer.memoryStorage() }).single('image'),
+  )
   public async createPost(
     req: RequestWithBody<PostInputDto>,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      const post = req.body;
-      const createdPost: PostModel = await this.postService.createPost(post);
+      const postData = req.body;
+      const image = req.file;
+      if (!image) {
+        throw Error('Image file was not given');
+      }
+      const createdPost = await this.postService.createPost({
+        ...postData,
+        image: image,
+      });
       res.json(createdPost).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);

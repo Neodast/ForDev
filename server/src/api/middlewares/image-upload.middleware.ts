@@ -6,5 +6,6 @@ export const imageUploadMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  multer({ storage: multer.memoryStorage() });
+  multer({ storage: multer.memoryStorage() }).single('image');
+  next();
 };

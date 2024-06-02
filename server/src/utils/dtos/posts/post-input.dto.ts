@@ -4,7 +4,7 @@ interface PostInputDto {
   title: string;
   text: string;
   image: Express.Multer.File;
-  author: UserSafeDto;
+  authorId: string;
   sectionTitle: string;
 }
 
