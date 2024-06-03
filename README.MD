@@ -8,23 +8,23 @@
 
 ### Client side
 
->- **React**
->- **UI**: Antd Design, React Icons, Lucide React, Tailwind CSS
->- **State management**: Zustand, Tanstack Query
->- **Routing**: React Router DOM
->- **Work with forms**: React Hook Form
->- **Data fetching**: Axios, Tanstack Query
+> - **React**
+> - **UI**: Antd Design, React Icons, Lucide React, Tailwind CSS
+> - **State management**: Zustand, Tanstack Query
+> - **Routing**: React Router DOM
+> - **Work with forms**: React Hook Form
+> - **Data fetching**: Axios, Tanstack Query
 
 ### Server side
 
->- **Express.js**
->- **Databases**: PostgreSQL, Firebase
->- **Auth**: JSON Web Token (JWT)
->- **ORM**: TypeORM
->- **Email service**: Nodemailer
->- **Validation**: Express Validator
->- **DI**: Inversify.js, Inversify Express Utils
->- **Tools**: Bcrypt, .env, Multer
+> - **Express.js**
+> - **Databases**: PostgreSQL, Firebase
+> - **Auth**: JSON Web Token (JWT)
+> - **ORM**: TypeORM
+> - **Email service**: Nodemailer
+> - **Validation**: Express Validator
+> - **DI**: Inversify.js, Inversify Express Utils
+> - **Tools**: Bcrypt, .env, Multer
 
 # KPZ
 
