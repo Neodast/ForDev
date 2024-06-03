@@ -19,9 +19,7 @@ export default function PostPage() {
             nickname={post.author.nickname}
             name={post?.author.name}
             surname={post?.author.surname}
-            text={post.text}
-            options={post}
-            title={post.title}
+            postData={post}
             commentsCount={post.comments.length || 0}
             containerClassName="w-[80%]"
             titleClassName="text-xl"

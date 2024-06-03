@@ -49,7 +49,7 @@ class PostController {
     }
   }
 
-  @httpPut('/update')
+  @httpPut('/update')//TODO add photot updating
   public async updatePost(req: Request, res: Response, next: NextFunction) {
     try {
       const post: PostModel = req.body;

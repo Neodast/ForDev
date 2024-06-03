@@ -18,12 +18,10 @@ export default function PostsPage() {
           ? posts.map((post: PostModel) => (
               <Post
                 key={post.id}
-                title={post.title}
                 name={post.author.name}
                 surname={post.author.surname}
                 nickname={post.author.nickname}
-                options={post}
-                text={post.text}
+                postData={post}
                 commentsCount={post.comments.length || 0}
                 titleClassName="text-base"
                 contentClassName="text-sm"

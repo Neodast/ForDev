@@ -15,14 +15,20 @@ class PostService {
   };
 
   static editPost = async (postData: PostUpdate) => {
-    const { data } = await api.put<Post>('/post/update', { ...postData });
+    const formData = new FormData();
+
+    formData.append('text', postData.text);
+    formData.append('title', postData.title);
+    formData.append('image', postData.image![0]);
+
+    const { data } = await api.put<Post>('/post/update', formData);
     return data;
   };
 
   static createPost = async (postData: PostCreate): Promise<Post> => {
     const formData = new FormData();
 
-    formData.append('authorId', postData.author.id.toString());
+    formData.append('authorId', postData.authorId.toString());
     formData.append('comments', postData.comments.toString());
     formData.append('image', postData.image![0]);
     formData.append('sectionTitle', postData.sectionTitle);

@@ -58,7 +58,7 @@ class PgPostRepository implements PostRepository {
     }
 
     const post = this.postRepository.create({
-      author: {id: postData.authorId},
+      author: { id: postData.authorId },
       ...postData,
     });
 

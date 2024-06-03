@@ -6,7 +6,7 @@ import PgCommentMapper from './comment.db-mapper';
 
 class PgPostMapper extends PostMapper {
   public static mapToPostModel(post: Post): PostModel {
-
+    //TODO rewrite all to authorId
     return {
       id: post.id,
       author: UserMapper.mapToUserSafeDto(post.author),

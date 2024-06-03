@@ -27,7 +27,7 @@ export default function PostCreateForm() {
 
   const submit: SubmitHandler<PostInput> = async (data) => {
     await mutateAsync({
-      author: author,
+      authorId: author.id,
       comments: [],
       text: data.createText,
       image: data.image,
@@ -42,12 +42,11 @@ export default function PostCreateForm() {
         onSubmit={handleSubmit(submit)}
       >
         <InputField
-          label=""
           placeholder="Title"
           type="text"
           {...register('createTitle')}
         ></InputField>
-        <input type="file" {...register('image')}></input>
+        <InputField type="file" {...register('image')}></InputField>
         <FormValidationError
           message={errors.createTitle?.message}
         ></FormValidationError>

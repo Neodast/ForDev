@@ -1,8 +1,8 @@
 import { forwardRef, HTMLProps } from 'react';
 
 interface InputFieldProps extends HTMLProps<HTMLInputElement> {
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(

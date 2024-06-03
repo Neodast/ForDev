@@ -14,7 +14,8 @@ export class PostService {
   constructor(
     @inject(PostTypes.PostRepository) private postRepository: PostRepository,
     @inject(SectionTypes.SectionService) private sectionService: SectionService,
-    @inject(FirebaseTypes.FirebaseService) private firebaseService: FirebaseService,
+    @inject(FirebaseTypes.FirebaseService)
+    private firebaseService: FirebaseService,
   ) {}
 
   public async createPost(postData: PostInputDto): Promise<PostModel> {
@@ -22,8 +23,7 @@ export class PostService {
 
     const imageRef = await this.firebaseService.uploadImage({
       image: postData.image,
-      imageName:
-        postData.title + '-' + Math.floor(Math.random() * 100000000),
+      imageName: postData.title + '-' + Math.floor(Math.random() * 100000000),
       endpoint: 'posts',
     });
     const imageLink = await this.firebaseService.getDownloadUrl(imageRef);
