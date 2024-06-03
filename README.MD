@@ -140,7 +140,7 @@ Also i'm using **Repository** and **Service** patterns, **DI** pattern, **DTO** 
 
 ## Refactore methods
 
-> Simplifying Method Calls
-> Simplifying Conditional Expressions
-> Organizing Data
-> Moving Features between Objects
+> - Simplifying Method Calls
+> - Simplifying Conditional Expressions
+> - Organizing Data
+> - Moving Features between Objects
