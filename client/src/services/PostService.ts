@@ -15,11 +15,14 @@ class PostService {
   };
 
   static editPost = async (postData: PostUpdate) => {
+    console.log(postData);
+
     const formData = new FormData();
 
+    formData.append("id", postData.id.toString());
     formData.append('text', postData.text);
     formData.append('title', postData.title);
-    formData.append('image', postData.image![0]);
+    // formData.append('image', postData.image![0]);
 
     const { data } = await api.put<Post>('/post/update', formData);
     return data;

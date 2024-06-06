@@ -1,4 +1,5 @@
-import PostCreateDto from '../../utils/dtos/posts/post-create.dto';
+import { PostCreateDto } from '../../utils/dtos/posts/post-create.dto';
+import { PostUpdateDto } from '../../utils/dtos/posts/post-update.dto';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import PostModel from '../models/post.model';
 
@@ -7,7 +8,7 @@ type PostRepository = {
   getByAuthor(author: UserSafeDto): Promise<PostModel[]>;
   getAll(): Promise<PostModel[]>;
   createPost(postData: PostCreateDto): Promise<PostModel>;
-  updatePost(id: number, newPostData: PostModel): Promise<PostModel>;
+  updatePost(id: number, newPostData: PostUpdateDto): Promise<PostModel>;
   deletePost(post: PostModel): Promise<void>;
 };
 

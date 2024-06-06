@@ -6,8 +6,9 @@ import PostRepository from '../../core/repositories/post.repository.type';
 import PgPostMapper from '../dbMappers/post.db-mapper';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import ApiError from '../../utils/exceptions/api-error';
-import PostCreateDto from '../../utils/dtos/posts/post-create.dto';
+import { PostCreateDto } from '../../utils/dtos/posts/post-create.dto';
 import { injectable } from 'inversify';
+import { PostUpdateDto } from '../../utils/dtos/posts/post-update.dto';
 
 @injectable()
 class PgPostRepository implements PostRepository {
@@ -20,7 +21,7 @@ class PgPostRepository implements PostRepository {
   private async findPost(criteria: Record<string, unknown>): Promise<Post> {
     const dbPost = await this.postRepository.findOne({
       where: criteria,
-      relations: ['author', 'comments', 'comments.author'],
+      relations: ['author', 'comments', 'comments.author', 'section'],
     });
     if (!dbPost) {
       throw new Error('Post is not found!');
@@ -71,7 +72,7 @@ class PgPostRepository implements PostRepository {
 
   public async updatePost(
     id: number,
-    newPostData: PostModel,
+    newPostData: PostUpdateDto,
   ): Promise<PostModel> {
     const dbPost = await this.getById(id);
     Object.assign(dbPost, { ...newPostData });

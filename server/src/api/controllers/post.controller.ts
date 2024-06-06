@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import PostModel from '../../core/models/post.model';
-import PostInputDto from '../../utils/dtos/posts/post-input.dto';
+import { PostCreateInputDto } from '../../utils/dtos/posts/post-create-input.dto';
 import {
   RequestWithBody,
   RequestWithQuery,
@@ -17,11 +16,20 @@ import {
   httpPut,
 } from 'inversify-express-utils';
 import multer from 'multer';
+import { PostUpdateInputDto } from '../../utils/dtos/posts/post-update-input.dto';
+import { HelperTypes } from '../../utils/types/containers/helper.types';
+import { ImageLinkHelper } from '../helpers/image-link.helper';
+import { PostDeleteDto } from '../../utils/dtos/posts/post-delete.dto';
+import { PostIdDto } from '../../utils/dtos/posts/post-id.dto';
+import { SectionTypes } from '../../utils/types/containers/section.types';
+import { SectionService } from '../../core/services/section.service';
 
 @controller('/post')
 class PostController {
   constructor(
     @inject(PostTypes.PostService) private postService: PostService,
+    @inject(HelperTypes.ImageLinkHelper) private imageLinkHelper: ImageLinkHelper,
+    @inject(SectionTypes.SectionService) private sectionService: SectionService,
   ) {}
 
   @httpPost(
@@ -29,31 +37,56 @@ class PostController {
     multer({ storage: multer.memoryStorage() }).single('image'),
   )
   public async createPost(
-    req: RequestWithBody<PostInputDto>,
+    req: RequestWithBody<PostCreateInputDto>,
     res: Response,
     next: NextFunction,
   ) {
     try {
       const postData = req.body;
       const image = req.file;
+
       if (!image) {
         throw Error('Image file was not given');
       }
+
+      const imageLink = await this.imageLinkHelper.createLink('posts', image, postData.title)
+      const section = await this.sectionService.getSection(postData.sectionTitle);
+
       const createdPost = await this.postService.createPost({
         ...postData,
-        image: image,
+        imageLink: imageLink,
+        section: section,
       });
+
       res.json(createdPost).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);
     }
   }
 
-  @httpPut('/update')//TODO add photot updating
-  public async updatePost(req: Request, res: Response, next: NextFunction) {
+  @httpPut(
+    '/update',
+    multer({ storage: multer.memoryStorage() }).single('image'),
+  ) //TODO add photot updating
+  public async updatePost(
+    req: RequestWithBody<PostUpdateInputDto>,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const post: PostModel = req.body;
-      const updatedPost = await this.postService.updatePost(post);
+      const postData = req.body;
+      const image = req.file;
+
+      if(!image) {
+        return res.json(await this.postService.updatePost(postData)).status(StatusCodes.SUCCESS);
+      }
+
+      const imageLink = await this.imageLinkHelper.createLink('posts', image, postData.title)
+
+      const updatedPost = await this.postService.updatePost({
+        ...postData,
+        imageLink: imageLink,
+      });
       res.json(updatedPost).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
@@ -62,7 +95,7 @@ class PostController {
 
   @httpDelete('/delete')
   public async deletePost(
-    req: RequestWithBody<{ postId: number }>,
+    req: RequestWithBody<PostDeleteDto>,
     res: Response,
     next: NextFunction,
   ) {
@@ -87,7 +120,7 @@ class PostController {
 
   @httpGet('/')
   public async getPostById(
-    req: RequestWithQuery<{ postId: number }>,
+    req: RequestWithQuery<PostIdDto>,
     res: Response,
     next: NextFunction,
   ) {

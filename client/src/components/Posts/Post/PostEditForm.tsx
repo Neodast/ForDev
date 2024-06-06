@@ -62,6 +62,7 @@ const PostEditForm = forwardRef((props: PropsPostEditForm, ref) => {
         <FormValidationError
           message={errors.title?.message}
         ></FormValidationError>
+        <InputField type="file" {...register('image')}></InputField>
         <Controller
           control={control}
           {...register('text')}

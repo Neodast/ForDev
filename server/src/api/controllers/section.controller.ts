@@ -4,6 +4,8 @@ import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
+import { RequestWithBody } from '../../utils/types/request.type';
+import { SectionCreateDto } from '../../utils/dtos/section/section-create.dto';
 
 @controller('/section')
 class SectionController {
@@ -12,7 +14,7 @@ class SectionController {
   ) {}
 
   @httpPost('/create')
-  public async createSection(req: Request, res: Response, next: NextFunction) {
+  public async createSection(req: RequestWithBody<SectionCreateDto>, res: Response, next: NextFunction) {
     try {
       const { title } = req.body;
       const section = await this.sectionService.createSection(title);

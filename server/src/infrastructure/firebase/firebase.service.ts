@@ -28,6 +28,9 @@ export class FirebaseService {
 
     return snapshot.ref;
   }
+
+  //TODO PLEASE!!!! DELETE FUNCTION!!!
+
   async getDownloadUrl(ref: StorageReference): Promise<string> {
     return getDownloadURL(ref);
   }

@@ -29,7 +29,7 @@ export default function PostsPage() {
               ></Post>
             ))
           : posts.map(() => (
-              <Container className="h-64">
+              <Container className="h-64" >
                 <Skeleton avatar={true} />
               </Container>
             ))}

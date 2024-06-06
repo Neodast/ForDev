@@ -46,10 +46,10 @@ export default function PostCreateForm() {
           type="text"
           {...register('createTitle')}
         ></InputField>
-        <InputField type="file" {...register('image')}></InputField>
         <FormValidationError
           message={errors.createTitle?.message}
         ></FormValidationError>
+        <InputField type="file" {...register('image')}></InputField>
         <Controller
           control={control}
           {...register('createText')}
