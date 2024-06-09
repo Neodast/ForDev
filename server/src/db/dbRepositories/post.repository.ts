@@ -6,9 +6,9 @@ import PostRepository from '../../core/repositories/post.repository.type';
 import PgPostMapper from '../dbMappers/post.db-mapper';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import ApiError from '../../utils/exceptions/api-error';
-import { PostCreateDto } from '../../utils/dtos/posts/post-create.dto';
+import { PostCreateDto } from '../../utils/dtos/post/post-create.dto';
 import { injectable } from 'inversify';
-import { PostUpdateDto } from '../../utils/dtos/posts/post-update.dto';
+import { PostUpdateDto } from '../../utils/dtos/post/post-update.dto';
 import { DataOptions } from '../../utils/types/data-options';
 
 @injectable()
@@ -19,9 +19,9 @@ class PgPostRepository implements PostRepository {
     this.postRepository = pgDataSource.getRepository(Post);
   }
 
-  private async findPost(options: DataOptions): Promise<Post> {
+  private async findPost(where: Record<string, unknown>): Promise<Post> {
     const dbPost = await this.postRepository.findOne({
-      where: options.criteria,
+      where: where,
       relations: ['author', 'comments', 'comments.author', 'section'],
     });
     if (!dbPost) {
@@ -31,9 +31,17 @@ class PgPostRepository implements PostRepository {
   }
 
   private async findPosts(options: DataOptions): Promise<Post[]> {
+    const sortableFields = ['creationDate', 'title', 'author'];
+    if (!options.sortBy || !sortableFields.includes(options.sortBy)) {
+      options.sortBy = 'creationDate';
+    }
+
+    let orderOption: Record<string, string> = {};
+    orderOption[options.sortBy] = 'ASC';
+
     const dbPosts = await this.postRepository.find({
-      order: options.where || { creationDate: 'DESC' },
-      where: options.criteria,
+      order: orderOption,
+      where: options.where,
       take: options.take,
       skip: options.skip,
       relations: ['author', 'comments', 'comments.author'],
@@ -41,27 +49,20 @@ class PgPostRepository implements PostRepository {
     return dbPosts;
   }
 
-  public async getById(id: number): Promise<PostModel> {
-    return PgPostMapper.mapToPostModel(
-      await this.findPost({ criteria: { id: id } }),
-    );
+  public async getById(postId: number): Promise<PostModel> {
+    return PgPostMapper.mapToPostModel(await this.findPost({ id: postId }));
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<PostModel[]> {
-    return (await this.findPosts({ criteria: { author: author } })).map(
-      (dbPost) => PgPostMapper.mapToPostModel(dbPost),
+    return (await this.findPosts({ where: { author: author } })).map((dbPost) =>
+      PgPostMapper.mapToPostModel(dbPost),
     );
   }
 
   public async getAll(options: DataOptions): Promise<PostModel[]> {
-    return (
-      await this.findPosts({
-        where: options.where,
-        criteria: options.criteria,
-        skip: options.skip,
-        take: options.take,
-      })
-    ).map((dbPost) => PgPostMapper.mapToPostModel(dbPost));
+    return (await this.findPosts(options)).map((dbPost) =>
+      PgPostMapper.mapToPostModel(dbPost),
+    );
   }
 
   public async createPost(postData: PostCreateDto): Promise<PostModel> {
@@ -81,18 +82,19 @@ class PgPostRepository implements PostRepository {
     return dbPost;
   }
 
-  public async updatePost(id: number, newPostData: PostUpdateDto) {
-    await this.postRepository.update(id, {
-      title: newPostData.title,
-      text: newPostData.text,
-      imageLink: newPostData.imageLink,
+  public async updatePost(postUpdateData: PostUpdateDto) {
+    await this.postRepository.update(postUpdateData.postId, {
+      title: postUpdateData.title,
+      text: postUpdateData.text,
+      imageLink: postUpdateData.imageLink,
     });
-    const dbPost = await this.getById(id);
-    return PgPostMapper.mapToPostModel(dbPost);
+
+    const dbPost = await this.getById(postUpdateData.postId);
+    return dbPost;
   }
 
   public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.findPost({ criteria: { id: post.id } });
+    const dbPost = await this.findPost({ where: { id: post.id } });
     await this.postRepository.remove(dbPost);
   }
 }

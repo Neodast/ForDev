@@ -32,8 +32,8 @@ class PgUserRepository implements UserRepository {
     return dbUsers;
   }
 
-  public async getById(id: string): Promise<UserModel> {
-    return PgUserMapper.mapToUserModel(await this.findUser({ id }));
+  public async getById(userId: string): Promise<UserModel> {
+    return PgUserMapper.mapToUserModel(await this.findUser({ id: userId }));
   }
 
   public async getByEmail(email: string): Promise<UserModel> {
@@ -65,10 +65,10 @@ class PgUserRepository implements UserRepository {
   }
 
   public async updateUser(
-    id: string,
+    userId: string,
     newUserData: UserModel,
   ): Promise<UserSafeDto> {
-    const dbUser = await this.getById(id);
+    const dbUser = await this.getById(userId);
     Object.assign(dbUser, newUserData);
     return PgUserMapper.mapToUserModel(await this.userRepository.save(dbUser));
   }

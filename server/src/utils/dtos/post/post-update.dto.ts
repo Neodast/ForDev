@@ -1,6 +1,6 @@
 export type PostUpdateDto = {
-  id: number;
+  postId: number;
   title?: string;
   text?: string;
   imageLink?: string;
-}
+};

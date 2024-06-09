@@ -57,8 +57,8 @@ class PgSectionRepository implements SectionRepository {
     return dbsections;
   }
 
-  public async getById(id: number): Promise<SectionModel> {
-    return PgSectionMapper.mapToSectionModel(await this.findSection({ id }));
+  public async getById(sectionId: number): Promise<SectionModel> {
+    return PgSectionMapper.mapToSectionModel(await this.findSection({ id: sectionId }));
   }
 
   public async getByTitle(title: string): Promise<SectionModel> {
@@ -82,10 +82,10 @@ class PgSectionRepository implements SectionRepository {
   }
 
   public async updateSection(
-    id: number,
+    sectionId: number,
     newSectionData: SectionModel,
   ): Promise<SectionModel> {
-    const dbSection = await this.getById(id);
+    const dbSection = await this.getById(sectionId);
     Object.assign(dbSection, newSectionData);
     return PgSectionMapper.mapToSectionModel(
       await this.sectionRepository.save(dbSection),

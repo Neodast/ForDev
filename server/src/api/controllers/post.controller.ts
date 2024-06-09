@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { PostCreateInputDto } from '../../utils/dtos/posts/post-create-input.dto';
+import { PostCreateInputDto } from '../../utils/dtos/post/post-create-input.dto';
 import {
   RequestWithBody,
   RequestWithQuery,
@@ -16,16 +16,16 @@ import {
   httpPut,
 } from 'inversify-express-utils';
 import multer from 'multer';
-import { PostUpdateInputDto } from '../../utils/dtos/posts/post-update-input.dto';
+import { PostUpdateInputDto } from '../../utils/dtos/post/post-update-input.dto';
 import { HelperTypes } from '../../utils/types/containers/helper.types';
 import { ImageLinkHelper } from '../helpers/image-link.helper';
-import { PostDeleteDto } from '../../utils/dtos/posts/post-delete.dto';
-import { PostIdDto } from '../../utils/dtos/posts/post-id.dto';
+import { PostDeleteDto } from '../../utils/dtos/post/post-delete.dto';
+import { PostGetByIdDto } from '../../utils/dtos/post/post-get-by-id.dto';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 import { SectionService } from '../../core/services/section.service';
-import { PostGetAllDto } from '../../utils/dtos/posts/post-get-all.dto';
-import { PostGetAllBySectionDto } from '../../utils/dtos/posts/post-get-all-by-section.dto';
-import { PostGetAllByAuthorDto } from '../../utils/dtos/posts/post-get-all-by-author.dto';
+import { PostGetAllDto } from '../../utils/dtos/post/post-get-all.dto';
+import { PostGetAllBySectionDto } from '../../utils/dtos/post/post-get-all-by-section.dto';
+import { PostGetAllByAuthorDto } from '../../utils/dtos/post/post-get-all-by-author.dto';
 
 @controller('/post')
 class PostController {
@@ -84,23 +84,23 @@ class PostController {
     next: NextFunction,
   ) {
     try {
-      const postData = req.body;
+      const postUpdateData = req.body;
       const image = req.file;
 
       if (!image) {
         return res
-          .json(await this.postService.updatePost(postData))
+          .json(await this.postService.updatePost(postUpdateData))
           .status(StatusCodes.SUCCESS);
       }
 
       const imageLink = await this.imageLinkHelper.createLink(
         'posts',
         image,
-        postData.title,
+        postUpdateData.title,
       );
 
       const updatedPost = await this.postService.updatePost({
-        ...postData,
+        ...postUpdateData,
         imageLink: imageLink,
       });
       res.json(updatedPost).status(StatusCodes.SUCCESS);
@@ -131,8 +131,8 @@ class PostController {
     next: NextFunction,
   ) {
     try {
-      const { take, skip } = req.query;
-      const posts = await this.postService.getPosts(take, skip);
+      const options = req.query;
+      const posts = await this.postService.getPosts(options);
       res.json(posts).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
@@ -147,10 +147,9 @@ class PostController {
   ) {
     try {
       const options = req.query;
-      const posts = await this.postService.getPostsByCriteria({
-        criteria: { section: { title: options.sectionTitle } },
-        skip: options.skip,
-        take: options.take,
+      const posts = await this.postService.getPosts({
+        where: { section: { title: options.sectionTitle } },
+        ...options,
       });
       res.json(posts).status(StatusCodes.SUCCESS);
     } catch (e) {
@@ -166,10 +165,9 @@ class PostController {
   ) {
     try {
       const options = req.query;
-      const posts = await this.postService.getPostsByCriteria({
-        criteria: { author: { id: options.authorId } },
-        skip: options.skip,
-        take: options.take,
+      const posts = await this.postService.getPosts({
+        where: { author: { id: options.authorId } },
+        ...options,
       });
       res.json(posts).status(StatusCodes.SUCCESS);
     } catch (e) {
@@ -179,7 +177,7 @@ class PostController {
 
   @httpGet('/')
   public async getPostById(
-    req: RequestWithQuery<PostIdDto>,
+    req: RequestWithQuery<PostGetByIdDto>,
     res: Response,
     next: NextFunction,
   ) {

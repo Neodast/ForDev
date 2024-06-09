@@ -44,8 +44,8 @@ class PgCommentRepository implements CommentRepository {
     return dbComments;
   }
 
-  public async getById(id: number): Promise<CommentModel> {
-    return PgCommentMapper.mapToCommentModel(await this.findComment({ id }));
+  public async getById(commentId: number): Promise<CommentModel> {
+    return PgCommentMapper.mapToCommentModel(await this.findComment({ id: commentId }));
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<CommentModel[]> {
@@ -79,10 +79,10 @@ class PgCommentRepository implements CommentRepository {
   }
 
   public async updateComment(
-    id: number,
+    commentId: number,
     newCommentData: CommentModel,
   ): Promise<CommentModel> {
-    const dbComment = await this.getById(id);
+    const dbComment = await this.getById(commentId);
     Object.assign(dbComment, newCommentData);
     return PgCommentMapper.mapToCommentModel(
       await this.commentRepository.save(dbComment),

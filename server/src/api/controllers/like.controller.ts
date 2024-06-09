@@ -4,7 +4,7 @@ import {
   RequestWithQuery,
 } from '../../utils/types/request.type';
 import { LikeService } from '../../core/services/like.service';
-import LikeInputDto from '../../utils/dtos/likes/like-input.dto';
+import LikeInputDto from '../../utils/dtos/like/like-input.dto';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
 import { LikeTypes } from '../../utils/types/containers/like.types';
