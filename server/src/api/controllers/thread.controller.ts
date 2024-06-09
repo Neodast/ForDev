@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ThreadService from '../../core/services/thread.service';
+import { ThreadService } from '../../core/services/thread.service';
 import threadModel from '../../core/models/thread.model';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';

@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import Spliter from './Spliter';
+import { Image } from 'antd';
 
 interface ContentProps {
   text: string;
@@ -15,6 +16,7 @@ export default function Content(props: ContentProps) {
         props.className,
       )}
     >
+      <Image src={props.imageLink}/>
       <Spliter text={props.text} />
     </div>
   );

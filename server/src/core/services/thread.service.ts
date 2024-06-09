@@ -4,7 +4,7 @@ import ThreadRepository from '../repositories/thread.repository.type';
 import { ThreadTypes } from '../../utils/types/containers/thread.types';
 
 @injectable()
-class ThreadService {
+export class ThreadService {
   constructor(
     @inject(ThreadTypes.ThreadRepository)
     private threadRepository: ThreadRepository,
@@ -23,5 +23,3 @@ class ThreadService {
     return this.threadRepository.getAll();
   }
 }
-
-export default ThreadService;

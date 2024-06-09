@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import TokenRepository from '../../core/repositories/token.repository.type';
 import { Token } from '../entities/token.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import TokenModel from '../../core/models/token.model';
 import PgTokenMapper from '../dbMappers/token.db-mapper';
 import { injectable } from 'inversify';

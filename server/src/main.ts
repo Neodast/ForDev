@@ -1,6 +1,11 @@
 import 'reflect-metadata';
 import { AppFactory } from './app-factory';
 import { appContainer } from './app.container';
+import { env } from './utils/env.scheme';
 
-const application = AppFactory.create(appContainer);
-application.listen(Number(process.env.SERVER_PORT) || 3000);
+const bootstrap = () => {
+  const application = AppFactory.create(appContainer);
+  application.listen(env.SERVER_PORT || 3000);
+}
+
+bootstrap();

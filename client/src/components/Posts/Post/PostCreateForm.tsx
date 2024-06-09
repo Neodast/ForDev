@@ -1,5 +1,5 @@
 import InputField from '@/components/Base/Inputs/InputField';
-import FormValidationError from '@/components/Forms/RegistrationForm/Errors/FormValidationError';
+import FormValidationError from '@/components/Auth/RegistrationForm/Errors/FormValidationError';
 import usePostCreate from '@/hooks/posts/usePostCreate';
 import { useUserStore } from '@/stores/UserStore';
 import PostInput from '@/types/board/posts/PostInput';
@@ -27,9 +27,10 @@ export default function PostCreateForm() {
 
   const submit: SubmitHandler<PostInput> = async (data) => {
     await mutateAsync({
-      author: author,
+      authorId: author.id,
       comments: [],
       text: data.createText,
+      image: data.image,
       title: data.createTitle,
       sectionTitle: data.sectionTitle,
     });
@@ -41,7 +42,6 @@ export default function PostCreateForm() {
         onSubmit={handleSubmit(submit)}
       >
         <InputField
-          label=""
           placeholder="Title"
           type="text"
           {...register('createTitle')}
@@ -49,6 +49,7 @@ export default function PostCreateForm() {
         <FormValidationError
           message={errors.createTitle?.message}
         ></FormValidationError>
+        <InputField type="file" {...register('image')}></InputField>
         <Controller
           control={control}
           {...register('createText')}

@@ -4,7 +4,7 @@ import CommentModel from '../models/comment.model';
 import CommentRepository from '../repositories/comment.repository.type';
 import { CommentTypes } from '../../utils/types/containers/comment.types';
 import { PostTypes } from '../../utils/types/containers/post.types';
-import PostService from './post.service';
+import { PostService } from './post.service';
 
 @injectable()
 class CommentService {

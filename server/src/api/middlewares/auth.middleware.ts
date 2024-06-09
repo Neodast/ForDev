@@ -1,4 +1,4 @@
-import TokenService from '../../core/services/token.service';
+import { TokenService } from '../../core/services/token.service';
 import { TokenTypes } from '../../utils/types/containers/token.types';
 import ApiError from '../../utils/exceptions/api-error';
 import { NextFunction, Request, Response } from 'express';

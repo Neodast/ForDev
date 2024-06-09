@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import UserRepository from '../../core/repositories/user.repository.type';
 import UserCreateDto from '../../utils/dtos/users/user-create.dto';

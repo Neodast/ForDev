@@ -1,7 +1,7 @@
 import PostItem from './interfaces/post-item.type';
 
 type PostModel = PostItem & {
-  // image?;
+  imageLink: string;
   text: string;
 };
 

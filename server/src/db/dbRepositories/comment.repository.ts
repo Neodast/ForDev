@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Comment } from '../entities/comment.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import CommentModel from '../../core/models/comment.model';
 import CommentRepository from '../../core/repositories/comment.repository.type';
 import PgCommentMapper from '../dbMappers/comment.db-mapper';

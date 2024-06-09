@@ -1,11 +1,9 @@
 import SectionModel from '../../../core/models/section.model';
-import UserSafeDto from '../users/user-safe.dto';
 
-interface PostCreateDto {
+export type PostCreateDto = {
   title: string;
   text: string;
-  author: UserSafeDto;
+  imageLink: string;
+  authorId: string;
   section: SectionModel;
 }
-
-export default PostCreateDto;

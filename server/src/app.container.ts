@@ -6,8 +6,9 @@ import { sectionContainer } from './core/containers/section.container';
 import { postContainer } from './core/containers/post.container';
 import { likeContainer } from './core/containers/like.container';
 import { commentContainer } from './core/containers/comment.container';
-import { dataSourceContainer } from './db/containers/database.container';
+import { databaseContainer } from './db/containers/database.container';
 import { helperContainer } from './api/containers/helper.container';
+import { firebaseContainer } from './infrastructure/containers/firebase.container';
 
 export let appContainer = Container.merge(userContainer, tokenContainer);
 appContainer = Container.merge(appContainer, threadContainer);
@@ -15,5 +16,6 @@ appContainer = Container.merge(appContainer, sectionContainer);
 appContainer = Container.merge(appContainer, postContainer);
 appContainer = Container.merge(appContainer, likeContainer);
 appContainer = Container.merge(appContainer, commentContainer);
-appContainer = Container.merge(appContainer, dataSourceContainer);
+appContainer = Container.merge(appContainer, databaseContainer);
 appContainer = Container.merge(appContainer, helperContainer);
+appContainer = Container.merge(appContainer, firebaseContainer);

@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { LikeTypes } from '../../utils/types/containers/like.types';
-import LikeService from '../services/like.service';
+import { LikeService } from '../services/like.service';
 import LikeController from '../../api/controllers/like.controller';
 import PgLikeRepository from '../../db/dbRepositories/like.repository';
 import LikeRepository from '../repositories/like.repository.type';

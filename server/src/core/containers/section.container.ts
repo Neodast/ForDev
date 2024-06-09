@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { SectionTypes } from '../../utils/types/containers/section.types';
-import SectionService from '../services/section.service';
+import { SectionService } from '../services/section.service';
 import SectionController from '../../api/controllers/section.controller';
 import PgSectionRepository from '../../db/dbRepositories/section.repository';
 import SectionRepository from '../repositories/section.repository.type';

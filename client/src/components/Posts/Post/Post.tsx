@@ -1,20 +1,19 @@
 import Container from '../Reusable/Container';
 import UserInfo from '../Reusable/UserInfo';
 import PostBottomActions from './PostBottomActions';
-import PostUpdate from '@/types/board/posts/PostUpdate';
 import { Link } from 'react-router-dom';
 import PostTopActions from './PostTopActions';
 import Title from '../Reusable/Title';
 import Content from '../Reusable/Content';
+import { PostData } from '@/types/board/posts/PostData';
 
 interface PostProps {
-  title: string;
+  postData: PostData;
   name?: string;
   surname?: string;
   nickname: string;
-  options: PostUpdate;
-  text: string;
   commentsCount: number;
+  //---------------------------------//
   containerClassName?: string;
   userInfoClassName?: string;
   titleClassName?: string;
@@ -28,22 +27,26 @@ export default function Post(props: PostProps) {
     <Container className={props.containerClassName}>
       <PostTopActions
         nickname={props.nickname}
-        postId={props.options.id}
-        postTitle={props.options.title}
-        postText={props.options.text}
+        postId={props.postData.id}
+        postTitle={props.postData.title}
+        postText={props.postData.text}
       ></PostTopActions>
-      <Link to={'/posts/' + props.options.id} className="hover:text-black">
+      <Link to={'/posts/' + props.postData.id} className="hover:text-black">
         <UserInfo
           name={props.name}
           surname={props.surname}
           nickname={props.nickname}
           className={props.userInfoClassName}
         />
-        <Title title={props.title} className={props.titleClassName} />
-        <Content text={props.text} className={props.contentClassName} />
+        <Title title={props.postData.title} className={props.titleClassName} />
+      <Content
+        text={props.postData.text}
+        imageLink={props.postData.imageLink}
+        className={props.contentClassName}
+      />
       </Link>
       <PostBottomActions
-        options={props.options}
+        options={props.postData}
         commentsCount={props.commentsCount}
       />
     </Container>

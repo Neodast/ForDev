@@ -1,10 +1,10 @@
 import Layout from '../../components/Layouts/Layout';
-import RegistrationForm from '../../components/Forms/RegistrationForm/RegistrationForm';
+import RegistrationForm from '../../components/Auth/RegistrationForm/RegistrationForm';
 
 export default function RegistrationPage() {
   return (
     <Layout>
-      <RegistrationForm/>
+      <RegistrationForm />
     </Layout>
   );
 }

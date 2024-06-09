@@ -7,25 +7,26 @@ import UserModel from '../models/user.model';
 import { inject, injectable } from 'inversify';
 import { TokenTypes } from '../../utils/types/containers/token.types';
 import TokenModel from '../models/token.model';
+import { env } from '../../utils/env.scheme';
 
 @injectable()
-class TokenService {
+export class TokenService {
   constructor(
     @inject(TokenTypes.TokenRepository)
     private tokenRepository: TokenRepository,
   ) {}
-
+  //TODO create helpers for generate JWT
   async generateTokens(payload: TokenPayloadDto): Promise<TokensOutputDto> {
     const accessToken = jwt.sign(
       payload,
-      String(process.env.JWT_ACCESS_SECRET),
+      env.JWT_ACCESS_SECRET,
       {
         expiresIn: '30m',
       },
     );
     const refreshToken = jwt.sign(
       payload,
-      String(process.env.JWT_REFRESH_SECRET),
+      env.JWT_REFRESH_SECRET,
       {
         expiresIn: '30d',
       },
@@ -66,7 +67,7 @@ class TokenService {
 
   validateRefreshToken(refreshToken: string): TokenPayloadDto {
     try {
-      const jwtRefreshSecret = String(process.env.JWT_REFRESH_SECRET);
+      const jwtRefreshSecret = env.JWT_REFRESH_SECRET;
 
       const userData = jwt.verify(refreshToken, jwtRefreshSecret);
 
@@ -78,7 +79,7 @@ class TokenService {
 
   async validateAccessToken(accessToken: string): Promise<TokenPayloadDto> {
     try {
-      const jwtAccessSecret = String(process.env.JWT_ACCESS_SECRET);
+      const jwtAccessSecret = env.JWT_ACCESS_SECRET;
 
       const userData = jwt.verify(accessToken, jwtAccessSecret);
 
@@ -88,5 +89,3 @@ class TokenService {
     }
   }
 }
-
-export default TokenService;

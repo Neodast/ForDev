@@ -1,8 +1,10 @@
 import { Container } from 'inversify';
 import { DataTypes } from '../../utils/types/containers/database.types';
 import { dataSource } from '../../utils/types/data-source.type';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 
-export const dataSourceContainer = new Container({ defaultScope: 'Singleton' });
+export const databaseContainer = new Container({ defaultScope: 'Singleton' });
 
-dataSourceContainer.bind<dataSource>(DataTypes.DataSource).toConstantValue(pgDataSource);
+databaseContainer
+  .bind<dataSource>(DataTypes.DataSource)
+  .toConstantValue(pgDataSource);

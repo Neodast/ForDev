@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import SectionRepository from '../../core/repositories/section.repository.type';
 import { Section } from '../entities/section.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import SectionModel from '../../core/models/section.model';
 import PgSectionMapper from '../dbMappers/section.db-mapper';
 import ApiError from '../../utils/exceptions/api-error';

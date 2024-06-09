@@ -10,6 +10,7 @@ type PostItem = {
   author: UserSafeDto;
   comments: CommentModel[];
   section: Section;
+  creationDate: Date;
 };
 
 export default PostItem;

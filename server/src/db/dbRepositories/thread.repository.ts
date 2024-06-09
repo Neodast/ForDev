@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import ThreadRepository from '../../core/repositories/thread.repository.type';
 import { Thread } from '../entities/thread.entity';
-import { pgDataSource } from '../appDataSourse';
+import { pgDataSource } from '../db.config';
 import PgThreadMapper from '../dbMappers/thread.db-mapper';
 import ThreadModel from '../../core/models/thread.model';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';

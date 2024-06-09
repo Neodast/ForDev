@@ -3,7 +3,6 @@ import Post from '@/types/models/Post';
 import PostUpdate from '@/types/board/posts/PostUpdate';
 import PostCreate from '@/types/board/posts/PostCreate';
 import PostDelete from '@/types/board/posts/PostDelete';
-
 class PostService {
   static getAllPosts = async (): Promise<Post[]> => {
     const { data } = await api.get<Post[]>('/post/all');
@@ -11,17 +10,35 @@ class PostService {
   };
 
   static getPostById = async (postId: number): Promise<Post> => {
-    const {data} = await api.get('/post',{params: {postId: postId}})
+    const { data } = await api.get('/post', { params: { postId: postId } });
     return data;
-  }
+  };
 
   static editPost = async (postData: PostUpdate) => {
-    const { data } = await api.put<Post>('/post/update', { ...postData });
+    console.log(postData);
+
+    const formData = new FormData();
+
+    formData.append("id", postData.id.toString());
+    formData.append('text', postData.text);
+    formData.append('title', postData.title);
+    // formData.append('image', postData.image![0]);
+
+    const { data } = await api.put<Post>('/post/update', formData);
     return data;
   };
 
   static createPost = async (postData: PostCreate): Promise<Post> => {
-    const { data } = await api.post<Post>('/post/create', { ...postData });
+    const formData = new FormData();
+
+    formData.append('authorId', postData.authorId.toString());
+    formData.append('comments', postData.comments.toString());
+    formData.append('image', postData.image![0]);
+    formData.append('sectionTitle', postData.sectionTitle);
+    formData.append('text', postData.text);
+    formData.append('title', postData.title);
+
+    const { data } = await api.post<Post>('/post/create', formData);
     return data;
   };
 

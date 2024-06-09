@@ -9,7 +9,8 @@ type Post = {
   text: string;
   author: User;
   comments: Comment[];
-  // section: Section;
+  sectionTitle: string;
+  imageLink: string;
 };
 
 export default Post;
