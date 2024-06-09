@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { PostCreateInputDto } from '../../utils/dtos/posts/post-create-input.dto';
 import {
   RequestWithBody,
@@ -23,12 +23,16 @@ import { PostDeleteDto } from '../../utils/dtos/posts/post-delete.dto';
 import { PostIdDto } from '../../utils/dtos/posts/post-id.dto';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 import { SectionService } from '../../core/services/section.service';
+import { PostGetAllDto } from '../../utils/dtos/posts/post-get-all.dto';
+import { PostGetAllBySectionDto } from '../../utils/dtos/posts/post-get-all-by-section.dto';
+import { PostGetAllByAuthorDto } from '../../utils/dtos/posts/post-get-all-by-author.dto';
 
 @controller('/post')
 class PostController {
   constructor(
     @inject(PostTypes.PostService) private postService: PostService,
-    @inject(HelperTypes.ImageLinkHelper) private imageLinkHelper: ImageLinkHelper,
+    @inject(HelperTypes.ImageLinkHelper)
+    private imageLinkHelper: ImageLinkHelper,
     @inject(SectionTypes.SectionService) private sectionService: SectionService,
   ) {}
 
@@ -49,8 +53,14 @@ class PostController {
         throw Error('Image file was not given');
       }
 
-      const imageLink = await this.imageLinkHelper.createLink('posts', image, postData.title)
-      const section = await this.sectionService.getSection(postData.sectionTitle);
+      const imageLink = await this.imageLinkHelper.createLink(
+        'posts',
+        image,
+        postData.title,
+      );
+      const section = await this.sectionService.getSection(
+        postData.sectionTitle,
+      );
 
       const createdPost = await this.postService.createPost({
         ...postData,
@@ -67,7 +77,7 @@ class PostController {
   @httpPut(
     '/update',
     multer({ storage: multer.memoryStorage() }).single('image'),
-  ) //TODO add photot updating
+  )
   public async updatePost(
     req: RequestWithBody<PostUpdateInputDto>,
     res: Response,
@@ -77,11 +87,17 @@ class PostController {
       const postData = req.body;
       const image = req.file;
 
-      if(!image) {
-        return res.json(await this.postService.updatePost(postData)).status(StatusCodes.SUCCESS);
+      if (!image) {
+        return res
+          .json(await this.postService.updatePost(postData))
+          .status(StatusCodes.SUCCESS);
       }
 
-      const imageLink = await this.imageLinkHelper.createLink('posts', image, postData.title)
+      const imageLink = await this.imageLinkHelper.createLink(
+        'posts',
+        image,
+        postData.title,
+      );
 
       const updatedPost = await this.postService.updatePost({
         ...postData,
@@ -109,9 +125,52 @@ class PostController {
   }
 
   @httpGet('/all')
-  public async getAllPosts(req: Request, res: Response, next: NextFunction) {
+  public async getAllPosts(
+    req: RequestWithQuery<PostGetAllDto>,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const posts = await this.postService.getAllPosts();
+      const { take, skip } = req.query;
+      const posts = await this.postService.getPosts(take, skip);
+      res.json(posts).status(StatusCodes.SUCCESS);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  @httpGet('/allBySection')
+  public async getPostsBySection(
+    req: RequestWithQuery<PostGetAllBySectionDto>,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const options = req.query;
+      const posts = await this.postService.getPostsByCriteria({
+        criteria: { section: { title: options.sectionTitle } },
+        skip: options.skip,
+        take: options.take,
+      });
+      res.json(posts).status(StatusCodes.SUCCESS);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  @httpGet('/allByAuthor')
+  public async getPostsByAuthor(
+    req: RequestWithQuery<PostGetAllByAuthorDto>,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const options = req.query;
+      const posts = await this.postService.getPostsByCriteria({
+        criteria: { author: { id: options.authorId } },
+        skip: options.skip,
+        take: options.take,
+      });
       res.json(posts).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);

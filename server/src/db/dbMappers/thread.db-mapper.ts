@@ -11,6 +11,7 @@ class PgThreadMapper extends ThreadMapper {
       author: UserMapper.mapToUserSafeDto(thread.author),
       title: thread.title,
       text: thread.text,
+      creationDate: thread.creationDate,
       likes: thread.likes,
       comments: thread.comments.map((comment) =>
         PgCommentMapper.mapToCommentModel(comment),

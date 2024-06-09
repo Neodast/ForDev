@@ -6,6 +6,7 @@ import { PostTypes } from '../../utils/types/containers/post.types';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 import { SectionService } from './section.service';
 import { PostUpdateDto } from '../../utils/dtos/posts/post-update.dto';
+import { DataOptions } from '../../utils/types/data-options';
 
 @injectable()
 export class PostService {
@@ -27,8 +28,16 @@ export class PostService {
     return this.postRepository.deletePost(dbPost);
   }
 
-  public async getAllPosts(): Promise<PostModel[]> {
-    return this.postRepository.getAll();
+  public async getPosts(take: number, skip: number): Promise<PostModel[]> {
+    return this.postRepository.getAll({ skip: skip, take: take });
+  }
+
+  public async getPostsByCriteria(options: DataOptions): Promise<PostModel[]> {
+    return this.postRepository.getAll({
+      criteria: options.criteria,
+      skip: options.skip,
+      take: options.take,
+    });
   }
 
   public async getPostById(postId: number): Promise<PostModel> {

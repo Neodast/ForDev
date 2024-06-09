@@ -14,6 +14,7 @@ class PgPostMapper extends PostMapper {
       text: post.text,
       likes: post.likes,
       imageLink: post.imageLink,
+      creationDate: post.creationDate,
       comments:
         post.comments.map((comment) =>
           PgCommentMapper.mapToCommentModel(comment),
