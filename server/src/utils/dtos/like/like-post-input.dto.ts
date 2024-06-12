@@ -1,8 +1,8 @@
 import UserSafeDto from '../users/user-safe.dto';
 
-type LikeInputDto = {
+type LikePostInputDto = {
   user: UserSafeDto;
   postId: number;
 };
 
-export default LikeInputDto;
+export default LikePostInputDto;

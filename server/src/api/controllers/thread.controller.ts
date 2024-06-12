@@ -74,9 +74,23 @@ class ThreadController {
     }
   }
 
+  @httpGet('/allCount')
+  public async getAllCount(
+    req: RequestWithQuery<ThreadGetAllDto>,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const threads = await this.threadService.getThreads({});
+      res.json({threadsCount: threads.length}).status(StatusCodes.SUCCESS);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   @httpGet('/all')
   public async getAllThreads(
-    req: RequestWithQuery<ThreadGetAllDto>,
+    req: Request,
     res: Response,
     next: NextFunction,
   ) {

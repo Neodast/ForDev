@@ -8,6 +8,7 @@ import { Pagination, PaginationProps, Skeleton } from 'antd';
 import Post from '@/components/Posts/Post/Post';
 import PostModel from '@/types/models/Post';
 import { useSearchParams } from 'react-router-dom';
+import usePostsGetCount from '@/hooks/posts/usePostsGetCount';
 
 export default function PostsPage() {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -19,6 +20,7 @@ export default function PostsPage() {
     Number(searchParams.get('page')) || 1,
     Number(searchParams.get('take')) || 5,
   );
+  const {data: postsCount } = usePostsGetCount();
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +55,7 @@ export default function PostsPage() {
               current={Number(searchParams.get('page'))}
               defaultCurrent={1}
               pageSize={Number(searchParams.get('take')) || 5}
-              total={15}
+              total={postsCount['postsCount']}
               onChange={onChange}
             />
           </>

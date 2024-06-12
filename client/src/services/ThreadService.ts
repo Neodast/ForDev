@@ -32,6 +32,11 @@ class ThreadService {
       data: {id: threadId}
     })
   }
+
+  static getThreadsCount = async () => {
+    const {data} = await api.get("/thread/allCount");
+    return data;
+  }
 }
 
 export default ThreadService;

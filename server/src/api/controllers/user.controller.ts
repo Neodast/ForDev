@@ -35,7 +35,7 @@ class UserController {
     }
   }
 
-  @httpPost('/auth/register', validationMiddleware(registerValidator))
+  @httpPost('/auth/register' )
   async registration(
     req: RequestWithBody<UserCreateDto>,
     res: Response,

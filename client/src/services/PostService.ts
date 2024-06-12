@@ -48,6 +48,11 @@ class PostService {
       data: { ...postData },
     });
   };
+
+  static getPostsCount = async () => {
+    const {data} = await api.get("/post/allCount");
+    return data;
+  }
 }
 
 export default PostService;

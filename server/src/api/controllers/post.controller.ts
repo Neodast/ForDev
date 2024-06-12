@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { PostCreateInputDto } from '../../utils/dtos/post/post-create-input.dto';
 import {
   RequestWithBody,
@@ -134,6 +134,16 @@ class PostController {
       const options = req.query;
       const posts = await this.postService.getPosts(options);
       res.json(posts).status(StatusCodes.SUCCESS);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  @httpGet('/allCount')
+  public async getAllCount(req: Request, res: Response, next: NextFunction) {
+    try {
+      const posts = await this.postService.getPosts({});
+      res.json({ postsCount: posts.length }).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }

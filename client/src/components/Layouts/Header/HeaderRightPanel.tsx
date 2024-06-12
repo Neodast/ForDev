@@ -31,54 +31,54 @@ export default function HeaderRightPanel() {
                     type: 'group',
                     className: 'text-lg font-semibold ',
                     children: [
-                      {
-                        key: '2',
-                        label: (
-                          <Link
-                            to="/"
-                            className="hover:cursor-pointer font-semibold text-lg  "
-                          >
-                            Account
-                          </Link>
-                        ),
-                      },
-                      {
-                        key: '3',
-                        label: (
-                          <Link
-                            to="/"
-                            className="hover:cursor-pointer font-semibold text-lg  "
-                          >
-                            Settings
-                          </Link>
-                        ),
-                      },
+                      // {
+                      //   key: '2',
+                      //   label: (
+                      //     <Link
+                      //       to="/"
+                      //       className="hover:cursor-pointer font-semibold text-lg  "
+                      //     >
+                      //       Account
+                      //     </Link>
+                      //   ),
+                      // },
+                      // {
+                      //   key: '3',
+                      //   label: (
+                      //     <Link
+                      //       to="/"
+                      //       className="hover:cursor-pointer font-semibold text-lg  "
+                      //     >
+                      //       Settings
+                      //     </Link>
+                      //   ),
+                      // },
                       {
                         key: '4',
                         label: (
                           <Link
-                            to="/"
+                            to="/posts"
                             className="hover:cursor-pointer font-semibold text-lg  "
                           >
                             My Posts
                           </Link>
                         ),
                       },
-                      ...(userRole === Role.admin
-                        ? [
-                            {
-                              key: '5',
-                              label: (
-                                <Link
-                                  to="/"
-                                  className="hover:cursor-pointer font-semibold text-lg  "
-                                >
-                                  Admin Panel
-                                </Link>
-                              ),
-                            },
-                          ]
-                        : []),
+                      // ...(userRole === Role.admin
+                      //   ? [
+                      //       {
+                      //         key: '5',
+                      //         label: (
+                      //           <Link
+                      //             to="/"
+                      //             className="hover:cursor-pointer font-semibold text-lg  "
+                      //           >
+                      //             Admin Panel
+                      //           </Link>
+                      //         ),
+                      //       },
+                      //     ]
+                      //   : []),
                     ],
                     label: 'Navigation',
                   },

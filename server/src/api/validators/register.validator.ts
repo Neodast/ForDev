@@ -25,12 +25,5 @@ export const registerValidator = [
       minLowercase: 1,
       minUppercase: 1,
       minNumbers: 1,
-    })
-    .withMessage('Not a valid password'),
-  body('passwordConfirm').custom((value, { req }) => {
-    if (value !== req.body.password) {
-      throw new Error('Passwords do not match');
-    }
-    return true;
-  }),
+    }),
 ];

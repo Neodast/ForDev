@@ -43,7 +43,7 @@ export class UserService {
 
     await this.tokenService.saveToken(createdUser.id, tokens.refreshToken);
 
-    const verificationLink = `${env.API_URL}/auth/verify/?id=${createdUser.id}`;
+    const verificationLink = `${env.API_URL}/user/auth/verify/?id=${createdUser.id}`;
 
     await this.emailService.sendActivateEmail(
       createdUser.email,
