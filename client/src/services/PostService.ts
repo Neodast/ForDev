@@ -4,8 +4,11 @@ import PostUpdate from '@/types/board/posts/PostUpdate';
 import PostCreate from '@/types/board/posts/PostCreate';
 import PostDelete from '@/types/board/posts/PostDelete';
 class PostService {
-  static getAllPosts = async (): Promise<Post[]> => {
-    const { data } = await api.get<Post[]>('/post/all');
+  static getAllPosts = async (page: number, take: number): Promise<Post[]> => {
+    const { data } = await api.get<Post[]>('/post/all', {params: {
+      skip: page-1,
+      take: take,
+    } });
     return data;
   };
 
@@ -15,14 +18,12 @@ class PostService {
   };
 
   static editPost = async (postData: PostUpdate) => {
-    console.log(postData);
-
     const formData = new FormData();
 
     formData.append("id", postData.id.toString());
     formData.append('text', postData.text);
     formData.append('title', postData.title);
-    // formData.append('image', postData.image![0]);
+    formData.append('image', postData.image![0]);
 
     const { data } = await api.put<Post>('/post/update', formData);
     return data;

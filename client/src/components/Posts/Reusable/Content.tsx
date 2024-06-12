@@ -1,10 +1,11 @@
 import { cn } from '@/lib/utils';
-import Spliter from './Spliter';
+import TextSpliter from './TextSpliter';
 import { Image } from 'antd';
 
 interface ContentProps {
   text: string;
   imageLink?: string;
+  isPreview?: boolean;
   className?: string;
 }
 
@@ -16,8 +17,13 @@ export default function Content(props: ContentProps) {
         props.className,
       )}
     >
-      <Image src={props.imageLink}/>
-      <Spliter text={props.text} />
+      <Image
+        src={props.imageLink}
+        preview={props.isPreview}
+        width={600}
+        className="rounded-xl"
+      />
+      <TextSpliter text={props.text} />
     </div>
   );
 }

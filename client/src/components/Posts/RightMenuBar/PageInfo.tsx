@@ -4,7 +4,7 @@ import { Card } from 'antd';
 interface PageInfoProps {
   title: string;
   text: string;
-  stats: PostStat[];
+  stats: PostStat;
 }
 
 export default function PageInfo(props: PageInfoProps) {
@@ -14,13 +14,19 @@ export default function PageInfo(props: PageInfoProps) {
       <span className="text-wrap text-start font-md font-nimbus ">
         {props.text}
       </span>
-      <div className="flex mt-4 text-nowrap justify-between">
-        {props.stats.map((stat) => (
+      <div className="flex mt-4 text-nowrap justify-center">
+        {/* {props.stats.map((stat) => (
           <span key={stat.statName} className="text-sm font-semibold flex space-x-1">
-            <div>{stat.statMetric}</div>
             <div>{stat.statName}</div>
+            <div>{stat.statMetric}</div>
           </span>
-        ))}
+        ))} */}
+        <span
+          className="text-sm font-semibold flex space-x-1"
+        >
+          <div>{props.stats.statName}</div>
+          <div>{props.stats.statMetric}</div>
+        </span>
       </div>
     </Card>
   );

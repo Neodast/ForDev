@@ -8,15 +8,21 @@ import AuthProvider from '../../providers/AuthProvider';
 import MainPage from '@/Pages/MainPage';
 import { ConfigProvider } from 'antd';
 import PostPage from '@/Pages/Posts/PostPage';
+import ThreadsPage from '@/Pages/Threads/ThreadsPage';
+import ThreadPage from '@/Pages/Threads/ThreadPage';
 
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage></ErrorPage>,
     children: [
-      // {
-      //   path: '/threads',
-      //   element: <ThreadPage></ThreadPage>,
-      // },
+      {
+        path: '/threads',
+        element: <ThreadsPage></ThreadsPage>,
+      },
+      {
+        path: '/threads/:threadId',
+        element: <ThreadPage></ThreadPage>,
+      },
       {
         path: '/',
         element: <MainPage></MainPage>,
@@ -29,10 +35,6 @@ const router = createBrowserRouter([
         path: '/posts/:postId',
         element: <PostPage></PostPage>,
       },
-      // {
-      //   path: "/quizzes",
-      //   element: <QuizzesPage></QuizzesPage>
-      // },
       // {
       //   path: "/board",
       //   element: <BoardPage></BoardPage>

@@ -14,6 +14,7 @@ const pgDataSource = new DataSource({
   entities: [__dirname + '/**/entities/*entity.{js,ts}'],
   migrations: [],
   subscribers: [],
+  cache: true,
 });
 
 export { pgDataSource };

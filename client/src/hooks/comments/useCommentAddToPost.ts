@@ -8,7 +8,7 @@ const useCommentAddToPost = (postId: number) => {
     mutationKey: ['commentAddToPost'],
     mutationFn: CommentService.addPostComment,
     onSuccess: async() => {
-      queryClient.invalidateQueries({queryKey: ["postComments",  postId]});
+      queryClient.invalidateQueries({queryKey: ["comments",  postId]});
       queryClient.invalidateQueries({queryKey: ["post",  postId]});
     }
   })

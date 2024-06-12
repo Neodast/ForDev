@@ -8,7 +8,7 @@ class LikeService {
   }
 
   static likePost = async(likeData: Like) : Promise<Like> => {
-    const {data} = await api.post<Like>('/like/addLikeToPost', {...likeData});
+    const {data} = await api.post<Like>('/like/addLikeToPost', likeData);
     return data;
   }
 }

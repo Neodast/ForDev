@@ -9,6 +9,7 @@ import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
 import { LikeTypes } from '../../utils/types/containers/like.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
+import { PostGetByIdDto } from '../../utils/dtos/post/post-get-by-id.dto';
 
 @controller('/like')
 class LikeController {
@@ -33,14 +34,14 @@ class LikeController {
 
   @httpGet('/getPostLikesCount')
   public async getPostLikesCount(
-    req: RequestWithQuery<{ postId: number }>,
+    req: RequestWithQuery<PostGetByIdDto>,
     res: Response,
     next: NextFunction,
   ) {
     try {
       const { postId } = req.query;
       const likesCount = await this.likeService.getPostLikesCount(
-        Number(postId),
+        postId,
       );
       res.json(likesCount).status(StatusCodes.SUCCESS);
     } catch (e) {

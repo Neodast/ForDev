@@ -13,6 +13,7 @@ interface PostProps {
   surname?: string;
   nickname: string;
   commentsCount: number;
+  isPreview?: boolean;
   //---------------------------------//
   containerClassName?: string;
   userInfoClassName?: string;
@@ -38,10 +39,11 @@ export default function Post(props: PostProps) {
           nickname={props.nickname}
           className={props.userInfoClassName}
         />
-        <Title title={props.postData.title} className={props.titleClassName} />
+        <Title title={props.postData.title} criationDate={props.postData.creationDate} className={props.titleClassName} />
       <Content
         text={props.postData.text}
         imageLink={props.postData.imageLink}
+        isPreview={props.isPreview}
         className={props.contentClassName}
       />
       </Link>

@@ -5,6 +5,7 @@ import CommentRepository from '../repositories/comment.repository.type';
 import { CommentTypes } from '../../utils/types/containers/comment.types';
 import { PostTypes } from '../../utils/types/containers/post.types';
 import { PostService } from './post.service';
+import { CommentUpdateDto } from '../../utils/dtos/comment/comment-update.dto';
 
 @injectable()
 class CommentService {
@@ -27,8 +28,12 @@ class CommentService {
     });
   }
 
-  public async deleteComment(comment: CommentModel): Promise<void> {
-    return this.commentRepository.deleteComment(comment);
+  public async updateComment(comment: CommentUpdateDto) {
+    return this.commentRepository.updateComment(comment);
+  }
+
+  public async deleteComment(commentId: number): Promise<void> {
+    return this.commentRepository.deleteComment(commentId);
   }
 
   public async getAllComments(): Promise<CommentModel[]> {

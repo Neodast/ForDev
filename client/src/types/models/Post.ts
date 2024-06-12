@@ -11,6 +11,7 @@ type Post = {
   comments: Comment[];
   sectionTitle: string;
   imageLink: string;
+  creationDate: Date;
 };
 
 export default Post;

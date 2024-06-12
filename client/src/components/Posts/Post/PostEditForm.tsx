@@ -36,13 +36,14 @@ const PostEditForm = forwardRef((props: PropsPostEditForm, ref) => {
     },
   });
 
-  const { mutateAsync } = usePostEdit();
+  const { mutateAsync } = usePostEdit(props.postId);
 
   const submit: SubmitHandler<PostUpdate> = async (data) => {
     await mutateAsync({
       id: props.postId,
       text: data.text,
       title: data.title,
+      image: data.image,
     });
     props.handleCancel();
   };

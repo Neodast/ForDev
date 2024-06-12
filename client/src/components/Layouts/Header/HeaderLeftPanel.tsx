@@ -33,10 +33,6 @@ export default function HeaderLeftPanel() {
               key: 'threads',
               label: <NavItem to="/threads">Threads</NavItem>,
             },
-            {
-              key: 'quizzes',
-              label: <NavItem to="/quizzes">Quizzes</NavItem>,
-            },
           ]}
         ></Menu>
       </div>

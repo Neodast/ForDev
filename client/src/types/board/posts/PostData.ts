@@ -3,4 +3,5 @@ export type PostData = {
   title: string;
   text: string;
   imageLink: string;
+  creationDate: Date;
 }

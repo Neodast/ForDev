@@ -22,7 +22,7 @@ class PgPostRepository implements PostRepository {
   private async findPost(where: Record<string, unknown>): Promise<Post> {
     const dbPost = await this.postRepository.findOne({
       where: where,
-      relations: ['author', 'comments', 'comments.author', 'section'],
+      relations: ['author', 'comments', 'comments.author', 'section', 'likes'],
     });
     if (!dbPost) {
       throw new Error('Post is not found!');
@@ -83,18 +83,22 @@ class PgPostRepository implements PostRepository {
   }
 
   public async updatePost(postUpdateData: PostUpdateDto) {
-    await this.postRepository.update(postUpdateData.postId, {
-      title: postUpdateData.title,
-      text: postUpdateData.text,
-      imageLink: postUpdateData.imageLink,
-    });
+    await this.postRepository.update(
+      postUpdateData.id,
+      {
+        title: postUpdateData.title,
+        text: postUpdateData.text,
+        imageLink: postUpdateData.imageLink,
+      },
+    );
 
-    const dbPost = await this.getById(postUpdateData.postId);
-    return dbPost;
+    const dbPost = await this.findPost({id: postUpdateData.id});
+
+    return PgPostMapper.mapToPostModel(dbPost);
   }
 
   public async deletePost(post: PostModel): Promise<void> {
-    const dbPost = await this.findPost({ where: { id: post.id } });
+    const dbPost = await this.findPost({ id: post.id });
     await this.postRepository.remove(dbPost);
   }
 }

@@ -19,6 +19,7 @@ export default function PostTopActions(props: PostTopActionsProps) {
   const user = useUserStore((state) => state.user);
   const isAuthor =
     user?.nickname === props.nickname || user?.role !== Role.user;
+  const isAuth = useUserStore((state) => state.isAuth);
 
   const [isModalOpen, setOpen] = useState(false);
 
@@ -34,7 +35,7 @@ export default function PostTopActions(props: PostTopActionsProps) {
 
   return (
     <div className='max-w-32 float-end space-x-2'>
-      {isAuthor && (
+      {isAuthor && isAuth && (
         <div className="flex items-cente space-x-2">
           <Action
             icon={

@@ -1,5 +1,5 @@
 export type PostUpdateInputDto = {
-  postId: number;
+  id: number;
   title?: string;
   text?: string;
   image?: Express.Multer.File;

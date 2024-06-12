@@ -9,6 +9,7 @@ import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import CommentCreateDto from '../../utils/dtos/comment/comment-create.dto';
 import PostModel from '../../core/models/post.model';
 import { injectable } from 'inversify';
+import { CommentUpdateDto } from '../../utils/dtos/comment/comment-update.dto';
 
 @injectable()
 class PgCommentRepository implements CommentRepository {
@@ -45,7 +46,9 @@ class PgCommentRepository implements CommentRepository {
   }
 
   public async getById(commentId: number): Promise<CommentModel> {
-    return PgCommentMapper.mapToCommentModel(await this.findComment({ id: commentId }));
+    return PgCommentMapper.mapToCommentModel(
+      await this.findComment({ id: commentId }),
+    );
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<CommentModel[]> {
@@ -79,18 +82,23 @@ class PgCommentRepository implements CommentRepository {
   }
 
   public async updateComment(
-    commentId: number,
-    newCommentData: CommentModel,
+    newCommentData: CommentUpdateDto,
   ): Promise<CommentModel> {
-    const dbComment = await this.getById(commentId);
-    Object.assign(dbComment, newCommentData);
-    return PgCommentMapper.mapToCommentModel(
-      await this.commentRepository.save(dbComment),
-    );
+    // const dbComment = await this.getById(commentId);
+    // Object.assign(dbComment, newCommentData);
+    // return PgCommentMapper.mapToCommentModel(
+    //   await this.commentRepository.save(dbComment),
+    // );
+    await this.commentRepository.update(newCommentData.id, {
+      text: newCommentData.text,
+    });
+
+    const dbComment = await this.findComment({id: newCommentData.id});
+    return PgCommentMapper.mapToCommentModel(dbComment);
   }
 
-  public async deleteComment(comment: CommentModel): Promise<void> {
-    const dbComment = await this.findComment({ comment });
+  public async deleteComment(commentId: number): Promise<void> {
+    const dbComment = await this.findComment({ id: commentId });
     await this.commentRepository.remove(dbComment);
   }
 }

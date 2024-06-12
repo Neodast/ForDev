@@ -21,9 +21,8 @@ export class LikeService {
     return this.likeRepository.deletePostLike(dbLike);
   }
 
-  public async getPostLikesCount(postId: number) {
-    const dbPost = await this.postService.getPostById(postId);
-    const likes = await this.likeRepository.getLikesByPost(dbPost);
+  public async getPostLikesCount(postId: number): Promise<number> {
+    const likes = await this.likeRepository.getLikesByPost(postId);
     return likes.length;
   }
 }

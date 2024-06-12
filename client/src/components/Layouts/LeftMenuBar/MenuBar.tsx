@@ -1,23 +1,23 @@
 import { memo } from 'react';
 import MenuBarItem from './MenuBarItem';
 import { Collapse } from 'antd';
-import { BiHeart } from 'react-icons/bi';
+import { BiHeart, BiHome, BiSave } from 'react-icons/bi';
 
 const LeftMenuBar = memo(() => {
   return (
     <div className="fixed font-roboto left-0 top-0 h-full w-48 bg-blue-400 border-slate-200 pt-16">
       <nav className="mx-4 flex flex-col">
-        <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-          Shototam
+        <MenuBarItem to="/" icon={<BiHome></BiHome>}>
+          Home
         </MenuBarItem>
-        <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-          Shototam
+        <MenuBarItem to="/liked" icon={<BiHeart></BiHeart>}>
+          Liked
         </MenuBarItem>
-        <MenuBarItem to="/" icon={<BiHeart></BiHeart>}>
-          Shototam
+        <MenuBarItem to="/saved" icon={<BiSave></BiSave>}>
+          Saved
         </MenuBarItem>
         <hr />
-        <Collapse
+        {/* <Collapse
           className="w-full bg-blue-400"
           ghost
           size='large'
@@ -58,7 +58,7 @@ const LeftMenuBar = memo(() => {
             },
           ]}
         >
-        </Collapse>
+        </Collapse> */}
       </nav>
     </div>
   );

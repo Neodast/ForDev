@@ -35,10 +35,10 @@ class PgLikeRepository implements LikeRepository {
     return PgLikeMapper.mapToLikeModel(dbLike);
   }
 
-  public async getLikesByPost(post: PostModel): Promise<LikeModel[]> {
+  public async getLikesByPost(postId: number): Promise<LikeModel[]> {
     const dbLikes = await this.likeRepository.find({
-      where: { post: post },
-      relations: ['user'],
+      where: { post: {id: postId}},
+      relations: ['user', 'post'],
     });
     return dbLikes.map((like) => PgLikeMapper.mapToLikeModel(like));
   }

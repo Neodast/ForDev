@@ -1,10 +1,10 @@
 import PostService from '@/services/PostService';
 import { useQuery } from '@tanstack/react-query';
 
-const usePostsGetAll = () => {
+const usePostsGetAll = (page: number, take: number) => {
   return useQuery({
-    queryKey: ['posts'],
-    queryFn: PostService.getAllPosts,
+    queryKey: ['posts', page, take],
+    queryFn: () => PostService.getAllPosts(page, take),
   });
 };
 

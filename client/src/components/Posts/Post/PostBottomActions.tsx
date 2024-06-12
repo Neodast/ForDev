@@ -12,7 +12,7 @@ interface PostBottomActionsProps {
 
 export default function PostBottomActions(props: PostBottomActionsProps) {
   const { data: likesCount = 0 } = usePostGetLikesCount(props.options.id);
-  const { mutateAsync: likePost } = useLikePost();
+  const { mutateAsync: likePost } = useLikePost(props.options.id);
 
   const user = useUserStore((state) => state.user);
 

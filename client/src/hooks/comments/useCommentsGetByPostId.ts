@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const useCommentsGetByPostId = (postId: number) => {
   return useQuery({
-    queryKey: ['postComments', postId],
+    queryKey: ['comments', postId],
     queryFn: () => CommentService.getCommentsByPostId(postId),
   })
 }

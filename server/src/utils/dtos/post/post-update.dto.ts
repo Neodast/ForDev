@@ -1,5 +1,5 @@
 export type PostUpdateDto = {
-  postId: number;
+  id: number;
   title?: string;
   text?: string;
   imageLink?: string;

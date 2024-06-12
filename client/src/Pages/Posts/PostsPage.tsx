@@ -1,21 +1,41 @@
 import Layout from '../../components/Layouts/Layout';
 import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import PostCreateForm from '@/components/Posts/Post/PostCreateForm';
 import usePostsGetAll from '@/hooks/posts/usePostsGetAll';
 import Container from '@/components/Posts/Reusable/Container';
-import { Skeleton } from 'antd';
+import { Pagination, PaginationProps, Skeleton } from 'antd';
 import Post from '@/components/Posts/Post/Post';
 import PostModel from '@/types/models/Post';
+import { useSearchParams } from 'react-router-dom';
 
 export default function PostsPage() {
-  const { data: posts = Array(20).fill(null), isLoading } = usePostsGetAll();
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: '1',
+    take: '5',
+  });
+
+  const { data: posts = Array(5).fill(null), isLoading } = usePostsGetAll(
+    Number(searchParams.get('page')) || 1,
+    Number(searchParams.get('take')) || 5,
+  );
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  const onChange: PaginationProps['onChange'] = (page, take) => {
+    setSearchParams({
+      page: String(page),
+      take: String(take),
+    });
+    bottomRef.current?.scrollIntoView(true);
+  };
 
   const memoMain = useMemo(
     () => (
       <div className="text-center m-16 mt-20 flex-1 items-center justify-center">
-        {!isLoading
-          ? posts.map((post: PostModel) => (
+        {!isLoading ? (
+          <>
+            {posts.map((post: PostModel) => (
               <Post
                 key={post.id}
                 name={post.author.name}
@@ -23,24 +43,39 @@ export default function PostsPage() {
                 nickname={post.author.nickname}
                 postData={post}
                 commentsCount={post.comments.length || 0}
+                isPreview={false}
                 titleClassName="text-base"
                 contentClassName="text-sm"
                 userInfoClassName="text-base"
               ></Post>
-            ))
-          : posts.map(() => (
-              <Container className="h-64" >
-                <Skeleton avatar={true} />
-              </Container>
             ))}
+            <Pagination
+              current={Number(searchParams.get('page'))}
+              defaultCurrent={1}
+              pageSize={Number(searchParams.get('take')) || 5}
+              total={15}
+              onChange={onChange}
+            />
+          </>
+        ) : (
+          posts.map(() => (
+            <Container className="h-64">
+              <Skeleton avatar={true} />
+            </Container>
+          ))
+        )}
         <RightMenuBar
-          filters={['Front', 'Back', 'Full']}
+          filters={[]}
+          title="Posts page"
+          text="This page contain all posts from forum."
           actionTitle="New Post"
           form={<PostCreateForm></PostCreateForm>}
+          stats={{ statName: 'Posts count', statMetric: 15 }}
         ></RightMenuBar>
+        <div ref={bottomRef}></div>
       </div>
     ),
-    [posts, isLoading],
+    [posts, isLoading, searchParams, onChange],
   );
 
   return <Layout>{memoMain}</Layout>;
