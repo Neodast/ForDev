@@ -4,7 +4,6 @@ import { Card } from 'antd';
 interface PageInfoProps {
   title: string;
   text: string;
-  stats: PostStat;
 }
 
 export default function PageInfo(props: PageInfoProps) {
@@ -21,12 +20,12 @@ export default function PageInfo(props: PageInfoProps) {
             <div>{stat.statMetric}</div>
           </span>
         ))} */}
-        <span
+        {/* <span
           className="text-sm font-semibold flex space-x-1"
         >
           <div>{props.stats.statName}</div>
           <div>{props.stats.statMetric}</div>
-        </span>
+        </span> */}
       </div>
     </Card>
   );

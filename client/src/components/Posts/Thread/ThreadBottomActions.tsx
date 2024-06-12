@@ -2,14 +2,16 @@ import ThreadUpdate from '@/types/board/threads/ThreadUpdate';
 import Action from '../Reusable/Action';
 import { BiComment, BiHeart } from 'react-icons/bi';
 import { useUserStore } from '@/stores/UserStore';
+import useThreadGetLikes from '@/hooks/likes/useThreadGetLikesCount';
+import useLikeThread from '@/hooks/likes/useThreadLike';
 
 interface ThreadBottomActionsProps {
   options: ThreadUpdate;
   commentsCount: number;
 }
 
-export default function PostBottomActions(props: ThreadBottomActionsProps) {
-  const { data: likesCount = 0 } = useThreadGetLikesCount(props.options.id);
+export default function ThreadBottomActions(props: ThreadBottomActionsProps) {
+  const { data: likesCount = 0 } = useThreadGetLikes(props.options.id);
   const { mutateAsync: likeThread } = useLikeThread(props.options.id);
 
   const user = useUserStore((state) => state.user);

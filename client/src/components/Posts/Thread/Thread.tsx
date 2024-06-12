@@ -1,14 +1,14 @@
 import { ThreadData } from '@/types/board/threads/ThreadData';
 import Container from '../Reusable/Container';
-import PostTopActions from '../Post/PostTopActions';
 import UserInfo from '../Reusable/UserInfo';
 import { Link } from 'react-router-dom';
 import Title from '../Reusable/Title';
 import Content from '../Reusable/Content';
-import PostBottomActions from '../Post/PostBottomActions';
+import ThreadBottomActions from './ThreadBottomActions';
+import ThreadsTopActions from './ThreadTopActions';
 
 interface ThreadProps {
-  postData: ThreadData;
+  threadData: ThreadData;
   name?: string;
   surname?: string;
   nickname: string;
@@ -23,27 +23,31 @@ interface ThreadProps {
 export default function Thread(props: ThreadProps) {
   return (
     <Container className={props.containerClassName}>
-      <PostTopActions
+      <ThreadsTopActions
         nickname={props.nickname}
-        postId={props.postData.id}
-        postTitle={props.postData.title}
-        postText={props.postData.text}
-      ></PostTopActions>
-      <Link to={'/threads/' + props.postData.id} className="hover:text-black">
+        threadId={props.threadData.id}
+        threadTitle={props.threadData.title}
+        threadText={props.threadData.text}
+      ></ThreadsTopActions>
+      <Link to={'/threads/' + props.threadData.id} className="hover:text-black">
         <UserInfo
           name={props.name}
           surname={props.surname}
           nickname={props.nickname}
           className={props.userInfoClassName}
         />
-        <Title title={props.postData.title} criationDate={props.postData.creationDate} className={props.titleClassName} />
-      <Content
-        text={props.postData.text}
-        className={props.contentClassName}
-      />
+        <Title
+          title={props.threadData.title}
+          criationDate={props.threadData.creationDate}
+          className={props.titleClassName}
+        />
+        <Content
+          text={props.threadData.text}
+          className={props.contentClassName}
+        />
       </Link>
-      <PostBottomActions
-        options={props.postData}
+      <ThreadBottomActions
+        options={props.threadData}
         commentsCount={props.commentsCount}
       />
     </Container>

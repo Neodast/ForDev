@@ -1,16 +1,16 @@
 import LikeService from '@/services/LikeService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useLikePost = (postId: number) => {
+const useLikeThread = (threadId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['likePost'],
-    mutationFn: LikeService.likePost,
+    mutationKey: ['likeThread'],
+    mutationFn: LikeService.likeThread,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({queryKey: ["likes", postId]});
+      await queryClient.invalidateQueries({queryKey: ["likes", threadId]});
     },
   });
 };
 
-export default useLikePost;
+export default useLikeThread;

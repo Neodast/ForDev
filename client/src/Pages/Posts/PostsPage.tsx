@@ -20,7 +20,7 @@ export default function PostsPage() {
     Number(searchParams.get('page')) || 1,
     Number(searchParams.get('take')) || 5,
   );
-  const {data: postsCount } = usePostsGetCount();
+  const {data: postsCount = 5} = usePostsGetCount();
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ export default function PostsPage() {
   const memoMain = useMemo(
     () => (
       <div className="text-center m-16 mt-20 flex-1 items-center justify-center">
-        {!isLoading ? (
+        {!isLoading? (
           <>
             {posts.map((post: PostModel) => (
               <Post
@@ -53,7 +53,6 @@ export default function PostsPage() {
             ))}
             <Pagination
               current={Number(searchParams.get('page'))}
-              defaultCurrent={1}
               pageSize={Number(searchParams.get('take')) || 5}
               total={postsCount['postsCount']}
               onChange={onChange}
@@ -72,7 +71,6 @@ export default function PostsPage() {
           text="This page contain all posts from forum."
           actionTitle="New Post"
           form={<PostCreateForm></PostCreateForm>}
-          stats={{ statName: 'Posts count', statMetric: 15 }}
         ></RightMenuBar>
         <div ref={bottomRef}></div>
       </div>

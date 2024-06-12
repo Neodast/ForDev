@@ -8,32 +8,34 @@ import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 
 export default function ThreadPage() {
-  const { postId } = useParams();
-  const { data: post = null } = useThreadGet(Number(postId));
+  const { threadId } = useParams();
+  const { data: thread = null } = useThreadGet(Number(threadId));
 
   return (
     <Layout>
-      {post ? (
+      {thread ? (
         <div className="text-center m-16 ml-32 mt-20 flex-1 items-center justify-center">
           <Thread
-            nickname={post.author.nickname}
-            name={post?.author.name}
-            surname={post?.author.surname}
-            postData={post}
-            commentsCount={post.comments.length || 0}
+            nickname={thread.author.nickname}
+            name={thread?.author.name}
+            surname={thread?.author.surname}
+            threadData={thread}
+            commentsCount={thread.comments.length || 0}
             containerClassName="w-[80%]"
             titleClassName="text-xl"
             contentClassName="text-lg"
             userInfoClassName="text-xl"
           ></Thread>
-          <CommentCreateForm postId={post.id}></CommentCreateForm>
-          {post.comments.map((comment) => (
+          {/* <CommentCreateForm postId={thread.id}></CommentCreateForm> */}
+          {/* {post.comments.map((comment) => (
             <Comment
+              likes={comment.likes}
+              postId={comment.}
               key={comment.text}
               author={comment.author}
               text={comment.text}
             />
-          ))}
+          ))} */}
         </div>
       ) : (
         <>

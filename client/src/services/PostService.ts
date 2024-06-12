@@ -5,6 +5,9 @@ import PostCreate from '@/types/board/posts/PostCreate';
 import PostDelete from '@/types/board/posts/PostDelete';
 class PostService {
   static getAllPosts = async (page: number, take: number): Promise<Post[]> => {
+    if(page > 1) {
+      page += take;
+    }
     const { data } = await api.get<Post[]>('/post/all', {params: {
       skip: page-1,
       take: take,

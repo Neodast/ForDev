@@ -1,13 +1,14 @@
 import Layout from '../../components/Layouts/Layout';
 import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
 import { useMemo, useRef } from 'react';
-import PostCreateForm from '@/components/Posts/Post/PostCreateForm';
 import Container from '@/components/Posts/Reusable/Container';
 import { Pagination, PaginationProps, Skeleton } from 'antd';
-import PostModel from '@/types/models/Post';
 import { useSearchParams } from 'react-router-dom';
 import Thread from '@/components/Posts/Thread/Thread';
 import useThreadsGetAll from '@/hooks/threads/useThreadsGetAll';
+import { ThreadModel } from '@/types/models/Thread';
+import ThreadCreateForm from '@/components/Posts/Thread/ThreadCreateForm';
+import useThreadsGetCount from '@/hooks/threads/useThreadGetCount';
 
 export default function ThreadsPage() {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -19,6 +20,7 @@ export default function ThreadsPage() {
     Number(searchParams.get('page')) || 1,
     Number(searchParams.get('take')) || 5,
   );
+  const {data: threadsCount = 5} = useThreadsGetCount();
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -35,14 +37,14 @@ export default function ThreadsPage() {
       <div className="text-center m-16 mt-20 flex-1 items-center justify-center">
         {!isLoading ? (
           <>
-            {posts.map((post: PostModel) => (
+            {posts.map((thread: ThreadModel) => (
               <Thread
-                key={post.id}
-                name={post.author.name}
-                surname={post.author.surname}
-                nickname={post.author.nickname}
-                postData={post}
-                commentsCount={post.comments.length || 0}
+                key={thread.id}
+                name={thread.author.name}
+                surname={thread.author.surname}
+                nickname={thread.author.nickname}
+                threadData={thread}
+                commentsCount={thread.comments.length || 0}
                 titleClassName="text-base"
                 contentClassName="text-sm"
                 userInfoClassName="text-base"
@@ -52,7 +54,7 @@ export default function ThreadsPage() {
               current={Number(searchParams.get('page'))}
               defaultCurrent={1}
               pageSize={Number(searchParams.get('take')) || 5}
-              total={15}
+              total={threadsCount['threadsCount']}
               onChange={onChange}
             />
           </>
@@ -68,8 +70,7 @@ export default function ThreadsPage() {
           title="Threads page"
           text="This page contain all threads from forum."
           actionTitle="New thread"
-          form={<PostCreateForm></PostCreateForm>}
-          stats={{ statName: 'Threads count', statMetric: 5 }}
+          form={<ThreadCreateForm></ThreadCreateForm>}
         ></RightMenuBar>
         <div ref={bottomRef}></div>
       </div>

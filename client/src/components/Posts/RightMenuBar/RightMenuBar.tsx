@@ -8,7 +8,6 @@ interface RightMenuBarProps {
   filters: string[];
   text: string;
   title: string;
-  stats: PostStat;
   actionTitle: string;
   form: JSX.Element;
 }
@@ -26,7 +25,6 @@ export default function RightMenuBar(props: RightMenuBarProps) {
       <PageInfo
         title={props.title}
         text={props.text}
-        stats={props.stats}
       ></PageInfo>
       <PageOptions filters={props.filters}></PageOptions>
     </div>
