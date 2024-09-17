@@ -1,4 +1,4 @@
-import Layout from '../components/Layouts/Layout';
+import Layout from '../Layouts/Layout';
 
 export default function ErrorPage() {
   return (

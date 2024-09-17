@@ -36,7 +36,7 @@ export default function CommentTopActions(props: CommentTopActionsProps) {
   return (
     <div className="max-w-32 float-end space-x-2">
       {isAuthor && isAuth && (
-        <div className="flex items-cente space-x-2">
+        <div className="flex items-center space-x-2">
           <Action
             icon={
               <BiEdit className="size-[1.5rem] mt-[0.25rem] mr-[-0.5rem]"></BiEdit>

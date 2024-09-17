@@ -15,6 +15,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+
 api.interceptors.response.use(
   (config) => config,
   async (err) => {
@@ -28,6 +29,8 @@ api.interceptors.response.use(
       } catch (e) {
         console.log(e);
       }
+    } else {
+      return err;
     }
   },
 );

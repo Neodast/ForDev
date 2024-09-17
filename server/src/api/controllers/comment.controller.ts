@@ -76,9 +76,11 @@ export class CommentController {
     next: NextFunction,
   ): Promise<void> {
     try {
+      console.log(5);
       const { postId } = req.query;
+      console.log(postId)
       const comments = await this.commentService.getCommentsByPostId(postId);
-      res.status(StatusCodes.SUCCESS).json(comments);
+      res.json(comments).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);
     }

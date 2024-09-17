@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ErrorPage from '../../Pages/ErrorPage';
-import RegistrationPage from '../../Pages/Auth/RegistrationPage';
-import LoginPage from '../../Pages/Auth/LoginPage';
-import PostsPage from '../../Pages/Posts/PostsPage';
+import ErrorPage from '../Pages/ErrorPage';
+import RegistrationPage from '../Pages/Auth/RegistrationPage';
+import LoginPage from '../Pages/Auth/LoginPage';
+import PostsPage from '../Pages/Posts/PostsPage';
 import QueryProvider from '../../providers/QueryProvider';
 import AuthProvider from '../../providers/AuthProvider';
-import MainPage from '@/Pages/MainPage';
+import MainPage from '@/components/Pages/MainPage';
 import { ConfigProvider } from 'antd';
-import PostPage from '@/Pages/Posts/PostPage';
-import ThreadsPage from '@/Pages/Threads/ThreadsPage';
-import ThreadPage from '@/Pages/Threads/ThreadPage';
+import PostPage from '@/components/Pages/Posts/PostPage';
+import ThreadsPage from '@/components/Pages/Threads/ThreadsPage';
+import ThreadPage from '@/components/Pages/Threads/ThreadPage';
 
 const router = createBrowserRouter([
   {

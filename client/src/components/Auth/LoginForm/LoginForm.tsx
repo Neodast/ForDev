@@ -35,7 +35,7 @@ export default function LoginForm() {
           {...register('email')}
         ></InputField>
         <FormValidationError
-          message={errors.email?.message}
+          message={errors.email?.message || status}
         ></FormValidationError>
         <InputField
           label="password"

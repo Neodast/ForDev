@@ -12,14 +12,12 @@ import { Comment } from './comment.entity';
 import { Thread } from './thread.entity';
 import { Like } from './like.entity';
 
-@Entity({
-  name: 'Users',
-})
+@Entity({ name: 'Users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true, type: 'text' })
+  @Column({ unique: true })
   email: string;
 
   @Column()

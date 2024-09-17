@@ -15,7 +15,7 @@ export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: false})
   text: string;
 
   @OneToMany(() => Like, (like) => like.comment)

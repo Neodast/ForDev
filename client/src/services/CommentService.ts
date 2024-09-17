@@ -7,7 +7,8 @@ class CommentService {
   static addPostComment = async (
     commentData: CommentPostInput,
   ): Promise<Comment> => {
-    const { data } = await api.post<CommentPostInput>('/comment/addToPost', {
+    console.log(commentData);
+    const { data } = await api.post<Comment>('/comment/addToPost', {
       ...commentData,
     });
     return data;
@@ -30,9 +31,9 @@ class CommentService {
     return data;
   };
 
-  static deleteComment = async (commentId: number): Promise<void> => {
+  static deleteComment = async (id: number): Promise<void> => {
     return await api.delete('/comment/delete', {
-      data: { id: commentId },
+      data: { commentId: id },
     });
   };
 }

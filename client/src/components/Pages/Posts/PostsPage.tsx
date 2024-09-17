@@ -1,4 +1,4 @@
-import Layout from '../../components/Layouts/Layout';
+import Layout from '../../Layouts/Layout';
 import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
 import { useMemo, useRef } from 'react';
 import PostCreateForm from '@/components/Posts/Post/PostCreateForm';
@@ -20,7 +20,7 @@ export default function PostsPage() {
     Number(searchParams.get('page')) || 1,
     Number(searchParams.get('take')) || 5,
   );
-  const {data: postsCount = 5} = usePostsGetCount();
+  const { data: postsCount = 5 } = usePostsGetCount();
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ export default function PostsPage() {
   const memoMain = useMemo(
     () => (
       <div className="text-center m-16 mt-20 flex-1 items-center justify-center">
-        {!isLoading? (
+        {!isLoading ? (
           <>
             {posts.map((post: PostModel) => (
               <Post

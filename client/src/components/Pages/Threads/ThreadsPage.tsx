@@ -1,4 +1,4 @@
-import Layout from '../../components/Layouts/Layout';
+import Layout from '../../Layouts/Layout';
 import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
 import { useMemo, useRef } from 'react';
 import Container from '@/components/Posts/Reusable/Container';
@@ -20,7 +20,7 @@ export default function ThreadsPage() {
     Number(searchParams.get('page')) || 1,
     Number(searchParams.get('take')) || 5,
   );
-  const {data: threadsCount = 5} = useThreadsGetCount();
+  const { data: threadsCount = 5 } = useThreadsGetCount();
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
