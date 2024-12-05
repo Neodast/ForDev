@@ -1,8 +1,8 @@
 import Layout from '@/components/Layouts/Layout';
-import Comment from '@/components/Posts/Comment/Comment';
-import CommentCreateForm from '@/components/Posts/Comment/CommentCreateForm';
-import Container from '@/components/Posts/Reusable/Container';
-import Thread from '@/components/Posts/Thread/Thread';
+import Comment from '@/components/Post/Comment/Comment';
+import CommentCreateForm from '@/components/Post/Comment/CommentCreateForm';
+import Container from '@/components/Post/ui/Container';
+import Thread from '@/components/Post/Thread/Thread';
 import useThreadGet from '@/hooks/threads/useThreadGet';
 import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';

@@ -1,5 +1,5 @@
 import AuthService from '@/services/AuthService';
-import { useUserStore } from '@/stores/UserStore';
+import { useUserStore } from '@/app/store/userStore';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const usePostsGetCount = () => {
   return useQuery({
-    queryKey: ['postsCount'],
+    queryKey: ['post', 'count'],
     queryFn: PostService.getPostsCount,
   });
 };

@@ -1,6 +1,6 @@
 import Role from '@/types/user/roles.enum';
 import NavItem from './Navigation/NavItem';
-import { useUserStore } from '@/stores/UserStore';
+import { useUserStore } from '@/app/store/userStore';
 import { Button, Dropdown } from 'antd';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDotsHorizontal } from 'react-icons/hi';

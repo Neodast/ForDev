@@ -1,10 +1,10 @@
 import Layout from '@/components/Layouts/Layout';
-import Comment from '@/components/Posts/Comment/Comment';
-import CommentCreateForm from '@/components/Posts/Comment/CommentCreateForm';
-import Post from '@/components/Posts/Post/Post';
-import Container from '@/components/Posts/Reusable/Container';
+import Comment from '@/components/Post/Comment/Comment';
+import CommentCreateForm from '@/components/Post/Comment/CommentCreateForm';
+import Post from '@/features/Post';
+import Container from '@/components/Post/ui/Container';
 import usePostGet from '@/hooks/posts/usePostGet';
-import { useUserStore } from '@/stores/UserStore';
+import { useUserStore } from '@/app/store/userStore';
 import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ export default function PostPage() {
             contentClassName="text-lg"
             userInfoClassName="text-xl"
           ></Post>
-          {isAuth &&<CommentCreateForm postId={post.id}></CommentCreateForm>}
+          {isAuth && <CommentCreateForm postId={post.id}></CommentCreateForm>}
           {post.comments.map((comment) => (
             <Comment
               key={comment.text}

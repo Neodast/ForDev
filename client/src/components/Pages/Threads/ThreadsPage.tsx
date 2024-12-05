@@ -1,13 +1,13 @@
 import Layout from '../../Layouts/Layout';
-import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
+import RightMenuBar from '@/components/Post/RightMenuBar/RightMenuBar';
 import { useMemo, useRef } from 'react';
-import Container from '@/components/Posts/Reusable/Container';
+import Container from '@/components/Post/ui/Container';
 import { Pagination, PaginationProps, Skeleton } from 'antd';
 import { useSearchParams } from 'react-router-dom';
-import Thread from '@/components/Posts/Thread/Thread';
+import Thread from '@/components/Post/Thread/Thread';
 import useThreadsGetAll from '@/hooks/threads/useThreadsGetAll';
 import { ThreadModel } from '@/types/models/Thread';
-import ThreadCreateForm from '@/components/Posts/Thread/ThreadCreateForm';
+import ThreadCreateForm from '@/components/Post/Thread/ThreadCreateForm';
 import useThreadsGetCount from '@/hooks/threads/useThreadGetCount';
 
 export default function ThreadsPage() {

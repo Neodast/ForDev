@@ -1,17 +1,19 @@
-import api from '../http';
+import api from '../shared/api';
 import Post from '@/types/models/Post';
 import PostUpdate from '@/types/board/posts/PostUpdate';
 import PostCreate from '@/types/board/posts/PostCreate';
 import PostDelete from '@/types/board/posts/PostDelete';
 class PostService {
   static getAllPosts = async (page: number, take: number): Promise<Post[]> => {
-    if(page > 1) {
+    if (page > 1) {
       page += take;
     }
-    const { data } = await api.get<Post[]>('/post/all', {params: {
-      skip: page-1,
-      take: take,
-    } });
+    const { data } = await api.get<Post[]>('/post/all', {
+      params: {
+        skip: page - 1,
+        take: take,
+      },
+    });
     return data;
   };
 
@@ -23,7 +25,7 @@ class PostService {
   static editPost = async (postData: PostUpdate) => {
     const formData = new FormData();
 
-    formData.append("id", postData.id.toString());
+    formData.append('id', postData.id.toString());
     formData.append('text', postData.text);
     formData.append('title', postData.title);
     formData.append('image', postData.image![0]);
@@ -53,9 +55,9 @@ class PostService {
   };
 
   static getPostsCount = async () => {
-    const {data} = await api.get("/post/allCount");
+    const { data } = await api.get('/post/allCount');
     return data;
-  }
+  };
 }
 
 export default PostService;

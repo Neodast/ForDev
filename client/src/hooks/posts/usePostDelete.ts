@@ -7,12 +7,12 @@ const usePostDelete = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationKey: ['deletePost'],
     mutationFn: PostService.deletePost,
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['post'] });
+    },
     onSuccess: async () => {
       navigate('/posts');
-      await queryClient.invalidateQueries({ queryKey: ['posts'] });
-      await queryClient.invalidateQueries({ queryKey: ['post'] });
     },
   });
 };

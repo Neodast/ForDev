@@ -1,5 +1,5 @@
 import Layout from '@/components/Layouts/Layout';
-import Container from '@/components/Posts/Reusable/Container';
+import Container from '@/components/Post/ui/Container';
 import { Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
 

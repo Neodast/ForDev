@@ -1,4 +1,4 @@
-import InputField from '../../Base/Inputs/InputField';
+import InputField from '../../../shared/ui/InputField';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import LoginInput from '../../../types/user/LoginInput';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';

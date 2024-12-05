@@ -1,4 +1,4 @@
-import api from '@/http';
+import api from '@/shared/api';
 import ThreadUpdate from '@/types/board/threads/ThreadUpdate';
 import { ThreadModel } from '@/types/models/Thread';
 import ThreadCreate from '@/types/board/threads/ThreadCreate';
@@ -21,7 +21,9 @@ class ThreadService {
   };
 
   static getThreadById = async (threadId: number): Promise<ThreadModel> => {
-    const { data } = await api.get('/thread', { params: { threadId: threadId } });
+    const { data } = await api.get('/thread', {
+      params: { threadId: threadId },
+    });
     return data;
   };
 

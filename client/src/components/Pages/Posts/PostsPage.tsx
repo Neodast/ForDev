@@ -1,11 +1,11 @@
 import Layout from '../../Layouts/Layout';
-import RightMenuBar from '@/components/Posts/RightMenuBar/RightMenuBar';
+import RightMenuBar from '@/components/Post/RightMenuBar/RightMenuBar';
 import { useMemo, useRef } from 'react';
-import PostCreateForm from '@/components/Posts/Post/PostCreateForm';
+import PostCreateForm from '@/modules/Post/ui/CreateForm';
 import usePostsGetAll from '@/hooks/posts/usePostsGetAll';
-import Container from '@/components/Posts/Reusable/Container';
+import Container from '@/components/Post/ui/Container';
 import { Pagination, PaginationProps, Skeleton } from 'antd';
-import Post from '@/components/Posts/Post/Post';
+import Post from '@/features/Post';
 import PostModel from '@/types/models/Post';
 import { useSearchParams } from 'react-router-dom';
 import usePostsGetCount from '@/hooks/posts/usePostsGetCount';
@@ -75,7 +75,7 @@ export default function PostsPage() {
         <div ref={bottomRef}></div>
       </div>
     ),
-    [posts, isLoading, searchParams, onChange],
+    [posts, isLoading, searchParams],
   );
 
   return <Layout>{memoMain}</Layout>;

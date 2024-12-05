@@ -5,13 +5,10 @@ const usePostCreate = (resetForm: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['cretePost'],
     mutationFn: PostService.createPost,
-    onSuccess: async () => {
+    onSettled: async() => {
       resetForm();
-      await queryClient.invalidateQueries({ queryKey: ['posts'] });
       await queryClient.invalidateQueries({ queryKey: ['post'] });
-
     },
   });
 };

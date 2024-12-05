@@ -16,11 +16,11 @@ export const authMiddleware = async (
 
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
-      return next(ApiError.UnauthorizedError('header'));
+      return next(ApiError.UnauthorizedError());
     }
     const accessToken = authorizationHeader.split(' ')[1];
     if (!accessToken) {
-      return next(ApiError.UnauthorizedError('access'));
+      return next(ApiError.UnauthorizedError());
     }
     const userData = await tokenService.validateAccessToken(accessToken);
 
