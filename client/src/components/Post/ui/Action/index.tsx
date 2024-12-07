@@ -7,7 +7,7 @@ interface ActionProps extends ButtonProps {
   icon?: React.ReactNode;
 }
 
-export default function Action(props: ActionProps) {
+export function Action(props: ActionProps) {
   return (
     <Button {...props}>
       {props.inner || props.children ? (

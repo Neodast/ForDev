@@ -1,8 +1,8 @@
 import { ThreadData } from '@/types/board/threads/ThreadData';
-import Container from '../ui/Container';
-import UserInfo from '../ui/UserInfo';
+import Container from '../Post/ui/Container';
+import UserInfo from '../Post/ui/UserInfo';
 import { Link } from 'react-router-dom';
-import Title from '../ui/Title';
+import Title from '../Post/ui/Title';
 import Content from '../Reusable/Content';
 import ThreadBottomActions from './ThreadBottomActions';
 import ThreadsTopActions from './ThreadTopActions';

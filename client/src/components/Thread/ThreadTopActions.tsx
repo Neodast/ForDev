@@ -1,21 +1,21 @@
-import useCommentDelete from '@/hooks/comments/useCommentDelete';
-import { useUserStore } from '@/app/store/userStore';
-import { useState } from 'react';
-import Action from '../ui/Action';
 import { BiEdit, BiTrash } from 'react-icons/bi';
+import Action from '../Post/ui/Action';
 import { Modal } from 'antd';
 import { IoCloseOutline } from 'react-icons/io5';
-import CommentEditForm from './CommentEditForm';
+import { useState } from 'react';
 import Role from '@/types/user/roles.enum';
+import { useUserStore } from '@/app/store/userStore';
+import useThreadDelete from '@/hooks/threads/useThreadDelete';
+import ThreadEditForm from './ThreadEditForm';
 
-interface CommentTopActionsProps {
-  postId: number;
-  commentId: number;
+interface ThreadTopActionsProps {
+  threadId: number;
   nickname: string;
-  commentText?: string;
+  threadTitle?: string;
+  threadText?: string;
 }
 
-export default function CommentTopActions(props: CommentTopActionsProps) {
+export default function ThreadsTopActions(props: ThreadTopActionsProps) {
   const user = useUserStore((state) => state.user);
   const isAuthor =
     user?.nickname === props.nickname || user?.role !== Role.user;
@@ -31,12 +31,12 @@ export default function CommentTopActions(props: CommentTopActionsProps) {
     setOpen(false);
   };
 
-  const { mutateAsync } = useCommentDelete(props.postId);
+  const { mutateAsync } = useThreadDelete();
 
   return (
     <div className="max-w-32 float-end space-x-2">
       {isAuthor && isAuth && (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-cente space-x-2">
           <Action
             icon={
               <BiEdit className="size-[1.5rem] mt-[0.25rem] mr-[-0.5rem]"></BiEdit>
@@ -60,10 +60,10 @@ export default function CommentTopActions(props: CommentTopActionsProps) {
               }
               footer={null}
             >
-              <CommentEditForm
+              <ThreadEditForm
                 handleCancel={handleCancel}
                 {...props}
-              ></CommentEditForm>
+              ></ThreadEditForm>
             </Modal>
           </Action>
           <Action
@@ -71,7 +71,7 @@ export default function CommentTopActions(props: CommentTopActionsProps) {
             danger={true}
             className="flex"
             onClick={async () => {
-              await mutateAsync(props.commentId);
+              await mutateAsync(props.threadId);
             }}
           ></Action>
         </div>

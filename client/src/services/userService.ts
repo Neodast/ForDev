@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import User from '../types/models/User';
-import api from '../shared/api';
+import api from '../app/api';
 
 export default class UserService {
   static getAllUsers = async (): Promise<AxiosResponse<User[]>> => {

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import usePostDelete from '@/hooks/posts/usePostDelete';
 import Role from '@/types/user/roles.enum';
 import { useUserStore } from '@/app/store/userStore';
+import { Action } from '@/components/Post/ui';
 
 interface PostTopActionsProps {
   postId: number;

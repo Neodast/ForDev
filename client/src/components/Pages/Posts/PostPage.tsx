@@ -1,12 +1,11 @@
 import Layout from '@/components/Layouts/Layout';
-import Comment from '@/components/Post/Comment/Comment';
-import CommentCreateForm from '@/components/Post/Comment/CommentCreateForm';
-import Post from '@/features/Post';
-import Container from '@/components/Post/ui/Container';
 import usePostGet from '@/hooks/posts/usePostGet';
 import { useUserStore } from '@/app/store/userStore';
 import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
+import Comment from '@/components/Comment/Comment';
+import { OpenedPost } from '@/features/Post/ui';
+import CommentCreateForm from '@/components/Comment/CommentCreateForm';
 
 export default function PostPage() {
   const { postId } = useParams();
@@ -17,18 +16,16 @@ export default function PostPage() {
     <Layout>
       {post ? (
         <div className="text-center m-16 ml-32 mt-20 flex-1 items-center justify-center">
-          <Post
-            nickname={post.author.nickname}
-            name={post?.author.name}
-            surname={post?.author.surname}
+          <OpenedPost
+            profileInfo={{
+              nickname: post.author.nickname,
+              name: post.author.name,
+              surname: post.author.surname,
+            }}
             postData={post}
             commentsCount={post.comments.length || 0}
             isPreview={true}
-            containerClassName="w-[80%]"
-            titleClassName="text-xl"
-            contentClassName="text-lg"
-            userInfoClassName="text-xl"
-          ></Post>
+          ></OpenedPost>
           {isAuth && <CommentCreateForm postId={post.id}></CommentCreateForm>}
           {post.comments.map((comment) => (
             <Comment
@@ -41,14 +38,7 @@ export default function PostPage() {
           ))}
         </div>
       ) : (
-        <>
-          <Container className="mt-20 mb-6 mr-32 ml-72 h-56">
-            <Skeleton avatar={true} />
-          </Container>
-          <Container className="mb-6 mr-32 ml-72 h-32 w-[50%]">
-            <Skeleton avatar={false} />
-          </Container>
-        </>
+        <
       )}
     </Layout>
   );

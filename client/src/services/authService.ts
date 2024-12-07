@@ -1,4 +1,4 @@
-import api from '../shared/api';
+import api from '../app/api';
 import { AxiosResponse } from 'axios';
 import LoginInput from '../types/user/LoginInput';
 import RegisterInput from '../types/user/RegisterInput';

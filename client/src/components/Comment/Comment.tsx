@@ -1,7 +1,7 @@
 import User from '@/types/models/User';
-import Container from '../ui/Container';
+import Container from '../Post/ui/Container';
 import Content from '../Reusable/Content';
-import UserInfo from '../ui/UserInfo';
+import UserInfo from '../Post/ui/UserInfo';
 import Like from '@/types/models/Like';
 import CommentTopActions from './CommentTopActions';
 

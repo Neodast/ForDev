@@ -1,4 +1,4 @@
-import api from '@/shared/api';
+import api from '@/app/api';
 import ThreadUpdate from '@/types/board/threads/ThreadUpdate';
 import { ThreadModel } from '@/types/models/Thread';
 import ThreadCreate from '@/types/board/threads/ThreadCreate';

@@ -7,7 +7,7 @@ interface TitleProps {
   className?: string;
 }
 
-export default function Title(props: TitleProps) {
+export function Title(props: TitleProps) {
   return (
     <>
       <h2

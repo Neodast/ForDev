@@ -7,7 +7,7 @@ interface ContainerProps {
   className?: string;
 }
 
-export default function Container(props: ContainerProps) {
+export function Container(props: ContainerProps) {
   return (
     <>
       <Card

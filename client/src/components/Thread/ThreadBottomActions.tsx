@@ -1,5 +1,5 @@
 import ThreadUpdate from '@/types/board/threads/ThreadUpdate';
-import Action from '../ui/Action';
+import Action from '../Post/ui/Action';
 import { BiComment, BiHeart } from 'react-icons/bi';
 import { useUserStore } from '@/app/store/userStore';
 import useThreadGetLikes from '@/hooks/likes/useThreadGetLikesCount';

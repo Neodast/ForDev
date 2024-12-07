@@ -1,5 +1,5 @@
 import Layout from '../../Layouts/Layout';
-import RightMenuBar from '@/components/Post/RightMenuBar/RightMenuBar';
+import RightMenuBar from '@/components/RightMenuBar/RightMenuBar';
 import { useMemo, useRef } from 'react';
 import PostCreateForm from '@/modules/Post/ui/CreateForm';
 import usePostsGetAll from '@/hooks/posts/usePostsGetAll';

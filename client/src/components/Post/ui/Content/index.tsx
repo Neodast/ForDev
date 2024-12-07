@@ -1,6 +1,6 @@
 import { cn } from '@/shared/lib/utils';
-import TextSplitter from './TextSplitter';
 import { Image } from 'antd';
+import { textSplitterHelper } from '../../models/helpers/text-splitter.helper';
 
 interface ContentProps {
   text: string;
@@ -9,7 +9,7 @@ interface ContentProps {
   className?: string;
 }
 
-export default function Content(props: ContentProps) {
+export function Content(props: ContentProps) {
   return (
     <div
       className={cn(
@@ -23,7 +23,7 @@ export default function Content(props: ContentProps) {
         width={600}
         className="rounded-xl"
       />
-      <TextSplitter text={props.text} />
+      {textSplitterHelper(props.text)}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import api from '@/shared/api';
+import api from '@/app/api';
 import Like from '@/types/models/Like';
 
 class LikeService {

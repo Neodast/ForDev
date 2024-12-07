@@ -1,4 +1,4 @@
-import api from '@/shared/api';
+import api from '@/app/api';
 import CommentPostInput from '@/types/comment/CommentPostInput';
 import { CommentUpdate } from '@/types/comment/CommentUpdate';
 import Comment from '@/types/models/Comment';

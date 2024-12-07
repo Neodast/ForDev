@@ -1,4 +1,4 @@
-import api from '../shared/api';
+import api from '../app/api';
 import Post from '@/types/models/Post';
 import PostUpdate from '@/types/board/posts/PostUpdate';
 import PostCreate from '@/types/board/posts/PostCreate';

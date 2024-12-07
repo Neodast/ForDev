@@ -1,1 +1,1 @@
-export * as Post from './index'
+export {}
