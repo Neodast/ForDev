@@ -1,23 +1,23 @@
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/tailwind';
 import { dataSplitterHelper } from '../../models/helpers/date-splitter.helper';
 
-interface TitleProps {
+type TitleProps = {
   title: string;
   creationDate: Date;
   className?: string;
-}
+};
 
-export function Title(props: TitleProps) {
+export function Title({ creationDate, title, className }: TitleProps) {
   return (
     <>
       <h2
         className={cn(
           'text-xl font-semibold text-start pl-2 hover:cursor-pointer',
-          props.className,
+          className,
         )}
       >
-        {props.title}
-        <span className="ml-8">{dataSplitterHelper(props.creationDate)}</span>
+        {title}
+        <span className="ml-8">{dataSplitterHelper(creationDate)}</span>
       </h2>
     </>
   );

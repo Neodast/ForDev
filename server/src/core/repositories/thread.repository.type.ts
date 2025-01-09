@@ -1,7 +1,7 @@
 import { ThreadCreateDto } from '../../utils/dtos/thread/thread-create.dto';
 import { ThreadUpdateDto } from '../../utils/dtos/thread/thread-update.dto';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
-import { DataOptions } from '../../utils/types/data-options';
+import { DataOptions } from '../../utils/types/data-options..typets';
 import ThreadModel from '../models/thread.model';
 
 type ThreadRepository = {

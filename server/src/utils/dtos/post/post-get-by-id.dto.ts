@@ -1,3 +1,3 @@
 export type PostGetByIdDto = {
-  postId: number;
+  id: number;
 };

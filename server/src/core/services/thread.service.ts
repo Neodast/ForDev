@@ -3,7 +3,7 @@ import ThreadModel from '../models/thread.model';
 import ThreadRepository from '../repositories/thread.repository.type';
 import { ThreadTypes } from '../../utils/types/containers/thread.types';
 import { ThreadUpdateDto } from '../../utils/dtos/thread/thread-update.dto';
-import { DataOptions } from '../../utils/types/data-options';
+import { DataOptions } from '../../utils/types/data-options..typets';
 import { ThreadCreateInputDto } from '../../utils/dtos/thread/thread-create-input.dto';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 import { SectionService } from './section.service';
@@ -42,7 +42,7 @@ export class ThreadService {
     return this.threadRepository.getAll(options);
   }
 
-  public async getThreadById(threadId: number) : Promise<ThreadModel> {
+  public async getThreadById(threadId: number): Promise<ThreadModel> {
     return this.threadRepository.getById(threadId);
   }
 }

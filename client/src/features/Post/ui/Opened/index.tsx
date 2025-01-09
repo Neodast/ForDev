@@ -1,46 +1,46 @@
 import { Container, Content, Title, UserInfo } from '@/components/Post/ui';
-import PostBottomActions from '@/modules/Post/ui/BottomActions';
-import PostTopActions from '@/modules/Post/ui/TopActions';
-import { ProfileInfo } from '@/shared/types/profile-info.type';
-import { PostData } from '@/types/board/posts/PostData';
+import { ProfileInfo } from '@/shared/models/types/profile-info.type';
+import { PostData } from '@/@depr/types/board/posts/PostData';
 import { Link } from 'react-router-dom';
+import { PostBottomActions, PostTopActions } from '@/modules/Post/ui';
+import { isPreviewDefault } from '../../config/constants';
 
-interface PostProps {
+type PostProps = {
   postData: PostData;
   profileInfo: ProfileInfo;
   commentsCount: number;
   isPreview?: boolean;
-}
+};
 
-//TODO Add markdown support and realize(HOW???!!!) this in backend side.
-
-export function OpenedPost(props: PostProps) {
+export function OpenedPost({
+  commentsCount,
+  postData,
+  profileInfo,
+  isPreview = isPreviewDefault,
+}: PostProps) {
   return (
     <Container className="w-[80%]">
       <PostTopActions
-        nickname={props.profileInfo.nickname}
-        postId={props.postData.id}
-        postTitle={props.postData.title}
-        postText={props.postData.text}
+        nickname={profileInfo.nickname}
+        postId={postData.id}
+        postTitle={postData.title}
+        postText={postData.text}
       ></PostTopActions>
-      <Link to={'/posts/' + props.postData.id} className="hover:text-black">
-        <UserInfo profileInfo={props.profileInfo} className="text-xl" />
+      <Link to={'/posts/' + postData.id} className="hover:text-black">
+        <UserInfo profileInfo={profileInfo} className="text-xl" />
         <Title
-          title={props.postData.title}
-          creationDate={props.postData.creationDate}
+          title={postData.title}
+          creationDate={postData.creationDate}
           className="text-xl"
         />
         <Content
-          text={props.postData.text}
-          imageLink={props.postData.imageLink}
-          isPreview={props.isPreview}
+          text={postData.text}
+          imageLink={postData.imageLink}
+          isPreview={isPreview}
           className="text-lg"
         />
       </Link>
-      <PostBottomActions
-        options={props.postData}
-        commentsCount={props.commentsCount}
-      />
+      <PostBottomActions id={postData.id} commentsCount={commentsCount} />
     </Container>
   );
 }

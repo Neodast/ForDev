@@ -1,7 +1,7 @@
 import { PostCreateDto } from '../../utils/dtos/post/post-create.dto';
 import { PostUpdateDto } from '../../utils/dtos/post/post-update.dto';
 import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
-import { DataOptions } from '../../utils/types/data-options';
+import { DataOptions } from '../../utils/types/data-options..typets';
 import PostModel from '../models/post.model';
 
 type PostRepository = {

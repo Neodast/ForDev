@@ -6,7 +6,7 @@ import { PostTypes } from '../../utils/types/containers/post.types';
 import { SectionTypes } from '../../utils/types/containers/section.types';
 import { SectionService } from './section.service';
 import { PostUpdateDto } from '../../utils/dtos/post/post-update.dto';
-import { DataOptions } from '../../utils/types/data-options';
+import { DataOptions } from '../../utils/types/data-options..typets';
 
 @injectable()
 export class PostService {

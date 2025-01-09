@@ -1,11 +1,3 @@
-import LoginPage from '@/components/Pages/Auth/LoginPage';
-import RegistrationPage from '@/components/Pages/Auth/RegistrationPage';
-import ErrorPage from '@/components/Pages/ErrorPage';
-import MainPage from '@/components/Pages/MainPage';
-import PostPage from '@/components/Pages/Posts/PostPage';
-import PostsPage from '@/components/Pages/Posts/PostsPage';
-import ThreadPage from '@/components/Pages/Threads/ThreadPage';
-import ThreadsPage from '@/components/Pages/Threads/ThreadsPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -22,7 +14,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/',
-        element: <MainPage></MainPage>,
+        element: <HomePage></HomePage>,
       },
       {
         path: '/posts',

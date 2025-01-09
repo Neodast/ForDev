@@ -4,75 +4,49 @@ import {
   RequestWithQuery,
 } from '../../utils/types/request.type';
 import { LikeService } from '../../core/services/like.service';
-import LikePostInputDto from '../../utils/dtos/like/like-post-input.dto';
+import LikeInputDto from '../../utils/dtos/like/like-input.dto';
 import StatusCodes from '../../utils/enums/http-status-codes';
 import { inject } from 'inversify';
 import { LikeTypes } from '../../utils/types/containers/like.types';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
-import { PostGetByIdDto } from '../../utils/dtos/post/post-get-by-id.dto';
-import LikeThreadInputDto from '../../utils/dtos/like/like-thread-input.dto';
-import { ThreadGetByIdDto } from '../../utils/dtos/thread/thread-get-by-id.dto';
+import { GetLikesCountDto } from '../../utils/dtos/like/get-likes-count.dto';
 
-@controller('/like')
+@controller('/likes')
 class LikeController {
   constructor(
     @inject(LikeTypes.LikeService) private likeService: LikeService,
   ) {}
 
-  @httpPost('/addLikeToPost')
-  public async likePost(
-    req: RequestWithBody<LikePostInputDto>,
+  @httpPost('/add')
+  public async like(
+    req: RequestWithBody<LikeInputDto>,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      const { user, postId } = req.body;
-      const like = await this.likeService.likePost(user, postId);
+      const { user, id, entityType } = req.body;
+      const like = {
+        post: await this.likeService.likePost(user, id),
+        thread: await this.likeService.likeThread(user, id),
+      }[entityType];
       res.json(like).status(StatusCodes.CREATED);
     } catch (e) {
       next(e);
     }
   }
 
-  @httpPost('/addLikeToThread')
-  public async likeThread(
-    req: RequestWithBody<LikeThreadInputDto>,
-    res: Response,
-    next: NextFunction,
-  ) {
-    try {
-      const { threadId, user } = req.body;
-      const like = await this.likeService.likeThread(user, threadId);
-      res.json(like).status(StatusCodes.CREATED);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  @httpGet('/getPostLikesCount')
+  @httpGet('/count')
   public async getPostLikesCount(
-    req: RequestWithQuery<PostGetByIdDto>,
+    req: RequestWithQuery<GetLikesCountDto>,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      const { postId } = req.query;
-      const likesCount = await this.likeService.getPostLikesCount(postId);
-      res.json(likesCount).status(StatusCodes.SUCCESS);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  @httpGet('/getThreadLikesCount')
-  public async getThreadLikesCount(
-    req: RequestWithQuery<ThreadGetByIdDto>,
-    res: Response,
-    next: NextFunction,
-  ) {
-    try {
-      const { threadId } = req.query;
-      const likesCount = await this.likeService.getPostLikesCount(threadId);
+      const { id, entityType } = req.query;
+      const likesCount = {
+        post: await this.likeService.getPostLikesCount(id),
+        thread: await this.likeService.getPostLikesCount(id),
+      }[entityType];
       res.json(likesCount).status(StatusCodes.SUCCESS);
     } catch (e) {
       next(e);

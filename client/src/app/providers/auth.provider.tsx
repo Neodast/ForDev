@@ -1,8 +1,8 @@
-import AuthService from '@/services/AuthService';
-import { useUserStore } from '@/app/store/userStore';
+import { authService } from '@/shared/api/services/auth.service';
+import { useUserStore } from '@/shared/models/stores/user/user.store';
 import { useEffect } from 'react';
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const setIsAuth = useUserStore((state) => state.setIsAuth);
   const setIsLoading = useUserStore((state) => state.setIsLoading);
   const setUser = useUserStore((state) => state.setUser);
@@ -10,7 +10,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
       setIsLoading(true);
-      AuthService.refresh()
+      authService
+        .refresh()
         .then((data) => {
           const { user, tokens } = data;
           setUser({ ...user });
@@ -31,5 +32,3 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return children;
 };
-
-export default AuthProvider;

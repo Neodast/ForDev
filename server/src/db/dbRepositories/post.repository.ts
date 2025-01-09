@@ -9,7 +9,7 @@ import ApiError from '../../utils/exceptions/api-error';
 import { PostCreateDto } from '../../utils/dtos/post/post-create.dto';
 import { injectable } from 'inversify';
 import { PostUpdateDto } from '../../utils/dtos/post/post-update.dto';
-import { DataOptions } from '../../utils/types/data-options';
+import { DataOptions } from '../../utils/types/data-options..typets';
 
 @injectable()
 class PgPostRepository implements PostRepository {
@@ -83,16 +83,13 @@ class PgPostRepository implements PostRepository {
   }
 
   public async updatePost(postUpdateData: PostUpdateDto) {
-    await this.postRepository.update(
-      postUpdateData.id,
-      {
-        title: postUpdateData.title,
-        text: postUpdateData.text,
-        imageLink: postUpdateData.imageLink,
-      },
-    );
+    await this.postRepository.update(postUpdateData.id, {
+      title: postUpdateData.title,
+      text: postUpdateData.text,
+      imageLink: postUpdateData.imageLink,
+    });
 
-    const dbPost = await this.findPost({id: postUpdateData.id});
+    const dbPost = await this.findPost({ id: postUpdateData.id });
 
     return PgPostMapper.mapToPostModel(dbPost);
   }

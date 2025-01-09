@@ -30,6 +30,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/types/board/threads/.tsx"],
+  "include": ["src", "src/@depr/types/board/threads/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

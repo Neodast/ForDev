@@ -8,7 +8,7 @@ import UserSafeDto from '../../utils/dtos/users/user-safe.dto';
 import ApiError from '../../utils/exceptions/api-error';
 import { id, injectable } from 'inversify';
 import { ThreadUpdateDto } from '../../utils/dtos/thread/thread-update.dto';
-import { DataOptions } from '../../utils/types/data-options';
+import { DataOptions } from '../../utils/types/data-options..typets';
 import { ThreadCreateDto } from '../../utils/dtos/thread/thread-create.dto';
 
 @injectable()
@@ -53,7 +53,9 @@ class PgThreadRepository implements ThreadRepository {
   }
 
   public async getById(threadId: number): Promise<ThreadModel> {
-    return PgThreadMapper.mapToThreadModel(await this.findThread({ id: threadId }));
+    return PgThreadMapper.mapToThreadModel(
+      await this.findThread({ id: threadId }),
+    );
   }
 
   public async getByAuthor(author: UserSafeDto): Promise<ThreadModel[]> {
