@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    errorElement: <ErrorPage></ErrorPage>,
+    errorElement: <NotFoundPage></NotFoundPage>,
     children: [
       {
         path: '/threads',

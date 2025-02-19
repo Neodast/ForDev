@@ -1,4 +1,4 @@
-import { ThreadData } from '@/@depr/types/board/threads/ThreadData';
+import { ThreadData } from '@/shared/models/types/thread-data.type';
 import { Link } from 'react-router-dom';
 import ThreadBottomActions from './ThreadBottomActions';
 import ThreadsTopActions from './ThreadTopActions';

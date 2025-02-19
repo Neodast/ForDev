@@ -1,9 +1,9 @@
-import ThreadUpdate from '@/@depr/types/board/threads/ThreadUpdate';
+import ThreadUpdate from '@/shared/models/dtos/thread/thread-update.dto';
 import Action from '../Post/ui/Action';
 import { BiComment, BiHeart } from 'react-icons/bi';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
-import useThreadGetLikes from '@/@depr/hooks/likes/useThreadGetLikesCount';
-import useLikeThread from '@/@depr/hooks/likes/useThreadLike';
+import { useUserStore } from '@/shared/stores/user/user.store';
+import useThreadGetLikes from '@/shared/hooks/likes/useThreadGetLikesCount';
+import useLikeThread from '@/shared/hooks/likes/useThreadLike';
 
 type ThreadBottomActionsProps = {
   options: ThreadUpdate;

@@ -1,11 +1,11 @@
 import InputField from '@/shared/ui/InputField';
 import FormValidationError from '@/components/Auth/ui/FormValidationError';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import useThreadCreate from '@/@depr/hooks/threads/useThreadCreate';
-import { ThreadInput } from '@/@depr/types/board/threads/ThreadInput';
+import useThreadCreate from '@/shared/hooks/threads/thread-create.hook';
+import { ThreadInput } from '@/shared/models/dtos/thread/thread-input.dto';
 
 export function ThreadCreateForm() {
   const author = useUserStore((state) => state.user);

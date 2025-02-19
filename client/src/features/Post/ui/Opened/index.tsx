@@ -1,6 +1,6 @@
 import { Container, Content, Title, UserInfo } from '@/components/Post/ui';
 import { ProfileInfo } from '@/shared/models/types/profile-info.type';
-import { PostData } from '@/@depr/types/board/posts/PostData';
+import { PostData } from '@/shared/models/types/post-data.type';
 import { Link } from 'react-router-dom';
 import { PostBottomActions, PostTopActions } from '@/modules/Post/ui';
 import { isPreviewDefault } from '../../config/constants';

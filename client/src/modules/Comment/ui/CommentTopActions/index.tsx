@@ -1,5 +1,5 @@
-import useCommentDelete from '@/@depr/hooks/comments/useCommentDelete';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import useCommentDelete from '@/shared/hooks/comments/useCommentDelete';
+import { useUserStore } from '@/shared/stores/user/user.store';
 import { useState } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { Modal } from 'antd';
@@ -22,7 +22,7 @@ export function CommentTopActions({
   commentText,
 }: CommentTopActionsProps) {
   const user = useUserStore((state) => state.user);
-  const isAuthor = user?.nickname === nickname || user?.role !== Role.user;
+  const isAuthor = user?.nickname === nickname || user?.role !== Role.USER;
   const isAuth = useUserStore((state) => state.isAuth);
 
   const [isModalOpen, setOpen] = useState(false);

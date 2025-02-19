@@ -1,13 +1,13 @@
 import InputField from '@/shared/ui/InputField';
 import FormValidationError from '@/components/Auth/ui/FormValidationError';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { forwardRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import useThreadEdit from '@/@depr/hooks/threads/useThreadEdit';
-import ThreadUpdate from '@/@depr/types/board/threads/ThreadUpdate';
+import useThreadEdit from '@/shared/hooks/threads/thread-edit.hook';
+import ThreadUpdate from '@/shared/models/dtos/thread/thread-update.dto';
 
 type PropsThreadEditForm = {
   threadId: number;

@@ -4,8 +4,8 @@ import { Modal } from 'antd';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useState } from 'react';
 import Role from '@/shared/models/enums/roles.enum';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
-import useThreadDelete from '@/@depr/hooks/threads/useThreadDelete';
+import { useUserStore } from '@/shared/stores/user/user.store';
+import useThreadDelete from '@/shared/hooks/threads/thread-delete.hook';
 import { ThreadEditForm } from '../ThreadEditForm';
 
 type ThreadTopActionsProps = {
@@ -22,7 +22,7 @@ export function ThreadsTopActions({
   threadTitle,
 }: ThreadTopActionsProps) {
   const user = useUserStore((state) => state.user);
-  const isAuthor = user?.nickname === nickname || user?.role !== Role.user;
+  const isAuthor = user?.nickname === nickname || user?.role !== Role.USER;
   const isAuth = useUserStore((state) => state.isAuth);
 
   const [isModalOpen, setOpen] = useState(false);

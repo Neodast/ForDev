@@ -1,7 +1,7 @@
 import FormValidationError from '@/components/Auth/ui/FormValidationError';
-import useCommentAddToPost from '@/@depr/hooks/comments/useCommentAddToPost';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
-import CommentInputDto from '@/shared/models/dtos/comment-input.dto';
+import useCommentAddToPost from '@/shared/hooks/comments/useCommentAddToPost';
+import { useUserStore } from '@/shared/stores/user/user.store';
+import CommentInputDto from '@/shared/models/dtos/comment/comment-input.dto';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';

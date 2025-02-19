@@ -3,7 +3,7 @@ import { BiHeart } from 'react-icons/bi';
 import { EntityType } from '../../../../shared/models/types/entity-type.type';
 import { useLike } from '../../api/mutations/use-like';
 import { useGetLikesCount } from '../../api/queries/use-get-likes-count';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 
 type LikeActionProps = {
   id: number;

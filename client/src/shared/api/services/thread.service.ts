@@ -1,62 +1,48 @@
-import api from '@/shared/api';
-import ThreadUpdate from '@/@depr/types/board/threads/ThreadUpdate';
-import { ThreadModel } from '@/@depr/types/models/Thread';
-import ThreadCreate from '@/@depr/types/board/threads/ThreadCreate';
+import { api } from '@/shared/api';
+import { ThreadCreate, ThreadUpdate } from '@/shared/models/dtos';
+import { Thread } from '@/shared/models/entities';
 
-class ThreadService {
-  static getAllThreads = async (
-    page: number,
-    take: number,
-  ): Promise<ThreadModel[]> => {
+const URL = '/thread';
+
+export const threadService = {
+  getAllThreads: async (page: number, take: number): Promise<Thread[]> => {
     if (page > 1) {
       page += take;
     }
-    const { data } = await api.get<ThreadModel[]>('/thread/all', {
+    const { data } = await api.get<Thread[]>(`${URL}/all`, {
       params: {
         skip: page - 1,
         take: take,
       },
     });
     return data;
-  };
+  },
 
-  static getThreadById = async (threadId: number): Promise<ThreadModel> => {
-    const { data } = await api.get('/thread', {
+  getThreadById: async (threadId: number): Promise<Thread> => {
+    const { data } = await api.get(`${URL}`, {
       params: { threadId: threadId },
     });
     return data;
-  };
+  },
 
-  static editThread = async (
-    threadUpdateData: ThreadUpdate,
-  ): Promise<ThreadModel> => {
-    const { data } = await api.put<ThreadModel>(
-      '/thread/update',
-      threadUpdateData,
-    );
+  editThread: async (threadUpdateData: ThreadUpdate): Promise<Thread> => {
+    const { data } = await api.put<Thread>(`${URL}/update`, threadUpdateData);
     return data;
-  };
+  },
 
-  static createThread = async (
-    threadCreateData: ThreadCreate,
-  ): Promise<ThreadModel> => {
-    const { data } = await api.post<ThreadModel>(
-      '/thread/create',
-      threadCreateData,
-    );
+  createThread: async (threadCreateData: ThreadCreate): Promise<Thread> => {
+    const { data } = await api.post<Thread>(`${URL}/create`, threadCreateData);
     return data;
-  };
+  },
 
-  static deleteThread = async (threadId: number) => {
-    return await api.delete('/thread/delete', {
+  deleteThread: async (threadId: number) => {
+    return await api.delete(`${URL}/delete`, {
       data: { id: threadId },
     });
-  };
+  },
 
-  static getThreadsCount = async () => {
-    const { data } = await api.get('/thread/allCount');
+  getThreadsCount: async () => {
+    const { data } = await api.get(`${URL}/allCount`);
     return data;
-  };
-}
-
-export default ThreadService;
+  },
+};

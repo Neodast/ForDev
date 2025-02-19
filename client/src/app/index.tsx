@@ -3,7 +3,7 @@ import { AppRouterProvider } from './providers/app-router.provider';
 import { AuthProvider } from './providers/auth.provider';
 import { QueryProvider } from './providers/query.provider';
 import { ApiProvider } from './providers/api.provider';
-import { Layout } from '@/pages/Layout/ui/LayoutPage';
+import Layout from '@/pages/Layout/ui/index.layout';
 
 export function App() {
   return (

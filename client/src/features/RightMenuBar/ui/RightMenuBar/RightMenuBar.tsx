@@ -1,8 +1,8 @@
-import PostStat from '@/@depr/types/board/posts/PostsStat';
+import PostStat from '@/shared/models/types/post-stat.type';
 import PageActions from './PageActions';
 import PageInfo from './PageInfo';
 import PageOptions from './PageOptions';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 
 interface RightMenuBarProps {
   filters: string[];

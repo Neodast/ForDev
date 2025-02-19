@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import LoginInput from '../../../@depr/types/user/LoginInput';
 import FormValidationError from '../RegistrationForm/Errors/FormValidationError';
 import { Button } from 'antd';
-import useUserLogin from '@/@depr/hooks/auth/useUserLogin';
+import useUserLogin from '@/shared/hooks/auth/useUserLogin';
 import { InputField } from '@/shared/ui';
 
 export default function LoginForm() {

@@ -1,8 +1,8 @@
 import { InputField } from '@/shared/ui/InputField';
 import FormValidationError from '@/components/Auth/ui/FormValidationError';
-import usePostCreate from '@/@depr/hooks/posts/usePostCreate';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
-import PostInput from '@/@depr/types/board/posts/PostInput';
+import usePostCreate from '@/shared/hooks/posts/usePostCreate';
+import { useUserStore } from '@/shared/stores/user/user.store';
+import PostInput from '@/shared/models/dtos/post/post-input.dto';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';

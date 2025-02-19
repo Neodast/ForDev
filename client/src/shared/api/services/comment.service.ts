@@ -1,21 +1,20 @@
 import { api } from '@/shared/api';
-import { Comment } from '@/shared/models/entities/comment.entity';
-import { CommentInputDto } from '@/shared/models/dtos/comment-input.dto';
-import { CommentUpdateDto } from '@/shared/models/dtos/comment-update.dto';
-import { EntityType } from '@/shared/models/types/entity-type.type';
+import { Comment } from '@/shared/models/entities';
+import { CommentInputDto, CommentUpdateDto } from '@/shared/models/dtos';
+import { EntityType } from '@/shared/models/types';
 
-const url = '/comments';
+const URL = '/comments';
 
 export const commentService = {
   create: async (commentData: CommentInputDto): Promise<Comment> => {
-    const { data } = await api.post<Comment>(`${url}/create`, {
+    const { data } = await api.post<Comment>(`${URL}/create`, {
       ...commentData,
     });
     return data;
   },
 
   get: async (id: number, entityType: EntityType): Promise<Comment[]> => {
-    const { data } = await api.get<Comment[]>(`${url}/get`, {
+    const { data } = await api.get<Comment[]>(`${URL}/get`, {
       params: { id, entityType },
     });
     return data;
@@ -23,7 +22,7 @@ export const commentService = {
 
   getCount: async (id: number, entityType: EntityType): Promise<number> => {
     const { data } = await api.get<{ commentsCount: number }>(
-      `${url}/getCount`,
+      `${URL}/getCount`,
       {
         params: { id, entityType },
       },
@@ -32,12 +31,12 @@ export const commentService = {
   },
 
   update: async (commentUpdateData: CommentUpdateDto): Promise<Comment> => {
-    const { data } = await api.put<Comment>(`${url}/update`, commentUpdateData);
+    const { data } = await api.put<Comment>(`${URL}/update`, commentUpdateData);
     return data;
   },
 
   delete: async (id: number): Promise<void> => {
-    return await api.delete(`${url}/delete`, {
+    return await api.delete(`${URL}/delete`, {
       data: { commentId: id },
     });
   },

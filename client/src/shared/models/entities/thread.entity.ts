@@ -1,7 +1,7 @@
 import { Like } from './like.entity';
 import { User } from './user.entity';
 
-export type ThreadModel = {
+export type Thread = {
   id: number;
   title: string;
   likes: Like[];

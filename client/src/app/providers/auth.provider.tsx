@@ -1,5 +1,5 @@
 import { authService } from '@/shared/api/services/auth.service';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 import { useEffect } from 'react';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

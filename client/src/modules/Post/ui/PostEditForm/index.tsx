@@ -1,8 +1,8 @@
 import InputField from '@/shared/ui/InputField';
 import FormValidationError from '@/components/Auth/ui/FormValidationError';
-import usePostEdit from '@/@depr/hooks/posts/usePostEdit';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
-import PostUpdate from '@/modules/Post/models/types/post-update.type';
+import usePostEdit from '@/shared/hooks/posts/usePostEdit';
+import { useUserStore } from '@/shared/stores/user/user.store';
+import PostUpdate from '@/shared/models/dtos/post/post-update.dto';
 import { Button } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { forwardRef } from 'react';

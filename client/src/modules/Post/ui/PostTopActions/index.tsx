@@ -2,9 +2,9 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { Modal } from 'antd';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useState } from 'react';
-import usePostDelete from '@/@depr/hooks/posts/usePostDelete';
+import usePostDelete from '@/shared/hooks/posts/usePostDelete';
 import Role from '@/shared/models/enums/roles.enum';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 import { Action } from '@/components/Post/ui';
 import PostEditForm from '../PostEditForm';
 
@@ -17,7 +17,7 @@ type PostTopActionsProps = {
 
 export function PostTopActions({ nickname, postId }: PostTopActionsProps) {
   const user = useUserStore((state) => state.user);
-  const isAuthor = user?.nickname === nickname || user?.role !== Role.user;
+  const isAuthor = user?.nickname === nickname || user?.role !== Role.USER;
   const isAuth = useUserStore((state) => state.isAuth);
 
   const [isModalOpen, setOpen] = useState(false);

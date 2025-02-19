@@ -1,7 +1,7 @@
 import FormValidationError from '@/components/Auth/ui/FormValidationError';
-import useCommentEdit from '@/@depr/hooks/comments/useCommentEdit';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
-import { CommentUpdateDto } from '@/shared/models/dtos/comment-update.dto';
+import useCommentEdit from '@/shared/hooks/comments/useCommentEdit';
+import { useUserStore } from '@/shared/stores/user/user.store';
+import { CommentUpdateDto } from '@/shared/models/dtos/comment/comment-update.dto';
 import { Button } from 'antd';
 import { forwardRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';

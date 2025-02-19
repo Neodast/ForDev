@@ -1,11 +1,11 @@
 import Role from '@/shared/models/enums/roles.enum';
 import NavItem from '../../../../components/Navigation/ui/NavItem';
-import { useUserStore } from '@/shared/models/stores/user/user.store';
+import { useUserStore } from '@/shared/stores/user/user.store';
 import { Button, Dropdown } from 'antd';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import useUserLogout from '@/@depr/hooks/auth/useUserLogout';
+import useUserLogout from '@/shared/hooks/auth/useUserLogout';
 
 export function HeaderRightPanel() {
   const isAuth = useUserStore((state) => state.isAuth);

@@ -1,4 +1,4 @@
-import PostStat from '@/@depr/types/board/posts/PostsStat';
+import PostStat from '@/shared/models/types/post-stat.type';
 import { Card } from 'antd';
 
 interface PageInfoProps {
